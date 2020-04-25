@@ -1,0 +1,32 @@
+.sidebar {
+  background: linear-gradient(
+    243.49deg,
+    #da6767 18.42%,
+    rgba(237, 231, 10, 0) 178.64%
+  );
+  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.29);
+}
+
+.col-auto {
+  margin-top: 20px;
+  padding-left: 10px;
+  user-select: none;
+  font-weight: 400;
+  font-size: 28px;
+  color: #e2e096;
+}
+
+.nav-link {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.nav-item .nav-link {
+  color: black;
+  font-size: 20px;
+  display: block;
+}
+
+.nav-item .nav-link:hover {
+  background: rgba(132, 0, 0, 0.35);
+}

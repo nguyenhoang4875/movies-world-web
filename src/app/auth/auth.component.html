@@ -6,19 +6,19 @@
       <input
         type="text"
         id="loginEmail"
-        name="email"
+        name="username"
         ngModel
-        #email="ngModel"
+        #username="ngModel"
         required
       />
-      <label for="loginEmail">Email</label>
+      <label for="loginEmail">UserName</label>
     </div>
     <div
       class="alert alert-danger"
       role="alert"
-      *ngIf="email.touched && email.errors?.required"
+      *ngIf="username.touched && username.errors?.required"
     >
-      Email is require !
+      User Name is require!!!
     </div>
 
     <div class="input-group">
@@ -29,6 +29,7 @@
         ngModel
         #password="ngModel"
         required
+        minlength="6"
       />
       <label for="loginPassword">Password</label>
     </div>
@@ -37,7 +38,15 @@
       role="alert"
       *ngIf="password.touched && password.errors?.required"
     >
-      Password is require !
+      Password is require!!!
+    </div>
+
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="password.touched && password.errors?.minlength"
+    >
+      Password must be at least 6 characters long!!!
     </div>
 
     <div class="remember-me">
@@ -51,6 +60,6 @@
       </p>
     </div>
 
-    <button [disabled]="form.invalid" type="submit">Login</button>
+    <button [disabled]="!form.valid" type="submit">Login</button>
   </form>
 </body>
