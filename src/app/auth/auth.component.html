@@ -1,6 +1,9 @@
 <body>
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <h2 class="title">Welcome</h2>
+    <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
 
     <div class="input-group">
       <input

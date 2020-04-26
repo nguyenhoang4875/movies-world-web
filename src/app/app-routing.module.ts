@@ -4,7 +4,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { AdminComponent } from "./admin/admin.component";
 
 const appRoutes: Routes = [
-  { path: "", redirectTo: "/login", pathMatch: "full" },
+  // { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "login", component: AuthComponent },
   { path: "admin", component: AdminComponent },
 ];

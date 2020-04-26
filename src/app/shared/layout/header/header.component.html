@@ -1,35 +1,34 @@
-<nav class="navbar navbar-light">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <img src="" alt="" />
-      <a href="#" class="navbar-brand">Movie's World</a>
-    </div>
+<link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
 
-    <ul class="navbar-nav ml-auto account">
-      <li class="nav-item dropdown">
+<nav class="navbar navbar-light bg-light">
+  <ul class="navbar-nav ml-auto account">
+    <li id="toggle1" class="dropdown" appDropdown>
+      <a style="cursor: pointer;" class="dropdown-toggle" role="button">
         <img
           src="assets/images/logo.png"
           width="50"
           height="50"
           style="display: inline;"
         />
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          style="cursor: pointer;"
-          class="dropdown-toggle"
-          role="button"
-          style="color: black;"
-        ></a>
-        <ul class="dropdown-menu">
-          <li>
-            <a style="cursor: pointer;">Profile</a>
-          </li>
-          <li>
-            <a style="cursor: pointer;">Logout</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+      </a>
+      <ul
+        class="dropdown-menu position-absolute"
+        data-toggle="toggle1"
+        style="left: auto !important; right: 0; min-width: auto;"
+      >
+        <li>
+          <a class="dropdown-item" style="cursor: pointer;">
+            <i class="fas fa-user-circle"></i>
+            Profile</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" style="cursor: pointer;">
+            <i class="fas fa-power-off"></i>
+            Logout</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
 </nav>
