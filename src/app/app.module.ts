@@ -11,6 +11,7 @@ import { HeaderComponent } from "./shared/layout/header/header.component";
 import { FooterComponent } from "./shared/layout/footer/footer.component";
 import { SidebarComponent } from "./shared/layout/sidebar/sidebar.component";
 import { DropdownDirective } from "./shared/dropdown.directive";
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DropdownDirective } from "./shared/dropdown.directive";
     FooterComponent,
     SidebarComponent,
     DropdownDirective,
+    LoadingSpinnerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

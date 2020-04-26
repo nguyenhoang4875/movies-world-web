@@ -124,6 +124,9 @@ form p a {
 .alert-danger {
   padding: 0 auto;
 }
+.alert-error {
+  margin-top: 0;
+}
 
 input.ng-invalid.ng-touched {
   border-bottom: 1px solid red;

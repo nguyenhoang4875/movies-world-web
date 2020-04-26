@@ -9,19 +9,23 @@ import { AuthService } from "./auth.service";
   styleUrls: ["./auth.component.css"],
 })
 export class AuthComponent {
-  error = null;
+  isLoading = false;
+  error: string = null;
   constructor(private authService: AuthService, private route: Router) {}
 
   onSubmit(form: NgForm) {
     const username = form.value.username;
     const password = form.value.password;
+    this.isLoading = true;
     this.authService.login(username, password).subscribe(
       (resData) => {
         console.log(resData);
+        this.isLoading = false;
         this.route.navigate(["/admin"]);
       },
       (errorMessage) => {
         console.log(errorMessage);
+        this.isLoading = false;
         this.error = errorMessage;
       }
     );

@@ -9,7 +9,7 @@ import { User } from "./user.model";
 export interface AuthResponseData {
   kind: string;
   idToken: string;
-  username: string;
+  email: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
@@ -36,7 +36,7 @@ export class AuthService {
         tap((resData) => {
           this.handleAuthentication(
             resData.localId,
-            resData.username,
+            resData.email,
             resData.idToken,
             +resData.expiresIn
           );
@@ -50,16 +50,29 @@ export class AuthService {
     if (!errorResponse.error || !errorResponse.error.error) {
       return throwError(errorMessage);
     }
+    switch (errorResponse.error.error.message) {
+      case "EMAIL_EXISTS":
+        errorMessage = "This email exists already";
+        break;
+      case "EMAIL_NOT_FOUND":
+        errorMessage = "This email does not exists";
+        break;
+
+      case "INVALID_PASSWORD":
+        errorMessage = "This password is not correct";
+        break;
+    }
+    return throwError(errorMessage);
   }
 
   private handleAuthentication(
-    username: string,
     userId: string,
+    email: string,
     token: string,
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(userId, username, token, expirationDate);
+    const user = new User(userId, email, token, expirationDate);
     this.user.next(user);
   }
 }
