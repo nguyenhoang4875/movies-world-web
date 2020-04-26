@@ -44,6 +44,11 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.user.next(null);
+    this.router.navigate(["/login"]);
+  }
+
   private handleError(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred!";
 
