@@ -1,10 +1,9 @@
 <body>
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <h2 class="title">Welcome</h2>
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
     </div>
-
-    <h2 class="title">Welcome</h2>
     <div class="alert alert-danger alert-error" role="alert" *ngIf="error">
       {{ error }}
     </div>
