@@ -71,7 +71,7 @@ export class AuthService {
       const expirationDuration =
         new Date(userData._tokenExpirationDate).getTime() -
         new Date().getTime();
-      this.autoLogout(expirationDuration);
+      // this.autoLogout(expirationDuration);
     }
   }
 
@@ -85,11 +85,11 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  autoLogout(expirationDuration: number) {
+  /*  autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
-  }
+  } */
 
   private handleError(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred!";
@@ -121,7 +121,7 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(userId, email, token, expirationDate);
     this.user.next(user);
-    this.autoLogout(expiresIn * 1000);
+    //  this.autoLogout(expiresIn * 1000);
     localStorage.setItem("userData", JSON.stringify(user));
   }
 }

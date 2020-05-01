@@ -4,7 +4,7 @@
     #da6767 18.42%,
     rgba(237, 231, 10, 0) 178.64%
   );
-  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.29);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 .col-auto {
@@ -17,7 +17,7 @@
 }
 
 .nav-item:hover {
-  background: rgba(132, 0, 0, 0.35);
+  background: rgba(132, 0, 0, 0.15);
 }
 
 .nav-item .nav-link {
@@ -25,4 +25,8 @@
   color: black;
   font-size: 23px;
   display: block;
+}
+
+.selected {
+  background: rgba(132, 0, 0, 0.45);
 }

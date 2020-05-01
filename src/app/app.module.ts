@@ -12,6 +12,10 @@ import { FooterComponent } from "./shared/layout/footer/footer.component";
 import { SidebarComponent } from "./shared/layout/sidebar/sidebar.component";
 import { DropdownDirective } from "./shared/dropdown.directive";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
+import { CustomersComponent } from "./customers/customers.component";
+import { CustomerDetailComponent } from "./customers/customer-detail/customer-detail.component";
+import { StaffsComponent } from "./staffs/staffs.component";
+import { AlertComponent } from "./shared/layout/alert/alert.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinne
     SidebarComponent,
     DropdownDirective,
     LoadingSpinnerComponent,
+    AlertComponent,
+    CustomersComponent,
+    CustomerDetailComponent,
+    StaffsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

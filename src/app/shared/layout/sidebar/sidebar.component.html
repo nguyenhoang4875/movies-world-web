@@ -15,12 +15,20 @@
     <div class="row h-100 align-items-center">
       <nav class="nav flex-column w-100">
         <li class="nav-item">
-          <a class="nav-link" href="#"
+          <a
+            class="nav-link"
+            [routerLink]="['customers']"
+            [routerLinkActive]="'selected'"
+            (click)="onGetCustomers()"
             ><i class="fas fa-user mr-3"></i>Customers</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"
+          <a
+            class="nav-link"
+            [routerLink]="['staffs']"
+            [routerLinkActive]="'selected'"
+            (click)="onGetStaffs()"
             ><i class="fas fa-users mr-3"></i>Staffs</a
           >
         </li>
