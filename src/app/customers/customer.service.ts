@@ -65,6 +65,28 @@ export class CustomerService {
     this.customersChanged.next(this.customers.slice());
   }
 
+  searchCustomer(value: string) {
+    let filterCustomers: UserInfor[] = [];
+    if (!value) {
+      this.customersChanged.next(this.customers.slice());
+    } else {
+      if (value) {
+        for (let i = 0; i < this.customers.length; i++) {
+          if (
+            this.customers[i].username === value ||
+            this.customers[i].fullname.toLowerCase() === value ||
+            this.customers[i].email === value ||
+            this.customers[i].phone === value ||
+            this.customers[i].address.toLowerCase() === value
+          ) {
+            filterCustomers.push(this.customers[i]);
+          }
+        }
+      }
+      this.customersChanged.next(filterCustomers);
+    }
+  }
+
   updateCustomer(customer: UserInfor) {
     const index = customer.id - 1;
     this.customers[index] = customer;

@@ -9,9 +9,11 @@
         New Customer
       </button>
       <div class="search">
-        <input type="text" placeholder="Enter your choice" /><i
-          class="fas fa-search"
-        ></i>
+        <input
+          type="text"
+          placeholder="Enter your choice"
+          [(ngModel)]="search"
+        /><i class="fas fa-search" (click)="searchCustomer()"></i>
       </div>
     </div>
 

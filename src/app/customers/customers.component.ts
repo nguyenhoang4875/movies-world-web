@@ -17,11 +17,13 @@ export class CustomersComponent implements OnInit, OnDestroy {
   showedCustomers: UserInfor[] = [];
   selectedCustomer: UserInfor = new UserInfor();
 
+  search: string;
   page: number;
   pages: number;
   pagesArr: number[] = [];
   currentPage: number;
   numberOfPage = 2;
+
   isLoading = false;
   isShowCustomerDetail: boolean = false;
   isEditableCustomerDetail: boolean = false;
@@ -129,6 +131,10 @@ export class CustomersComponent implements OnInit, OnDestroy {
   deleteCustomer(customer: UserInfor) {
     this.selectedCustomer = customer;
     this.isConfirm = true;
+  }
+
+  searchCustomer() {
+    this.customerService.searchCustomer(this.search);
   }
 
   onGoBackCustomersPage(e) {
