@@ -1,0 +1,222 @@
+<ng-container *ngIf="visible">
+  <div class="row">
+    <div
+      class="col-xs-12 col-md-9 offset-md-2 col-lg-9 offset-lg-2 col-xl-9 offset-xl-2"
+    >
+      <form #form="ngForm">
+        <div class="row">
+          <div class="col-xs-12 col-md-9 cl-lg-9">
+            <div class="form-group" *ngIf="!isNewStaff">
+              <label for="id">ID</label>
+              <input
+                class="form-control"
+                id="id"
+                type="text"
+                [(ngModel)]="editingStaff.id"
+                readonly
+                ngModel
+                name="id"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="username">User Name</label>
+              <input
+                class="form-control"
+                id="username"
+                type="text"
+                name="username"
+                [(ngModel)]="editingStaff.username"
+                [readonly]="!isEditable"
+                ngModel
+                required
+                #username
+              />
+              <p
+                class="alert alert-danger"
+                *ngIf="!username.valid && username.touched"
+              >
+                User Name is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                id="password"
+                [(ngModel)]="editingStaff.password"
+                [readonly]="!isEditable"
+                ngModel
+                name="password"
+                required
+                #password="ngModel"
+              />
+
+              <p
+                class="alert alert-danger"
+                *ngIf="!password.valid && password.touched"
+              >
+                Password is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="fullname"
+                name="fullname"
+                [(ngModel)]="editingStaff.fullname"
+                [readonly]="!isEditable"
+                ngModel
+                required
+                #fullname
+              />
+              <p
+                class="alert alert-danger"
+                *ngIf="!fullname.valid && fullname.touched"
+              >
+                User Name is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                class="form-control"
+                type="text"
+                id="email"
+                name="email"
+                [(ngModel)]="editingStaff.email"
+                [readonly]="!isEditable"
+                ngModel
+                required
+                email
+                #email
+              />
+              <p
+                class="alert alert-danger"
+                *ngIf="!email.valid && email.touched"
+              >
+                Email is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input
+                class="form-control"
+                type="text"
+                id="phone"
+                name="phone"
+                [(ngModel)]="editingStaff.phone"
+                [readonly]="!isEditable"
+                ngModel
+                required
+                #phone
+              />
+              <p
+                class="alert alert-danger"
+                *ngIf="!phone.valid && phone.touched"
+              >
+                Phone is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <textarea
+                class="form-control"
+                type="text"
+                id="address"
+                name="address"
+                rows="3"
+                [(ngModel)]="editingStaff.address"
+                [readonly]="!isEditable"
+                ngModel
+                required
+                #address
+              ></textarea>
+              <p
+                class="alert alert-danger"
+                *ngIf="!address.valid && address.touched"
+              >
+                Address is required!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <div class="row justify-content-end mr-2">
+              <button
+                class="btn btn-success"
+                type="submit"
+                *ngIf="isEditable"
+                [disabled]="!form.valid"
+                (click)="saveStaff($event)"
+              >
+                {{ isNewStaff ? "Submit" : "Save" }}
+              </button>
+              <button
+                class="btn btn-danger"
+                type="button"
+                (click)="onClose($event)"
+                *ngIf="isEditable"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-9 col-lg-9">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onClose($event)"
+              *ngIf="!isEditable"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+
+<app-alert
+  [(visibleAlert)]="isConfirm"
+  (onGoBackFirstPage)="onGoBackFirstPage($event)"
+  (clickedConfim)="onClickedConfirmEditted($event)"
+></app-alert>

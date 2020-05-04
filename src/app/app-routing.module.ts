@@ -14,8 +14,9 @@ const appRoutes: Routes = [
     component: AdminComponent,
     //canActivate: [AuthGuard],
     children: [
-      { path: "customers", component: CustomersComponent },
+      { path: "", redirectTo: "staffs", pathMatch: "full" },
       { path: "staffs", component: StaffsComponent },
+      { path: "customers", component: CustomersComponent },
     ],
   },
 ];

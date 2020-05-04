@@ -1,0 +1,35 @@
+.shadow {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.selected {
+  background-color: #db7f80;
+  color: #fff;
+}
+
+.headerBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+input {
+  border: none;
+  border-radius: 12px;
+  height: 35px;
+  padding-left: 8px;
+  outline: none;
+}
+
+i.fa-search {
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+button {
+  outline: none;
+}
