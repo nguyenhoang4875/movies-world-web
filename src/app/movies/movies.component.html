@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
+
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<ng-container *ngIf="!isLoading && !isShowStaffDetail">
+  <div class="container-fluid" [style.margin-top.px]="30">
+    <div class="headerBody">
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Enter your choice"
+          [(ngModel)]="search"
+        /><i class="fas fa-search"></i>
+      </div>
+    </div>
+
+    <div class="row bg-white">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 col-lg-12">
+        <div
+          class="row shadow"
+          style="left: auto !important; right: 0; min-width: auto;"
+        >
+          <table class="table table-bordered table-hover mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Trailer</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let movie of showedMovies; let i = index">
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.picture }}</td>
+                <td>{{ movie.name }}</td>
+                <td>{{ movie.trailer }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>{{ movie.status }}</td>
+                <td style="text-align: center; width: 135px;">
+                  <i class="far fa-eye" style="color: blue;"></i>
+                  <i class="far fa-edit" style="color: green;"></i>
+                  <i class="far fa-trash-alt" style="color: red;"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a
+                [class]="currentPage == 1 ? 'disabled page-link' : 'page-link'"
+                href="javascript:void(0)"
+                aria-label="Previous"
+                (click)="onPreviousPage()"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            <li class="page-item" *ngFor="let data of pagesArr">
+              <a
+                [class.selected]="data === currentPage"
+                class="page-link active"
+                href="javascript:void(0)"
+                (click)="onSelectPage(data)"
+                >{{ data }}</a
+              >
+            </li>
+
+            <li class="page-item">
+              <a
+                [class.disabled]="currentPage == pages"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Next"
+                (click)="onNextPage()"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</ng-container>
