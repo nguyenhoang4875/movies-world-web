@@ -5,7 +5,9 @@ import { AdminComponent } from "./admin/admin.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { CustomersComponent } from "./customers/customers.component";
 import { StaffsComponent } from "./staffs/staffs.component";
+import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
 import { MoviesComponent } from "./movies/movies.component";
+import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -18,7 +20,11 @@ const appRoutes: Routes = [
       { path: "", redirectTo: "movies", pathMatch: "full" },
       { path: "customers", component: CustomersComponent },
       { path: "staffs", component: StaffsComponent },
-      { path: "movies", component: MoviesComponent },
+      {
+        path: "movies",
+        component: MoviesComponent,
+        children: [{ path: "", component: MovieListComponent }],
+      },
     ],
   },
 ];

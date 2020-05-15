@@ -16,8 +16,9 @@ import { CustomersComponent } from "./customers/customers.component";
 import { CustomerDetailComponent } from "./customers/customer-detail/customer-detail.component";
 import { StaffsComponent } from "./staffs/staffs.component";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
-import { StaffDetailComponent } from './staffs/staff-detail/staff-detail.component';
-import { MoviesComponent } from './movies/movies.component';
+import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
+import { MoviesComponent } from "./movies/movies.component";
+import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MoviesComponent } from './movies/movies.component';
     StaffsComponent,
     StaffDetailComponent,
     MoviesComponent,
+    MovieListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
