@@ -5,7 +5,7 @@
 <ng-container *ngIf="!isLoading && !isShowCustomerDetail">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
-      <button class="btn btn-success mb-2" (click)="newCustomer($event)">
+      <button class="btn btn-success" (click)="newCustomer($event)">
         New Customer
       </button>
       <div class="search">
@@ -47,24 +47,21 @@
                 <td>{{ customer.phone }}</td>
                 <td>{{ customer.address }}</td>
                 <td style="text-align: center;">
-                  <button
-                    class="btn btn-primary mr-1"
+                  <i
+                    class="far fa-eye"
+                    style="color: blue;"
                     (click)="viewCustomer(customer)"
-                  >
-                    <i class="far fa-eye"></i>
-                  </button>
-                  <button
-                    class="btn btn-success mr-1"
+                  ></i>
+                  <i
+                    class="far fa-edit"
+                    style="color: green;"
                     (click)="editCustomer(customer)"
-                  >
-                    <i class="far fa-edit"></i>
-                  </button>
-                  <button
-                    class="btn btn-danger"
+                  ></i>
+                  <i
+                    class="far fa-trash-alt"
+                    style="color: red;"
                     (click)="deleteCustomer(customer)"
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
+                  ></i>
                 </td>
               </tr>
             </tbody>

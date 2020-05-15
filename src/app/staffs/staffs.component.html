@@ -5,7 +5,7 @@
 <ng-container *ngIf="!isLoading && !isShowStaffDetail">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
-      <button class="btn btn-success mb-2" (click)="newStaff($event)">
+      <button class="btn btn-success" (click)="newStaff($event)">
         New Staff
       </button>
       <div class="search">
@@ -47,21 +47,21 @@
                 <td>{{ staff.phone }}</td>
                 <td>{{ staff.address }}</td>
                 <td style="text-align: center;">
-                  <button
-                    class="btn btn-primary mr-1"
+                  <i
+                    class="far fa-eye"
+                    style="color: blue;"
                     (click)="viewStaff(staff)"
-                  >
-                    <i class="far fa-eye"></i>
-                  </button>
-                  <button
-                    class="btn btn-success mr-1"
+                  ></i>
+                  <i
+                    class="far fa-edit"
+                    style="color: green;"
                     (click)="editStaff(staff)"
-                  >
-                    <i class="far fa-edit"></i>
-                  </button>
-                  <button class="btn btn-danger" (click)="deleteStaff(staff)">
-                    <i class="far fa-trash-alt"></i>
-                  </button>
+                  ></i>
+                  <i
+                    class="far fa-trash-alt"
+                    style="color: red;"
+                    (click)="deleteStaff(staff)"
+                  ></i>
                 </td>
               </tr>
             </tbody>
