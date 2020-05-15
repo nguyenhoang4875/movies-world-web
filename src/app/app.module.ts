@@ -19,6 +19,7 @@ import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
 import { MoviesComponent } from "./movies/movies.component";
 import { MovieListComponent } from "./movies/movie-list/movie-list.component";
+import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MovieListComponent } from "./movies/movie-list/movie-list.component";
     StaffDetailComponent,
     MoviesComponent,
     MovieListComponent,
+    MovieDetailComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

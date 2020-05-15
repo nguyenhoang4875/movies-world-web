@@ -1,0 +1,66 @@
+.row {
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.content .description {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.content .description img {
+  width: 20em;
+  height: 20em;
+  margin-right: 1.2rem;
+}
+
+.content .description .content-description h3 {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.content .description .content-description label {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.content .description .content-description p {
+  display: inline;
+}
+
+.content .timeShowing {
+  margin-top: 3rem;
+}
+
+.content .timeShowing .date {
+  margin-top: 1rem;
+}
+
+.content .timeShowing .date label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 9rem;
+}
+
+.content .timeShowing .time {
+  display: inline;
+}
+
+.content .timeShowing .time button {
+  width: 9rem;
+  height: 2.5rem;
+  border-radius: 1.2rem;
+  margin-right: 0.7rem;
+}
+
+.content .backPage {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}

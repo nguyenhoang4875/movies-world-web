@@ -1,0 +1,73 @@
+<ng-container>
+  <div class="row h-100">
+    <div class="col-xs-12 col-md-9 col-lg-9 col-xl-9">
+      <div class="content">
+        <div class="description">
+          <img [src]="movie.picture" />
+          <div class="content-description">
+            <h3>
+              {{ movie.name }}
+            </h3>
+            <div>
+              <label>Time Limit:</label>
+              <p>{{ " " + description.timeLimit + " minutes" }}</p>
+            </div>
+
+            <div>
+              <label>Director:</label>
+              <p>{{ " " + description.director }}</p>
+            </div>
+
+            <div>
+              <label>Artist:</label>
+              <p>{{ " " + description.artist }}</p>
+            </div>
+            <div>
+              <label>Nation:</label>
+              <p>{{ " " + description.nation }}</p>
+            </div>
+
+            <div>
+              <label>Premiere:</label>
+              <p>{{ " " + description.premiere.toDateString() }}</p>
+            </div>
+
+            <div>
+              <label>Content:</label>
+              <p>{{ " " + description.content }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeShowing">
+          <div class="date" *ngFor="let dateTime of timeFilmShowing.date">
+            <label>{{ dateTime.toDateString() }}:</label>
+            <div
+              class="time"
+              *ngFor="let time of timeFilmShowing.timeStart; let i = index"
+            >
+              <button
+                class="btn btn-success timeStartEnd"
+                *ngIf="dateTime.getDate() === time.getDate()"
+              >
+                {{
+                  time.getHours() +
+                    colon +
+                    time.getMinutes() +
+                    hyphen +
+                    timeFilmShowing.timeEnd[i].getHours() +
+                    colon +
+                    timeFilmShowing.timeEnd[i].getMinutes()
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="backPage">
+          <a class="btn btn-primary" routerLink="/admin/movies">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

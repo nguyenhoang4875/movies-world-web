@@ -23,7 +23,10 @@ const appRoutes: Routes = [
       {
         path: "movies",
         component: MoviesComponent,
-        children: [{ path: "", component: MovieListComponent }],
+        children: [
+          { path: "", component: MovieListComponent },
+          { path: ":id", component: MovieDetailComponent },
+        ],
       },
     ],
   },
