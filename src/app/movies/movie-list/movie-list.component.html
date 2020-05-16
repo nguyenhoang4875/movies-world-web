@@ -2,19 +2,17 @@
 
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<ng-container *ngIf="!isLoading && !isShowCustomerDetail">
+<ng-container *ngIf="!isLoading && !isShowStaffDetail">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
-      <button class="btn btn-success" (click)="newCustomer($event)">
-        New Customer
-      </button>
+      <i></i>
       <div class="search">
         <input
           type="text"
           placeholder="Enter your choice"
           [(ngModel)]="search"
-          (keyup.enter)="searchCustomer()"
-        /><i class="fas fa-search" (click)="searchCustomer()"></i>
+          (keyup.enter)="onSearchMovie()"
+        /><i class="fas fa-search" (click)="onSearchMovie()"></i>
       </div>
     </div>
 
@@ -28,40 +26,41 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Trailer</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr *ngFor="let customer of showedCustomers">
-                <td>{{ customer.id }}</td>
-                <td>{{ customer.username }}</td>
-                <td>{{ customer.password }}</td>
-                <td>{{ customer.fullname }}</td>
-                <td>{{ customer.email }}</td>
-                <td>{{ customer.phone }}</td>
-                <td>{{ customer.address }}</td>
-                <td style="text-align: center;">
+              <tr *ngFor="let movie of showedMovies; let i = index">
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.picture }}</td>
+                <td>{{ movie.name }}</td>
+                <td>{{ movie.trailer }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>
+                  <span
+                    style="cursor: pointer;"
+                    [class]="
+                      movie.status === 'Disable'
+                        ? 'badge badge-danger'
+                        : 'badge badge-success'
+                    "
+                    (click)="onChangeStatus(movie)"
+                    >{{ movie.status }}</span
+                  >
+                </td>
+                <td style="text-align: center; width: 135px;">
                   <i
                     class="far fa-eye"
                     style="color: blue;"
-                    (click)="viewCustomer(customer)"
-                  ></i>
-                  <i
-                    class="far fa-edit"
-                    style="color: green;"
-                    (click)="editCustomer(customer)"
-                  ></i>
-                  <i
-                    class="far fa-trash-alt"
-                    style="color: red;"
-                    (click)="deleteCustomer(customer)"
+                    [routerLink]="[i + 1]"
                   ></i>
                 </td>
               </tr>
@@ -112,17 +111,3 @@
     </div>
   </div>
 </ng-container>
-
-<app-customer-detail
-  [(visible)]="isShowCustomerDetail"
-  [customer]="selectedCustomer"
-  [isEditable]="isEditableCustomerDetail"
-  [isNewCustomer]="isNewCustomer"
-  (onGoBackCustomersPage)="onGoBackCustomersPage($event)"
-></app-customer-detail>
-
-<app-alert
-  [(visibleAlert)]="isConfirm"
-  (onGoBackFirstPage)="onGoBackCustomersPage($event)"
-  (clickedConfim)="onClickedConfirmDeleted($event)"
-></app-alert>
