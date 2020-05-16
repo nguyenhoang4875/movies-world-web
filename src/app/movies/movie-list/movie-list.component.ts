@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { cloneDeep } from "lodash";
 import { Movie } from "../movie.model";
 import { MovieService } from "../movie.service";
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   templateUrl: "./movie-list.component.html",
   styleUrls: ["./movie-list.component.css"],
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   movies: Movie[] = [];
   showedMovies: Movie[] = [];
@@ -33,8 +33,15 @@ export class MovieListComponent implements OnInit {
   private loadMovies() {
     this.isLoading = true;
 
+    this.subscription = this.movieService.moviesChanged.subscribe(
+      (res: Movie[]) => {
+        this.movies = res;
+        console.log(this.movies);
+        this.separatePage(this.movies);
+      }
+    );
+
     this.movies = this.movieService.getMovies();
-    console.log(this.movies);
     this.separatePage(this.movies);
   }
 
@@ -71,5 +78,20 @@ export class MovieListComponent implements OnInit {
       return;
     }
     this.onSelectPage(this.currentPage - 1);
+  }
+
+  onChangeStatus(movie: Movie) {
+    if (movie.status === "Disable") {
+      movie.status = "Enable";
+      this.movieService.getUpdateStatusMovie(movie);
+    }
+  }
+
+  onSearchMovie() {
+    this.movieService.searchMovie(this.search);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -11,7 +11,8 @@
           type="text"
           placeholder="Enter your choice"
           [(ngModel)]="search"
-        /><i class="fas fa-search"></i>
+          (keyup.enter)="onSearchMovie()"
+        /><i class="fas fa-search" (click)="onSearchMovie()"></i>
       </div>
     </div>
 
@@ -43,15 +44,24 @@
                 <td>{{ movie.trailer }}</td>
                 <td>{{ movie.genre }}</td>
                 <td>{{ movie.rating }}</td>
-                <td>{{ movie.status }}</td>
+                <td>
+                  <span
+                    style="cursor: pointer;"
+                    [class]="
+                      movie.status === 'Disable'
+                        ? 'badge badge-danger'
+                        : 'badge badge-success'
+                    "
+                    (click)="onChangeStatus(movie)"
+                    >{{ movie.status }}</span
+                  >
+                </td>
                 <td style="text-align: center; width: 135px;">
                   <i
                     class="far fa-eye"
                     style="color: blue;"
                     [routerLink]="[i + 1]"
                   ></i>
-                  <i class="far fa-edit" style="color: green;"></i>
-                  <i class="far fa-trash-alt" style="color: red;"></i>
                 </td>
               </tr>
             </tbody>

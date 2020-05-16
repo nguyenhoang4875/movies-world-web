@@ -32,6 +32,7 @@
 
 .content .description .content-description p {
   display: inline;
+  margin-left: 0.5rem;
 }
 
 .content .timeShowing {
@@ -45,7 +46,7 @@
 .content .timeShowing .date label {
   font-weight: bold;
   margin-right: 1rem;
-  width: 9rem;
+  width: 10.8rem;
 }
 
 .content .timeShowing .time {

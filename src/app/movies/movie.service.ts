@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Movie } from "./movie.model";
 import { Description } from "../shared/description.model";
 import { TimeFilmShowing } from "../shared/timeFilmShowing.model";
+import { Subject } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class MovieService {
@@ -184,6 +185,7 @@ export class MovieService {
       timeEnd: [],
     }),
   ];
+  moviesChanged = new Subject<Movie[]>();
 
   getMovies() {
     return this.movies.slice();
@@ -198,5 +200,31 @@ export class MovieService {
 
   getTimeFilmShowing(id: string) {
     return this.timeFilmShowing[+id + 1];
+  }
+
+  getUpdateStatusMovie(movie: Movie) {
+    const index = +movie.id - 1;
+    this.movies[index] = movie;
+    this.moviesChanged.next(this.movies.slice());
+  }
+
+  searchMovie(value: string) {
+    let filterMovies: Movie[] = [];
+    if (!value) {
+      this.moviesChanged.next(this.movies.slice());
+    } else {
+      if (value) {
+        for (let i = 0; i < this.movies.length; i++) {
+          if (
+            this.movies[i].name === value ||
+            this.movies[i].rating === +value ||
+            this.movies[i].status === value
+          ) {
+            filterMovies.push(this.movies[i]);
+          }
+        }
+      }
+      this.moviesChanged.next(filterMovies);
+    }
   }
 }
