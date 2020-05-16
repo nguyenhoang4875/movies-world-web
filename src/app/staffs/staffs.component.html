@@ -13,6 +13,7 @@
           type="text"
           placeholder="Enter your choice"
           [(ngModel)]="search"
+          (keyup.enter)="searchStaff()"
         /><i class="fas fa-search" (click)="searchStaff()"></i>
       </div>
     </div>
