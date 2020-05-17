@@ -10,10 +10,10 @@
                 class="form-control"
                 id="id"
                 type="text"
+                name="id"
                 [(ngModel)]="editingStaff.id"
                 readonly
                 ngModel
-                name="id"
                 required
               />
             </div>
@@ -28,15 +28,15 @@
                 id="username"
                 type="text"
                 name="username"
+                #username="ngModel"
                 [(ngModel)]="editingStaff.username"
                 [readonly]="!isEditable"
                 ngModel
                 required
-                #username
               />
               <p
                 class="alert alert-danger"
-                *ngIf="!username.valid && username.touched"
+                *ngIf="username.touched && username.errors?.required"
               >
                 User Name is required!
               </p>
@@ -52,19 +52,28 @@
                 class="form-control"
                 type="password"
                 id="password"
+                name="password"
+                #password="ngModel"
                 [(ngModel)]="editingStaff.password"
                 [readonly]="!isEditable"
                 ngModel
-                name="password"
                 required
-                #password="ngModel"
+                minlength="6"
               />
 
               <p
                 class="alert alert-danger"
-                *ngIf="!password.valid && password.touched"
+                *ngIf="password.touched && password.errors?.required"
               >
                 Password is required!
+              </p>
+
+              <p
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="password.touched && password.errors?.minlength"
+              >
+                Password must be at least 6 characters long!!!
               </p>
             </div>
           </div>
@@ -79,17 +88,17 @@
                 type="text"
                 id="fullname"
                 name="fullname"
+                #fullname="ngModel"
                 [(ngModel)]="editingStaff.fullname"
                 [readonly]="!isEditable"
                 ngModel
                 required
-                #fullname
               />
               <p
                 class="alert alert-danger"
-                *ngIf="!fullname.valid && fullname.touched"
+                *ngIf="fullname.touched && fullname.errors?.required"
               >
-                User Name is required!
+                Full Name is required!
               </p>
             </div>
           </div>
@@ -104,18 +113,18 @@
                 type="text"
                 id="email"
                 name="email"
+                #email="ngModel"
                 [(ngModel)]="editingStaff.email"
                 [readonly]="!isEditable"
                 ngModel
                 required
                 email
-                #email
               />
               <p
                 class="alert alert-danger"
-                *ngIf="!email.valid && email.touched"
+                *ngIf="!email.valid && email.touched && email.errors"
               >
-                Email is required!
+                Email is invalid!
               </p>
             </div>
           </div>
@@ -130,15 +139,15 @@
                 type="text"
                 id="phone"
                 name="phone"
+                #phone="ngModel"
                 [(ngModel)]="editingStaff.phone"
                 [readonly]="!isEditable"
                 ngModel
                 required
-                #phone
               />
               <p
                 class="alert alert-danger"
-                *ngIf="!phone.valid && phone.touched"
+                *ngIf="phone.touched && phone.errors?.required"
               >
                 Phone is required!
               </p>
@@ -160,11 +169,11 @@
                 [readonly]="!isEditable"
                 ngModel
                 required
-                #address
+                #address="ngModel"
               ></textarea>
               <p
                 class="alert alert-danger"
-                *ngIf="!address.valid && address.touched"
+                *ngIf="address.touched && address.errors?.required"
               >
                 Address is required!
               </p>
