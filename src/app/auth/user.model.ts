@@ -1,15 +1,12 @@
+import { Role } from "./role.model";
 export class User {
   constructor(
-    public id: string,
-    public email: string,
+    public username: string,
     private _token: string,
-    private _tokenExpirationDate: Date
+    public idRole: number[]
   ) {}
 
   get token() {
-    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-      return null;
-    }
     return this._token;
   }
 }
