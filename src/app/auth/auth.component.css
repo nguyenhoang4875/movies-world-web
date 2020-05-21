@@ -35,7 +35,7 @@ form .title {
   position: relative;
 }
 
-form input {
+form .inputLogin {
   display: block;
   color: #333333;
   margin: 10px auto;
@@ -75,9 +75,8 @@ input:valid + label {
   display: block;
   margin-bottom: 5px;
   text-align: left;
-  left: 30px;
 }
-.remember-me label input {
+.remember-me label input[checkbox] {
   position: absolute;
   left: -53%;
   top: -20%;

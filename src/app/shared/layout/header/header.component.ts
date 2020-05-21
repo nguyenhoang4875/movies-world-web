@@ -20,6 +20,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    // this.authService.logout();
+    this.authService.logout();
   }
 }

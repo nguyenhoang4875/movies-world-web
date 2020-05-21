@@ -10,14 +10,15 @@
 
     <div class="input-group">
       <input
+        class="inputLogin"
         type="text"
-        id="loginEmail"
+        id="loginUsername"
         name="username"
-        ngModel
         #username="ngModel"
+        ngModel
         required
       />
-      <label for="loginEmail">UserName</label>
+      <label for="loginUsername">UserName</label>
     </div>
     <div
       class="alert alert-danger"
@@ -29,6 +30,7 @@
 
     <div class="input-group">
       <input
+        class="inputLogin"
         type="password"
         id="loginPassword"
         name="password"

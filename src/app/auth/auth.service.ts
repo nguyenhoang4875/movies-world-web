@@ -51,50 +51,34 @@ export class AuthService {
       );
   }
 
-  // autoLogin() {
-  //   const userData: {
-  //     id: string;
-  //     email: string;
-  //     _token: string;
-  //     _tokenExpirationDate: string;
-  //   } = JSON.parse(localStorage.getItem("userData"));
+  autoLogin() {
+    const userData: {
+      username: string;
+      _token: string;
+      idRole: number[];
+    } = JSON.parse(localStorage.getItem("userData"));
 
-  //   if (!userData) {
-  //     return;
-  //   }
+    if (!userData) {
+      return;
+    }
 
-  //   const loadedUSer = new User(
-  //     userData.id,
-  //     userData.email,
-  //     userData._token,
-  //     new Date(userData._tokenExpirationDate)
-  //   );
+    const loadedUSer = new User(
+      userData.username,
+      userData._token,
+      userData.idRole
+    );
 
-  //   if (loadedUSer.token) {
-  //     this.user.next(loadedUSer);
+    if (loadedUSer.token) {
+      this.user.next(loadedUSer);
+    }
+  }
 
-  //     const expirationDuration =
-  //       new Date(userData._tokenExpirationDate).getTime() -
-  //       new Date().getTime();
-  //     this.autoLogout(expirationDuration);
-  //   }
-  // }
-
-  // logout() {
-  //   this.user.next(null);
-  //   this.router.navigate(["/login"]);
-  //   localStorage.removeItem("userData");
-  //   if (this.tokenExpirationTimer) {
-  //     clearTimeout(this.tokenExpirationTimer);
-  //   }
-  //   this.tokenExpirationTimer = null;
-  // }
-
-  // autoLogout(expirationDuration: number) {
-  //   this.tokenExpirationTimer = setTimeout(() => {
-  //     this.logout();
-  //   }, expirationDuration);
-  // }
+  logout() {
+    this.user.next(null);
+    this.router.navigate(["/login"]);
+    this.roleIds = [];
+    localStorage.removeItem("userData");
+  }
 
   private handleError(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred!";
