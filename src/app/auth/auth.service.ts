@@ -6,6 +6,7 @@ import { catchError, tap } from "rxjs/operators";
 
 import { User } from "./user.model";
 import { Role } from "./role.model";
+import { environment } from "../../environments/environment";
 
 export interface AuthResponseData {
   // kind: string;
@@ -25,13 +26,12 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null);
   roleIds: number[] = [];
-  private tokenExpirationTimer: any;
-
+  baseUrl = environment.baseUrl;
   constructor(private router: Router, private http: HttpClient) {}
 
   login(username: string, password: string) {
     return this.http
-      .post<AuthResponseData>("http://localhost:9000/api/auth", {
+      .post<AuthResponseData>(this.baseUrl + "/auth", {
         username: username,
         password: password,
       })
