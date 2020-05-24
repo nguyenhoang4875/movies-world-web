@@ -1,76 +1,87 @@
 import {
   Component,
   OnInit,
-  Input,
+  OnDestroy,
   Output,
   EventEmitter,
-  OnChanges,
-  SimpleChanges,
 } from "@angular/core";
-import { UserInfor } from "../../admin/user-infor.model";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { cloneDeep } from "lodash";
+import { UserDetail } from "../../admin/user-detail.model";
 import { CustomerService } from "../customer.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-customer-detail",
   templateUrl: "./customer-detail.component.html",
   styleUrls: ["./customer-detail.component.css"],
 })
-export class CustomerDetailComponent implements OnInit, OnChanges {
-  private _visible: boolean;
-  isConfirm: boolean = false;
+export class CustomerDetailComponent implements OnInit, OnDestroy {
+  id: number;
+  editMode: boolean = false;
+  subscription: Subscription;
+  editingCustomer: UserDetail = new UserDetail();
+  @Output() sendMessage = new EventEmitter();
 
-  @Input()
-  get visible(): boolean {
-    return this._visible;
-  }
-  @Input() customer: UserInfor = new UserInfor();
-  @Input() isEditable: boolean = true;
-  @Input() isNewCustomer: boolean = false;
-  @Output() visibleChange = new EventEmitter();
-  @Output() onGoBackCustomersPage = new EventEmitter();
+  constructor(
+    private customerService: CustomerService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  set visible(value: boolean) {
-    this._visible = value;
-    this.visibleChange.emit(value);
-  }
-
-  editingCustomer: UserInfor = new UserInfor();
-
-  constructor(private customerService: CustomerService) {}
-
-  ngOnInit() {}
-
-  ngOnChanges(params: SimpleChanges) {
-    if (params && params.customer) {
-      this.editingCustomer = cloneDeep(this.customer);
-    }
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params["id"];
+      this.editMode = params["id"] != null;
+    });
   }
 
-  onClose(e) {
-    this.visible = false;
-  }
-
-  saveCustomer(e) {
-    if (this.customer && this.customer.id) {
-      // update
-      console.log("update");
-      // this.customerService.updateCustomer(this.editingCustomer).subscribe();
-      this.isConfirm = true;
-    } else {
-      // new
-      console.log("new");
-      //  this.customerService.newCustomer(this.editingCustomer).subscribe();
+  onSaveCustomer() {
+    if (!this.editMode) {
       this.customerService.newCustomer(this.editingCustomer);
-      this.onGoBackFirstPage(e);
+      this.router.navigate(["../"], { relativeTo: this.route });
     }
   }
 
-  onGoBackFirstPage(e) {
-    this.visible = false;
-    this.onGoBackCustomersPage.emit(this.visible);
+  onCancel(e) {
+    this.router.navigate(["../"], { relativeTo: this.route });
   }
-  onClickedConfirmEditted(e) {
-    this.customerService.updateCustomer(this.editingCustomer);
+
+  onClose(e) {}
+
+  // // ngOnChanges(params: SimpleChanges) {
+  // //   if (params && params.customer) {
+  // //     this.editingCustomer = cloneDeep(this.customer);
+  // //   }
+  // // }
+
+  // saveCustomer(e) {
+  //   if (this.customer && this.customer.id) {
+  //     // update
+  //     this.isConfirm = true;
+  //   } else {
+  //     // new
+  //     this.customerService
+  //       .newCustomer(this.editingCustomer)
+  //       .subscribe((customer) => {
+  //         console.log(customer);
+  //          this.customers.push(customer);
+  //       });
+  //     this.router.navigate(["../"], { relativeTo: this.route });
+  //   }
+  // }
+
+  // onGoBackFirstPage(e) {
+  //   this.visible = false;
+  //   this.onGoBackCustomersPage.emit(this.visible);
+  // }
+  // onClickedConfirmEditted(e) {
+  //   this.subscription = this.customerService
+  //     .updateCustomer(this.editingCustomer)
+  //     .subscribe();
+  // }
+
+  ngOnDestroy() {
+    // this.subscription.unsubscribe();
   }
 }
