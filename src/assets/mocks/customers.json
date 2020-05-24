@@ -1,0 +1,31 @@
+{
+  "customers": [
+    {
+      "id": "4",
+      "username": "hoangnguyen",
+      "password": "hoangnguyen",
+      "fullName": "Nguyễn Văn Hoàng",
+      "email": "hoangnguyen@gmail.com",
+      "phone": "09010101010",
+      "address": "Hà Tĩnh"
+    },
+    {
+      "id": "5",
+      "username": "nhinguyen",
+      "password": "nhinguyen",
+      "fullName": "Nguyễn Thị Yến Nhi",
+      "email": "nhinguyen@gmail.com",
+      "phone": "09010101010",
+      "address": "Huế"
+    },
+    {
+      "username": "a",
+      "password": "aaaaaaaaaaa",
+      "fullName": "a",
+      "email": "a@a.a",
+      "phone": "11111111",
+      "address": "a",
+      "id": "eHy8dmN"
+    }
+  ]
+}

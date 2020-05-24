@@ -82,21 +82,21 @@
         <div class="row">
           <div class="col-xs-12 col-md-9 col-lg-9">
             <div class="form-group">
-              <label for="fullname">Full Name</label>
+              <label for="fullName">Full Name</label>
               <input
                 class="form-control"
                 type="text"
-                id="fullname"
-                name="fullname"
-                #fullname="ngModel"
-                [(ngModel)]="editingStaff.fullname"
+                id="fullName"
+                name="fullName"
+                #fullName="ngModel"
+                [(ngModel)]="editingStaff.fullName"
                 [readonly]="!isEditable"
                 ngModel
                 required
               />
               <p
                 class="alert alert-danger"
-                *ngIf="fullname.touched && fullname.errors?.required"
+                *ngIf="fullName.touched && fullName.errors?.required"
               >
                 Full Name is required!
               </p>

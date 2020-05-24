@@ -7,7 +7,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from "@angular/core";
-import { UserInfor } from "../../admin/user-infor.model";
+import { UserDetail } from "../../admin/user-detail.model";
 import { cloneDeep } from "lodash";
 import { StaffService } from "../staff.service";
 
@@ -24,7 +24,7 @@ export class StaffDetailComponent implements OnInit, OnChanges {
   get visible(): boolean {
     return this._visible;
   }
-  @Input() staff: UserInfor = new UserInfor();
+  @Input() staff: UserDetail = new UserDetail();
   @Input() isEditable: boolean = true;
   @Input() isNewStaff: boolean = false;
   @Output() visibleChange = new EventEmitter();
@@ -35,7 +35,7 @@ export class StaffDetailComponent implements OnInit, OnChanges {
     this.visibleChange.emit(value);
   }
 
-  editingStaff: UserInfor = new UserInfor();
+  editingStaff: UserDetail = new UserDetail();
 
   constructor(private staffService: StaffService) {}
 

@@ -20,6 +20,7 @@ import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.compone
 import { MoviesComponent } from "./movies/movies.component";
 import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
+import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.compone
     MoviesComponent,
     MovieListComponent,
     MovieDetailComponent,
+    CustomerListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

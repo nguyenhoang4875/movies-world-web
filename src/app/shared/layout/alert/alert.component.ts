@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { CustomerService } from "../../../customers/customer.service";
-import { UserInfor } from "../../../admin/user-infor.model";
+import { UserDetail } from "../../../admin/user-detail.model";
 
 @Component({
   selector: "app-alert",
@@ -11,7 +11,7 @@ import { UserInfor } from "../../../admin/user-infor.model";
 export class AlertComponent {
   private _visibleAlert: boolean;
   message = "Do you make sure save this action?";
-  // @Input() customer: UserInfor;
+  // @Input() customer: UserDetail;
   @Input() get visibleAlert(): boolean {
     return this._visibleAlert;
   }
@@ -23,10 +23,7 @@ export class AlertComponent {
   @Output() onGoBackFirstPage = new EventEmitter();
   @Output() clickedConfim = new EventEmitter();
 
-  constructor(
-    private customerService: CustomerService,
-    private router: Router
-  ) {}
+  constructor() {}
 
   onConfirm() {
     this.clickedConfim.emit(event);

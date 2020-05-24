@@ -26,14 +26,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     });
   }
 
-  onGetCustomers() {
-    this.customerService.getCustomers();
-  }
-
-  onGetStaffs() {
-    console.log("staffs");
-  }
-
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

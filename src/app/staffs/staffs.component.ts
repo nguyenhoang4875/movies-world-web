@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
-import { UserInfor } from "../admin/user-infor.model";
+import { UserDetail } from "../admin/user-detail.model";
 import { StaffService } from "./staff.service";
 import { cloneDeep } from "lodash";
 
@@ -12,9 +12,9 @@ import { cloneDeep } from "lodash";
 })
 export class StaffsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  staffs: UserInfor[] = [];
-  showedStaffs: UserInfor[] = [];
-  selectedStaff: UserInfor = new UserInfor();
+  staffs: UserDetail[] = [];
+  showedStaffs: UserDetail[] = [];
+  selectedStaff: UserDetail = new UserDetail();
 
   search: string;
   page: number;
@@ -41,7 +41,7 @@ export class StaffsComponent implements OnInit, OnDestroy {
       this.isGoBackPage = res;
     });
 
-    this.staffService.staffsChanged.subscribe((res: UserInfor[]) => {
+    this.staffService.staffsChanged.subscribe((res: UserDetail[]) => {
       this.staffs = res;
 
       console.log(this.staffs.length);
@@ -52,7 +52,7 @@ export class StaffsComponent implements OnInit, OnDestroy {
     this.separatePage(this.staffs);
   }
 
-  private separatePage(staffs: UserInfor[]) {
+  private separatePage(staffs: UserDetail[]) {
     if (staffs) {
       this.pages = Math.ceil(staffs.length / this.numberOfPage);
       for (let i = 1; i <= this.pages; i++) {
@@ -89,7 +89,7 @@ export class StaffsComponent implements OnInit, OnDestroy {
     this.onSelectPage(this.currentPage - 1);
   }
 
-  editStaff(staff: UserInfor) {
+  editStaff(staff: UserDetail) {
     this.isShowStaffDetail = true;
     this.selectedStaff = staff;
     this.isEditableStaffDetail = true;
@@ -98,19 +98,19 @@ export class StaffsComponent implements OnInit, OnDestroy {
 
   newStaff(e) {
     this.isShowStaffDetail = true;
-    this.selectedStaff = new UserInfor();
+    this.selectedStaff = new UserDetail();
     this.isEditableStaffDetail = true;
     this.isNewStaff = true;
   }
 
-  viewStaff(staff: UserInfor) {
+  viewStaff(staff: UserDetail) {
     this.isShowStaffDetail = true;
     this.selectedStaff = staff;
     this.isEditableStaffDetail = false;
     this.isNewStaff = false;
   }
 
-  deleteStaff(staff: UserInfor) {
+  deleteStaff(staff: UserDetail) {
     this.selectedStaff = staff;
     this.isConfirm = true;
   }
