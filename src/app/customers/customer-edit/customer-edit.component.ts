@@ -34,7 +34,9 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
       this.editMode = params["id"] != null;
-      this.editingCustomer = this.customerService.getCustomer(this.id);
+      if (this.editMode) {
+        this.editingCustomer = this.customerService.getCustomer(this.id);
+      }
     });
   }
 
@@ -44,6 +46,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.router.navigate(["../"], { relativeTo: this.route });
     } else {
       this.customerService.updateCustomer(this.editingCustomer);
+      this.router.navigate(["../../"], { relativeTo: this.route });
     }
   }
 

@@ -3,11 +3,6 @@
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
 <ng-container *ngIf="!isLoading">
-  <div class="panel-heading">
-    <h3 style="margin-top: 2rem;">Customers Management</h3>
-    <hr />
-  </div>
-
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
       <button class="btn btn-success" (click)="newCustomer($event)">

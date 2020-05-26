@@ -93,40 +93,18 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.onSelectPage(this.currentPage - 1);
   }
 
-  // editCustomer(customer: UserDetail) {
-  //   this.isShowCustomerDetail = true;
-  //   this.selectedCustomer = customer;
-  //   this.isEditableCustomerDetail = true;
-  //   this.isNewCustomer = false;
-  // }
-
   editCustomer(id: number) {
     this.router.navigate([id, "edit"], { relativeTo: this.route });
   }
-
-  // newCustomer(e) {
-  //   this.isShowCustomerDetail = true;
-  //   this.selectedCustomer = new UserDetail();
-  //   this.isEditableCustomerDetail = true;
-  //   this.isNewCustomer = true;
-  // }
 
   newCustomer() {
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 
   viewCustomer(id: string) {
-    // this.isShowCustomerDetail = true;
-    // this.selectedCustomer = customer;
-    // this.isEditableCustomerDetail = false;
-    // this.isNewCustomer = false;
     this.router.navigate([id], { relativeTo: this.route });
   }
 
-  // deleteCustomer(customer: UserDetail) {
-  //   this.selectedCustomer = customer;
-  //   this.isConfirm = true;
-  // }
   deleteCustomer(id: number) {
     this.customerService.deleteCustomer(id).subscribe();
   }

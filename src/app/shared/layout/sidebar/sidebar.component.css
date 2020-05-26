@@ -1,9 +1,5 @@
 .sidebar {
-  background: linear-gradient(
-    243.49deg,
-    #da6767 18.42%,
-    rgba(237, 231, 10, 0) 178.64%
-  );
+  background: #fff;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
@@ -17,18 +13,24 @@
 }
 
 .nav-item:hover {
-  background: rgba(132, 0, 0, 0.15);
+  color: #20c997;
+}
+
+.selected {
+  background: #20c997;
+  color: white !important;
 }
 
 .nav-item .nav-link {
   padding-left: 4rem;
-  color: black;
+  color: #555;
   font-size: 1.5rem;
   display: block;
+  transition: linear 0.1s;
 }
 
-.selected {
-  background: rgba(132, 0, 0, 0.45);
+.nav-item .nav-link:hover {
+  color: #20c997;
 }
 
 @media (max-width: 1912px) {

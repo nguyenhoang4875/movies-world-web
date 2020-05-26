@@ -7,7 +7,7 @@
 }
 
 .selected {
-  background-color: #db7f80;
+  background-color: #20c997;
   color: #fff;
 }
 
@@ -18,8 +18,9 @@
   margin-bottom: 1.1rem;
 }
 
-input {
+.search > input {
   border: none;
+  background-color: #ededf1;
   border-radius: 12px;
   height: 35px;
   padding-left: 8px;
