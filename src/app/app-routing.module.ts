@@ -10,6 +10,7 @@ import { MoviesComponent } from "./movies/movies.component";
 import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { CustomerDetailComponent } from "./customers/customer-detail/customer-detail.component";
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
+import { CustomerEditComponent } from "./customers/customer-edit/customer-edit.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -25,7 +26,9 @@ const appRoutes: Routes = [
         component: CustomersComponent,
         children: [
           { path: "", component: CustomerListComponent },
-          { path: "new", component: CustomerDetailComponent },
+          { path: "new", component: CustomerEditComponent },
+          { path: ":id", component: CustomerDetailComponent },
+          { path: ":id/edit", component: CustomerEditComponent },
         ],
       },
       { path: "staffs", component: StaffsComponent },

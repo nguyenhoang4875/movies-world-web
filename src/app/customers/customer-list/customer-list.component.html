@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="!isLoading">
   <div class="panel-heading">
-    <h3>Customers Management</h3>
+    <h3 style="margin-top: 2rem;">Customers Management</h3>
     <hr />
   </div>
 
@@ -54,12 +54,12 @@
                   <i
                     class="far fa-eye"
                     style="color: blue;"
-                    (click)="viewCustomer(customer)"
+                    (click)="viewCustomer(customer.id)"
                   ></i>
                   <i
                     class="far fa-edit"
                     style="color: green;"
-                    (click)="editCustomer(customer)"
+                    (click)="editCustomer(customer.id)"
                   ></i>
                   <i
                     class="far fa-trash-alt"

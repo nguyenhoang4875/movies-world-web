@@ -3,8 +3,9 @@ import { Subject, Subscription } from "rxjs";
 
 import { UserDetail } from "../admin/user-detail.model";
 import { DataStorageService } from "../shared/services/data-storage.service";
+import { tap } from "rxjs/operators";
 
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class CustomerService {
   customers: UserDetail[] = [];
   subscription: Subscription;
@@ -15,7 +16,11 @@ export class CustomerService {
   constructor(private dataStorageService: DataStorageService) {}
 
   fetchCustomers() {
-    return this.dataStorageService.fetchCustomers();
+    return this.dataStorageService.fetchCustomers().pipe(
+      tap((customers) => {
+        this.setCustomers(customers);
+      })
+    );
   }
 
   setCustomers(customers: UserDetail[]) {
@@ -24,6 +29,10 @@ export class CustomerService {
 
   getCustomers() {
     return this.customers.slice();
+  }
+
+  getCustomer(id: number) {
+    return this.customers[id - 1];
   }
 
   newCustomer(customer: UserDetail) {

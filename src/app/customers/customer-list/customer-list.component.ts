@@ -51,7 +51,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       .fetchCustomers()
       .subscribe((res: UserDetail[]) => {
         this.customers = res;
-        this.separatePage(this.customers);
+        this.separatePage(res);
       });
   }
 
@@ -93,11 +93,15 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.onSelectPage(this.currentPage - 1);
   }
 
-  editCustomer(customer: UserDetail) {
-    this.isShowCustomerDetail = true;
-    this.selectedCustomer = customer;
-    this.isEditableCustomerDetail = true;
-    this.isNewCustomer = false;
+  // editCustomer(customer: UserDetail) {
+  //   this.isShowCustomerDetail = true;
+  //   this.selectedCustomer = customer;
+  //   this.isEditableCustomerDetail = true;
+  //   this.isNewCustomer = false;
+  // }
+
+  editCustomer(id: number) {
+    this.router.navigate([id, "edit"], { relativeTo: this.route });
   }
 
   // newCustomer(e) {
@@ -111,11 +115,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 
-  viewCustomer(customer: UserDetail) {
-    this.isShowCustomerDetail = true;
-    this.selectedCustomer = customer;
-    this.isEditableCustomerDetail = false;
-    this.isNewCustomer = false;
+  viewCustomer(id: string) {
+    // this.isShowCustomerDetail = true;
+    // this.selectedCustomer = customer;
+    // this.isEditableCustomerDetail = false;
+    // this.isNewCustomer = false;
+    this.router.navigate([id], { relativeTo: this.route });
   }
 
   // deleteCustomer(customer: UserDetail) {

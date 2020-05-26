@@ -1,233 +1,46 @@
 <div class="row h-100 justify-content-end align-items-center">
-  <div class="col-xs-12 col-md-9 col-lg-9 col-xl-9">
-    <form #form="ngForm" (ngSubmit)="onSaveCustomer()">
-      <div class="row">
-        <div class="col-xs-12 col-md-9 cl-lg-9">
-          <div class="form-group" *ngIf="editMode">
-            <label for="id">ID</label>
-            <input
-              class="form-control"
-              id="id"
-              type="text"
-              name="id"
-              [(ngModel)]="editingCustomer.id"
-              readonly
-              ngModel
-              required
-            />
-          </div>
-        </div>
+  <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="container">
+      <div class="left-content">
+        <img src="assets/images/avatar.svg" />
       </div>
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="username">User Name</label>
-            <input
-              class="form-control"
-              id="username"
-              type="text"
-              name="username"
-              #username="ngModel"
-              [(ngModel)]="editingCustomer.username"
-              [readonly]="editMode"
-              ngModel
-              required
-            />
-            <p
-              class="alert alert-danger"
-              *ngIf="username.touched && username.errors?.required"
-            >
-              User Name is required!
-            </p>
+
+      <div class="right-content">
+        <span class="say-hi">HELLO</span>
+
+        <h2 class="my-name">
+          I'm <span>{{ editingCustomer.fullName }}</span>
+        </h2>
+
+        <div class="details">
+          <div class="labels">
+            <p>ID</p>
+            <p>Full Name</p>
+            <p>User Name</p>
+            <p>Email</p>
+            <p>Phone</p>
+            <p>Address</p>
+          </div>
+
+          <div class="information">
+            <p>{{ editingCustomer.id }}</p>
+            <p>{{ editingCustomer.fullName }}</p>
+            <p>{{ editingCustomer.username }}</p>
+            <p>{{ editingCustomer.email }}</p>
+            <p>{{ editingCustomer.phone }}</p>
+            <p>{{ editingCustomer.address }}</p>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              class="form-control"
-              type="password"
-              id="password"
-              name="password"
-              #password="ngModel"
-              minlength="6"
-              [(ngModel)]="editingCustomer.password"
-              [readonly]="editMode"
-              ngModel
-              required
-            />
-            <p
-              class="alert alert-danger"
-              *ngIf="password.touched && password.errors?.required"
-            >
-              Password is required!
-            </p>
-
-            <p
-              class="alert alert-danger"
-              role="alert"
-              *ngIf="password.touched && password.errors?.minlength"
-            >
-              Password must be at least 6 characters long!!!
-            </p>
-          </div>
-        </div>
+      <div class="bottom-content">
+        <a [routerLink]="'../'">
+          <i class="far fa-arrow-alt-circle-left"></i>
+        </a>
+        <a [routerLink]="'edit'">
+          <i class="far fa-edit"></i>
+        </a>
       </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="fullName"
-              name="fullName"
-              #fullName="ngModel"
-              [(ngModel)]="editingCustomer.fullName"
-              [readonly]="editMode"
-              ngModel
-              required
-            />
-            <p
-              class="alert alert-danger"
-              *ngIf="fullName.touched && fullName.errors?.required"
-            >
-              User Name is required!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              class="form-control"
-              type="text"
-              id="email"
-              name="email"
-              #email="ngModel"
-              [(ngModel)]="editingCustomer.email"
-              [readonly]="editMode"
-              ngModel
-              required
-              email
-            />
-            <p
-              class="alert alert-danger"
-              *ngIf="!email.valid && email.touched && email.errors"
-            >
-              Email is invalid!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input
-              class="form-control"
-              type="text"
-              id="phone"
-              name="phone"
-              #phone="ngModel"
-              minlength="10"
-              maxlength="20"
-              [(ngModel)]="editingCustomer.phone"
-              [readonly]="editMode"
-              ngModel
-              required
-            />
-
-            <p
-              class="alert alert-danger"
-              *ngIf="
-                phone.touched &&
-                phone.errors?.minlength &&
-                phone.errors?.maxlength
-              "
-            >
-              Phone has minlength with 10 characters and maxlength with 20
-              characters
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="form-group">
-            <label for="address">Address</label>
-            <textarea
-              class="form-control"
-              type="text"
-              id="address"
-              name="address"
-              #address="ngModel"
-              rows="3"
-              [(ngModel)]="editingCustomer.address"
-              [readonly]="editMode"
-              ngModel
-              required
-            ></textarea>
-            <p
-              class="alert alert-danger"
-              *ngIf="address.touched && address.errors?.required"
-            >
-              Address is required!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <div class="row justify-content-end mr-2">
-            <button
-              class="btn btn-success"
-              type="submit"
-              *ngIf="!editMode"
-              [disabled]="!form.valid"
-            >
-              {{ editMode ? "Save" : "Submit" }}
-            </button>
-            <button
-              class="btn btn-danger"
-              type="button"
-              (click)="onCancel($event)"
-              *ngIf="!editMode"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <button
-            class="btn btn-primary"
-            type="button"
-            (click)="onClose($event)"
-            *ngIf="editMode"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
-
-<!-- <app-alert
-  [(visibleAlert)]="isConfirm"
-  (onGoBackFirstPage)="onGoBackFirstPage($event)"
-  (clickedConfim)="onClickedConfirmEditted($event)"
-></app-alert> -->
