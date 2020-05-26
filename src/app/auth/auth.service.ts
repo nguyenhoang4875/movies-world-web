@@ -98,6 +98,7 @@ export class AuthService {
   ) {
     const user = new User(username, token, roleId);
     this.user.next(user);
+    localStorage.setItem("token","Bearer "+token)
     localStorage.setItem("userData", JSON.stringify(user));
   }
 }
