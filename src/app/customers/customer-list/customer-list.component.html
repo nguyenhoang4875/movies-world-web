@@ -4,9 +4,24 @@
 
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
-    <div class="headerBody">
-      <button class="btn btn-success" (click)="newCustomer($event)">
-        New Customer
+    <h4 style="color: #555;">
+      <a
+        class="text-decoration-none"
+        style="font-size: 1.4rem; color: #20c997;"
+        href="#"
+        >Apps</a
+      >
+      <span> / </span>
+      <span>DashBoard</span>
+    </h4>
+
+    <div class="headerBody mt-5">
+      <button
+        class="btn"
+        style="background-color: #20c997; color: white;"
+        (click)="newCustomer($event)"
+      >
+        + New Customer
       </button>
       <div class="search">
         <input

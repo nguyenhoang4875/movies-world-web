@@ -1,18 +1,18 @@
 <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
 
-<div class="row flex-column h-100 sidebar">
-  <div class="col-auto">
+<div class="row flex-column h-100 sidebar pl-5 px-4">
+  <div class="col-auto mb-4">
     <img
+      class="d-block m-auto"
       src="assets/images/logo.png"
       width="100"
       height="100"
-      style="display: inline; margin-left: 15px;"
     />
-    Movie's World
+    <p class="title">Movie's World</p>
   </div>
 
   <div class="col">
-    <div class="row h-100 align-items-center">
+    <div class="row h-100">
       <nav class="nav flex-column w-100">
         <li class="nav-item">
           <a
@@ -20,7 +20,7 @@
             *ngIf="isAuthenticatedStaff"
             [routerLink]="['customers']"
             [routerLinkActive]="'selected'"
-            ><i class="fas fa-user mr-3"></i>Customers</a
+            ><i class="far fa-user mr-3"></i> <span>Customers</span></a
           >
         </li>
         <li class="nav-item">
@@ -29,7 +29,7 @@
             *ngIf="isAuthenticatedStaff"
             [routerLink]="['staffs']"
             [routerLinkActive]="'selected'"
-            ><i class="fas fa-users mr-3"></i>Staffs</a
+            ><i class="far fa-users mr-3"></i> <span>Staffs</span></a
           >
         </li>
         <li class="nav-item">
@@ -37,12 +37,12 @@
             class="nav-link"
             [routerLink]="['movies']"
             [routerLinkActive]="'selected'"
-            ><i class="fas fa-ticket-alt mr-3"></i>Movies</a
+            ><i class="far fa-ticket-alt mr-3"></i> <span>Movies</span></a
           >
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" *ngIf="isAuthenticatedStaff"
-            ><i class="fas fa-chart-pie mr-3"></i>Statistics</a
+            ><i class="far fa-chart-pie mr-3"></i> <span>Statistics</span></a
           >
         </li>
       </nav>

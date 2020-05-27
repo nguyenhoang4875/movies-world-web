@@ -12,6 +12,12 @@
   color: #e2e096;
 }
 
+.col-auto .title {
+  color: #ca3e3d;
+  font-weight: 700;
+  text-align: center;
+}
+
 .nav-item:hover {
   color: #20c997;
 }
@@ -22,10 +28,11 @@
 }
 
 .nav-item .nav-link {
-  padding-left: 4rem;
   color: #555;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
   display: block;
+  margin-bottom: 10px;
   transition: linear 0.1s;
 }
 

@@ -39,6 +39,31 @@ i {
   cursor: pointer;
 }
 
+.page-item {
+  margin-left: 0.5rem;
+}
+
+.page-item > a {
+  border-radius: 50% !important;
+  border: none;
+  background-color: transparent;
+  transition: linear 0.1s;
+}
+
+.page-item > a.disabled:hover {
+  background-color: transparent;
+  color: #e9ecef;
+}
+
+.page-item > a.selected:hover {
+  color: white;
+  opacity: 0.8;
+}
+
+.page-item > a.selected {
+  background-color: #20c997;
+}
+
 button {
   outline: none;
 }
