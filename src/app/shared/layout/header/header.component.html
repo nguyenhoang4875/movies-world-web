@@ -14,20 +14,37 @@
     <ul
       class="dropdown-menu position-absolute"
       data-toggle="toggle1"
-      style="left: auto !important; right: 0; min-width: auto;"
+      style="
+        left: auto !important;
+        right: 0;
+        min-width: auto;
+        border-radius: 10px;
+        text-align: center;
+      "
     >
       <li>
-        <a class="dropdown-item" style="cursor: pointer;">
-          <i class="fas fa-user-circle"></i>
+        <a class="dropdown-item">
+          <i class="far fa-user-circle"></i>
           Profile</a
         >
       </li>
       <li>
-        <a class="dropdown-item" style="cursor: pointer;" (click)="onLogout()">
-          <i class="fas fa-power-off"></i>
+        <a class="dropdown-item" (click)="onLogout()">
+          <i class="far fa-power-off"></i>
           Logout</a
         >
       </li>
     </ul>
   </li>
 </ul>
+
+<h4 style="color: #555; margin: 15px 0 0 25px;">
+  <a
+    class="text-decoration-none"
+    style="font-size: 1.4rem; color: #20c997;"
+    href="#"
+    >Apps</a
+  >
+  <span> / </span>
+  <span>{{ parameterValue | titlecase }}</span>
+</h4>

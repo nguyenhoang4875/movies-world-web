@@ -1,6 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../auth/auth.service";
 import { User } from "../../../auth/user.model";
+import { Location } from "@angular/common";
+import {
+  Router,
+  ActivatedRoute,
+  NavigationStart,
+  NavigationEnd,
+} from "@angular/router";
 
 @Component({
   selector: "app-header",
@@ -9,9 +16,15 @@ import { User } from "../../../auth/user.model";
 })
 export class HeaderComponent implements OnInit {
   loginedUser: User;
-  constructor(private authService: AuthService) {}
+  parameterValue: string = "movies";
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        this.parameterValue = e.url.substring(e.url.lastIndexOf("/") + 1);
+      }
+    });
     this.authService.user.subscribe((user) => {
       this.loginedUser = user;
       console.log(!user);

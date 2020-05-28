@@ -4,20 +4,9 @@
 
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
-    <h4 style="color: #555;">
-      <a
-        class="text-decoration-none"
-        style="font-size: 1.4rem; color: #20c997;"
-        href="#"
-        >Apps</a
-      >
-      <span> / </span>
-      <span>DashBoard</span>
-    </h4>
-
     <div class="headerBody mt-5">
       <button
-        class="btn"
+        class="btn btn-new"
         style="background-color: #20c997; color: white;"
         (click)="newCustomer($event)"
       >
@@ -29,7 +18,7 @@
           placeholder="Enter your choice"
           [(ngModel)]="search"
           (keyup.enter)="searchCustomer()"
-        /><i class="fas fa-search" (click)="searchCustomer()"></i>
+        /><i class="far fa-search" (click)="searchCustomer()"></i>
       </div>
     </div>
 
@@ -63,17 +52,17 @@
                 <td style="text-align: center;">
                   <i
                     class="far fa-eye"
-                    style="color: blue;"
+                    style="color: #007bff;"
                     (click)="viewCustomer(customer.id)"
                   ></i>
                   <i
                     class="far fa-edit"
-                    style="color: green;"
+                    style="color: #20c997;"
                     (click)="editCustomer(customer.id)"
                   ></i>
                   <i
                     class="far fa-trash-alt"
-                    style="color: red;"
+                    style="color: #dc3545;"
                     (click)="deleteCustomer(+customer.id)"
                   ></i>
                 </td>
@@ -86,7 +75,7 @@
     <div class="row justify-content-end">
       <div class="col-auto">
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
+          <ul class="pagination mt-5">
             <li class="page-item">
               <a
                 [class]="currentPage == 1 ? 'disabled page-link' : 'page-link'"

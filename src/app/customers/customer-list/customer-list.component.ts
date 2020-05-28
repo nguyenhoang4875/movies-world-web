@@ -22,7 +22,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   pages: number;
   pagesArr: number[] = [];
   currentPage: number;
-  numberOfPage = 2;
+  numberOfPage = 5;
 
   isLoading = false;
   isShowCustomerDetail: boolean = false;
