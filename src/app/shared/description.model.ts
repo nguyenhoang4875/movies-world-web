@@ -1,5 +1,5 @@
 export class Description {
-  public id: string;
+  public id: number;
   public timeLimit: string;
   public premiere: Date;
   public artist: string;

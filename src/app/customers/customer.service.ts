@@ -27,12 +27,23 @@ export class CustomerService {
     this.customers = customers;
   }
 
-  getCustomers() {
+  getCustomers(): UserDetail[] {
     return this.customers.slice();
   }
 
-  getCustomer(id: number) {
-    return this.customers[id - 1];
+  getCustomer(id: number): UserDetail {
+    let position = this.getIndex(id);
+    return this.customers[position];
+  }
+
+  getIndex(id: number): number {
+    let position = 0;
+    this.customers.forEach((item, index) => {
+      if (item.id === id) {
+        position = index;
+      }
+    });
+    return position;
   }
 
   newCustomer(customer: UserDetail) {

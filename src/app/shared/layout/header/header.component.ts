@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../auth/auth.service";
 import { User } from "../../../auth/user.model";
-import { Location } from "@angular/common";
+import { Subject, BehaviorSubject } from "rxjs";
+import { UserDetail } from "../../../admin/user-detail.model";
 import {
   Router,
   ActivatedRoute,
@@ -16,19 +17,39 @@ import {
 })
 export class HeaderComponent implements OnInit {
   loginedUser: User;
-  parameterValue: string = "movies";
-  constructor(private authService: AuthService, private router: Router) {}
+  parameterValue: string;
+  id: number;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.parameterValue = this.onSubUrl(this.router.url.substring(1));
+
     this.router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        this.parameterValue = e.url.substring(e.url.lastIndexOf("/") + 1);
+      if (e instanceof NavigationStart) {
+        this.parameterValue = this.onSubUrl(e.url.substring(1)).replace(
+          "/",
+          " / "
+        );
       }
     });
     this.authService.user.subscribe((user) => {
       this.loginedUser = user;
-      console.log(!user);
-      console.log(!!user);
+    });
+  }
+
+  private onSubUrl(url: string): string {
+    let index = url.indexOf("/");
+    return url.substring(index + 1);
+  }
+
+  onGetProfile() {
+    this.authService.onGetProfile();
+    this.router.navigate(["customers", "1"], {
+      relativeTo: this.route,
     });
   }
 

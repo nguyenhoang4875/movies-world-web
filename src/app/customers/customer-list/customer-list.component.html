@@ -4,12 +4,8 @@
 
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
-    <div class="headerBody mt-5">
-      <button
-        class="btn btn-new"
-        style="background-color: #20c997; color: white;"
-        (click)="newCustomer($event)"
-      >
+    <div class="headerBody">
+      <button class="btn btn-new" (click)="newCustomer($event)">
         + New Customer
       </button>
       <div class="search">
@@ -51,19 +47,16 @@
                 <td>{{ customer.address }}</td>
                 <td style="text-align: center;">
                   <i
-                    class="far fa-eye"
-                    style="color: #007bff;"
+                    class="far fa-eye idetail"
                     (click)="viewCustomer(customer.id)"
                   ></i>
                   <i
-                    class="far fa-edit"
-                    style="color: #20c997;"
+                    class="far fa-edit iedit"
                     (click)="editCustomer(customer.id)"
                   ></i>
                   <i
-                    class="far fa-trash-alt"
-                    style="color: #dc3545;"
-                    (click)="deleteCustomer(+customer.id)"
+                    class="far fa-trash-alt idelete"
+                    (click)="deleteCustomer(customer.id)"
                   ></i>
                 </td>
               </tr>
@@ -114,17 +107,3 @@
     </div>
   </div>
 </ng-container>
-<!--
-<app-customer-detail
-  [(visible)]="isShowCustomerDetail"
-  [customer]="selectedCustomer"
-  [customers]="customers"
-  [isEditable]="isEditableCustomerDetail"
-  [isNewCustomer]="isNewCustomer"
-  (onGoBackCustomersPage)="onGoBackCustomersPage($event)"
-></app-customer-detail>
-
-<app-alert
-  [(visibleAlert)]="isConfirm"
-  (onGoBackFirstPage)="onGoBackCustomersPage($event)"
-></app-alert> -->

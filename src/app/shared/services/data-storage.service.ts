@@ -19,13 +19,12 @@ export class DataStorageService {
 
   updateCustomer(customer: UserDetail) {
     return this.httpClient.put<UserDetail>(
-      `${this.apiCustomers}/${customer.id}`,
+      `${this.apiCustomers}/users/${customer.id}`,
       customer
     );
   }
 
   newCustomer(customer: UserDetail) {
-    console.log(customer);
     this.httpClient
       .post<UserDetail>(this.apiCustomers + "/admin/register", customer)
       .subscribe();

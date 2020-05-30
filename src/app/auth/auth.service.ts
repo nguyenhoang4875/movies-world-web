@@ -7,16 +7,9 @@ import { catchError, tap } from "rxjs/operators";
 import { User } from "./user.model";
 import { Role } from "./role.model";
 import { environment } from "../../environments/environment";
+import { UserDetail } from "../admin/user-detail.model";
 
 export interface AuthResponseData {
-  // kind: string;
-  // idToken: string;
-  // email: string;
-  // refreshToken: string;
-  // expiresIn: string;
-  // localId: string;
-  // registered?: boolean;
-
   username: string;
   token: string;
   roles: Role[];
@@ -27,6 +20,8 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   roleIds: number[] = [];
   baseUrl = environment.baseUrl;
+  userAuth = new BehaviorSubject<UserDetail>(null);
+
   constructor(private router: Router, private http: HttpClient) {}
 
   login(username: string, password: string) {
@@ -98,7 +93,16 @@ export class AuthService {
   ) {
     const user = new User(username, token, roleId);
     this.user.next(user);
-    localStorage.setItem("token","Bearer "+token)
+    localStorage.setItem("token", "Bearer " + token);
     localStorage.setItem("userData", JSON.stringify(user));
+  }
+
+  onGetProfile() {
+    this.http
+      .get<UserDetail>("http://localhost:9000/api/profile")
+      .subscribe((userAuth) => {
+        console.log("userAuth:" + userAuth);
+        this.userAuth.next(userAuth);
+      });
   }
 }

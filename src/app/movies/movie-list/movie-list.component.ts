@@ -4,6 +4,8 @@ import { Movie } from "../movie.model";
 import { MovieService } from "../movie.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
+import { element } from "protractor";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: "app-movie-list",
@@ -21,13 +23,21 @@ export class MovieListComponent implements OnInit, OnDestroy {
   pagesArr: number[] = [];
   currentPage: number;
   numberOfPage = 2;
+
   isLoading = false;
   isShowStaffDetail = false;
 
-  constructor(private movieService: MovieService, private route: Router) {}
+  isAuthenticatedStaff = false;
+
+  constructor(
+    private movieService: MovieService,
+    private route: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.loadMovies();
+    this.decentralize();
   }
 
   private loadMovies() {
@@ -45,12 +55,25 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.separatePage(this.movies);
   }
 
+  private decentralize() {
+    this.subscription = this.authService.user.subscribe((user) => {
+      console.log(user);
+      if (user && user.idRole.length == 1) {
+        this.isAuthenticatedStaff = !!user;
+      } else if (user && user.idRole.length >= 2) {
+        this.isAuthenticatedStaff = !user;
+      }
+    });
+  }
+
   private separatePage(movies: Movie[]) {
     if (movies) {
       this.pages = Math.ceil(movies.length / this.numberOfPage);
+
       for (let i = 1; i <= this.pages; i++) {
         this.pagesArr.push(i);
       }
+
       this.onSelectPage(1);
       this.isLoading = false;
     } else {
@@ -90,6 +113,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
   onSearchMovie() {
     this.movieService.searchMovie(this.search);
   }
+
+  newMovie(e) {}
+
+  deleteMovie(id: number) {}
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

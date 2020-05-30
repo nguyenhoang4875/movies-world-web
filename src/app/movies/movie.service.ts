@@ -8,7 +8,7 @@ import { Subject } from "rxjs";
 export class MovieService {
   private movies: Movie[] = [
     new Movie({
-      id: "1",
+      id: 1,
       name: "Mắt Biếc",
       trailer: "http://MatBiec",
       genre: ["Tình Cảm", "Học Trò"],
@@ -17,7 +17,7 @@ export class MovieService {
       picture: "assets/images/logo.png",
     }),
     new Movie({
-      id: "2",
+      id: 2,
       name: "Spider Man: Come Back Home",
       trailer: "http://SpiderMan",
       genre: ["Hành động", "Viễn Tưởng"],
@@ -26,7 +26,7 @@ export class MovieService {
       picture: "assets/images/logo.png",
     }),
     new Movie({
-      id: "3",
+      id: 3,
       name: "Mắt Biếc",
       trailer: "http://MatBiec",
       genre: ["Tình Cảm", "Học Trò"],
@@ -35,7 +35,7 @@ export class MovieService {
       picture: "assets/images/logo.png",
     }),
     new Movie({
-      id: "4",
+      id: 4,
       name: "Spider Man: Come Back Home",
       trailer: "http://SpiderMan",
       genre: ["Hành động", "Viễn Tưởng"],
@@ -44,7 +44,7 @@ export class MovieService {
       picture: "assets/images/logo.png",
     }),
     new Movie({
-      id: "5",
+      id: 5,
       name: "Spider Man: Come Back Home",
       trailer: "http://SpiderMan",
       genre: ["Hành động", "Viễn Tưởng"],
@@ -56,7 +56,7 @@ export class MovieService {
 
   private descriptions: Description[] = [
     new Description({
-      id: "1",
+      id: 1,
       timeLimit: "100",
       premiere: new Date(2020, 4, 8),
       artist: "Hà Lan, Ngạn",
@@ -68,7 +68,7 @@ export class MovieService {
       nation: "Việt Nam",
     }),
     new Description({
-      id: "2",
+      id: 2,
       timeLimit: "150",
       premiere: new Date(2020, 4, 8),
       artist: "Tom Holland, Jake Gyllenhaal, Samuel L. Jackson, Zendaya",
@@ -82,7 +82,7 @@ export class MovieService {
       nation: "Mỹ",
     }),
     new Description({
-      id: "3",
+      id: 3,
       timeLimit: "100",
       premiere: new Date(2020, 4, 8),
       artist: "Hà Lan, Ngạn",
@@ -94,7 +94,7 @@ export class MovieService {
       nation: "Việt Nam",
     }),
     new Description({
-      id: "4",
+      id: 4,
       timeLimit: "150",
       premiere: new Date(2020, 4, 8),
       artist: "Tom Holland, Jake Gyllenhaal, Samuel L. Jackson, Zendaya",
@@ -108,7 +108,7 @@ export class MovieService {
       nation: "Mỹ",
     }),
     new Description({
-      id: "5",
+      id: 5,
       timeLimit: "150",
       premiere: new Date(2020, 4, 8),
       artist: "Tom Holland, Jake Gyllenhaal, Samuel L. Jackson, Zendaya",
@@ -125,7 +125,7 @@ export class MovieService {
 
   private timeFilmShowing: TimeFilmShowing[] = [
     new TimeFilmShowing({
-      id: "1",
+      id: 1,
       date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
       timeStart: [
         new Date(2020, 4, 8, 9),
@@ -137,7 +137,7 @@ export class MovieService {
       timeEnd: [],
     }),
     new TimeFilmShowing({
-      id: "2",
+      id: 2,
       date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
       timeStart: [
         new Date(2020, 4, 8, 9),
@@ -149,7 +149,7 @@ export class MovieService {
       timeEnd: [],
     }),
     new TimeFilmShowing({
-      id: "3",
+      id: 3,
       date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
       timeStart: [
         new Date(2020, 4, 8, 9),
@@ -161,7 +161,7 @@ export class MovieService {
       timeEnd: [],
     }),
     new TimeFilmShowing({
-      id: "4",
+      id: 4,
       date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
       timeStart: [
         new Date(2020, 4, 8, 9, 15),
@@ -173,7 +173,7 @@ export class MovieService {
       timeEnd: [],
     }),
     new TimeFilmShowing({
-      id: "5",
+      id: 5,
       date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
       timeStart: [
         new Date(2020, 4, 8, 9),

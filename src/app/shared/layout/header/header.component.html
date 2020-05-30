@@ -2,8 +2,12 @@
 
 <ul class="navbar-nav ml-auto account mt-3">
   <li id="toggle1" class="dropdown" appDropdown>
-    <a style="cursor: pointer;" class="dropdown-toggle" role="button">
-      <span>{{ "Hi," + loginedUser.username }}</span>
+    <a
+      style="cursor: pointer; color: #555;"
+      class="dropdown-toggle"
+      role="button"
+    >
+      <span style="color: #555;">{{ "Hi," + loginedUser.username }}</span>
       <img
         src="assets/images/avatar.svg"
         width="50"
@@ -23,7 +27,7 @@
       "
     >
       <li>
-        <a class="dropdown-item">
+        <a class="dropdown-item" (click)="onGetProfile()">
           <i class="far fa-user-circle"></i>
           Profile</a
         >

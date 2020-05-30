@@ -16,11 +16,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 1.1rem;
-}
-
-.headerBody .btn-new {
-  outline: none;
-  border-radius: 10px;
+  margin-top: 3.1rem;
 }
 
 .headerBody .search > input {
@@ -35,6 +31,18 @@
 .headerBody i.fa-search {
   font-size: 22px;
   color: rgba(0, 0, 0, 0.2);
+}
+
+.table .idetail {
+  color: #007bff;
+}
+
+.table .iedit {
+  color: #20c997;
+}
+
+.table .idelete {
+  color: #dc3545;
 }
 
 i {

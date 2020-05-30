@@ -15,7 +15,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   customers: UserDetail[] = [];
   showedCustomers: UserDetail[] = [];
-  selectedCustomer: UserDetail = new UserDetail();
 
   search: string;
   page: number;
@@ -25,11 +24,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   numberOfPage = 5;
 
   isLoading = false;
-  isShowCustomerDetail: boolean = false;
-  isEditableCustomerDetail: boolean = false;
-  isNewCustomer: boolean = false;
-  isGoBackPage: boolean = false;
-  isConfirm: boolean = false;
 
   constructor(
     private customerService: CustomerService,
@@ -51,13 +45,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       .fetchCustomers()
       .subscribe((res: UserDetail[]) => {
         this.customers = res;
+        console.log(this.customers);
         this.separatePage(res);
       });
   }
 
   private separatePage(customers: UserDetail[]) {
     if (customers) {
-      console.log(customers);
       this.pages = Math.ceil(customers.length / this.numberOfPage);
       for (let i = 1; i <= this.pages; i++) {
         this.pagesArr.push(i);
@@ -94,6 +88,8 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   editCustomer(id: number) {
+    let customer = this.customerService.getCustomer(id);
+    console.log(customer);
     this.router.navigate([id, "edit"], { relativeTo: this.route });
   }
 
@@ -101,29 +97,18 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 
-  viewCustomer(id: string) {
+  viewCustomer(id: number) {
     this.router.navigate([id], { relativeTo: this.route });
   }
 
   deleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id).subscribe();
-  }
-
-  onClickedConfirmDeleted() {
-    this.subscription = this.customerService
-      .deleteCustomer(+this.selectedCustomer.id)
-      .subscribe((data) => {
-        this.customers.splice(+this.selectedCustomer.id - 1, 1);
-      });
+    this.subscription = this.customerService.deleteCustomer(id).subscribe();
   }
 
   searchCustomer() {
     //this.customerService.searchCustomer(this.search);
   }
 
-  onGoBackCustomersPage(e) {
-    this.isShowCustomerDetail = false;
-  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

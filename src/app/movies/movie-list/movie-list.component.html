@@ -5,6 +5,13 @@
 <ng-container *ngIf="!isLoading && !isShowStaffDetail">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
+      <button
+        class="btn btn-new"
+        *ngIf="isAuthenticatedStaff"
+        (click)="newMovie($event)"
+      >
+        + New Movie
+      </button>
       <i></i>
       <div class="search">
         <input
@@ -37,7 +44,7 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let movie of showedMovies; let i = index">
+              <tr *ngFor="let movie of showedMovies">
                 <td>{{ movie.id }}</td>
                 <td>{{ movie.picture }}</td>
                 <td>{{ movie.name }}</td>
@@ -57,10 +64,14 @@
                   >
                 </td>
                 <td style="text-align: center; width: 135px;">
+                  <i class="far fa-eye idetail" [routerLink]="[movie.id]"></i>
                   <i
-                    class="far fa-eye"
-                    style="color: blue;"
-                    [routerLink]="[i + 1]"
+                    class="far fa-edit iedit"
+                    [routerLink]="[movie.id, 'edit']"
+                  ></i>
+                  <i
+                    class="far fa-trash-alt idelete"
+                    (click)="deleteMovie(movie.id)"
                   ></i>
                 </td>
               </tr>

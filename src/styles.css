@@ -6,3 +6,17 @@ body {
   font-family: "Roboto", sans-serif;
   /* overflow: hidden; */
 }
+
+.btn-new {
+  outline: none;
+  border-radius: 10px;
+  background-color: #20c997;
+  color: white;
+}
+
+.btn-cancel {
+  outline: none;
+  border-radius: 10px;
+  background-color: #dc3545;
+  color: white;
+}

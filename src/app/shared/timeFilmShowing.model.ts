@@ -1,5 +1,5 @@
 export class TimeFilmShowing {
-  public id: string;
+  public id: number;
   public date: Date[];
   public timeStart: Date[];
   public timeEnd?: Date[];

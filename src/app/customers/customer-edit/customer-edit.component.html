@@ -1,3 +1,5 @@
+<ng-template appPlaceholder></ng-template>
+
 <div class="row h-100 justify-content-end align-items-center">
   <div class="col-xs-12 col-md-9 col-lg-9 col-xl-9">
     <form #form="ngForm" (ngSubmit)="onSaveCustomer()">
@@ -42,7 +44,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="!editMode">
         <div class="col-xs-12 col-md-9 col-lg-9">
           <div class="form-group">
             <label for="password">Password</label>
@@ -135,7 +137,7 @@
               name="phone"
               #phone="ngModel"
               minlength="10"
-              maxlength="20"
+              maxlength="11"
               [(ngModel)]="editingCustomer.phone"
               ngModel
               required
@@ -144,13 +146,12 @@
             <p
               class="alert alert-danger"
               *ngIf="
-                phone.touched &&
-                phone.errors?.minlength &&
-                phone.errors?.maxlength
+                (phone.touched &&
+                  (phone.errors?.minlength || phone.errors?.maxlength)) ||
+                (phone.touched && phone.errors?.pattern)
               "
             >
-              Phone has minlength with 10 characters and maxlength with 20
-              characters
+              Phone must contain 10 or 11 characters are numbers!!!
             </p>
           </div>
         </div>
@@ -184,15 +185,11 @@
       <div class="row">
         <div class="col-xs-12 col-md-9 col-lg-9">
           <div class="row justify-content-end mr-2">
-            <button
-              class="btn btn-success"
-              type="submit"
-              [disabled]="!form.valid"
-            >
+            <button class="btn btn-new" type="submit" [disabled]="!form.valid">
               {{ editMode ? "Save" : "Submit" }}
             </button>
             <button
-              class="btn btn-danger"
+              class="btn btn-cancel ml-3"
               type="button"
               (click)="onCancel($event)"
             >
@@ -204,9 +201,3 @@
     </form>
   </div>
 </div>
-
-<!-- <app-alert
-  [(visibleAlert)]="isConfirm"
-  (onGoBackFirstPage)="onGoBackFirstPage($event)"
-  (clickedConfim)="onClickedConfirmEditted($event)"
-></app-alert> -->

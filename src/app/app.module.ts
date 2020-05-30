@@ -20,10 +20,11 @@ import { CustomerService } from "./customers/customer.service";
 import { CustomerEditComponent } from "./customers/customer-edit/customer-edit.component";
 import { StaffsComponent } from "./staffs/staffs.component";
 import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
-import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { MoviesComponent } from "./movies/movies.component";
 import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
+import { PlaceholderDirective } from "./shared/placeholder/placeholder.directive";
+import { AlertComponent } from "./shared/layout/alert/alert.component";
 
 @NgModule({
   declarations: [
@@ -35,16 +36,17 @@ import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.compone
     SidebarComponent,
     DropdownDirective,
     LoadingSpinnerComponent,
-    AlertComponent,
     CustomersComponent,
+    CustomerListComponent,
     CustomerDetailComponent,
+    CustomerEditComponent,
     StaffsComponent,
     StaffDetailComponent,
     MoviesComponent,
     MovieListComponent,
     MovieDetailComponent,
-    CustomerListComponent,
-    CustomerEditComponent,
+    PlaceholderDirective,
+    AlertComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
@@ -56,5 +58,6 @@ import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.compone
     },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [AlertComponent],
 })
 export class AppModule {}

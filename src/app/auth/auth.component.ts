@@ -19,7 +19,6 @@ export class AuthComponent {
     this.isLoading = true;
     this.authService.login(username, password).subscribe(
       (resData) => {
-        console.log(resData);
         this.isLoading = false;
         this.route.navigate(["/admin"]);
       },

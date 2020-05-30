@@ -22,7 +22,7 @@ img {
 }
 
 .say-hi {
-  background-color: tomato;
+  background-color: #20c997;
   color: white;
   padding: 6px 12px;
   letter-spacing: 1.4px;
@@ -41,8 +41,8 @@ img {
   top: 98%;
   left: 0;
   border-color: transparent;
-  border-top-color: tomato;
-  border-left-color: tomato;
+  border-top-color: #20c997;
+  border-left-color: #20c997;
 }
 
 .my-name {
@@ -53,13 +53,6 @@ img {
 
 .my-name span {
   font-weight: 400;
-}
-
-.my-website {
-  font-weight: 300;
-  font-size: 14px;
-  color: rgb(4, 4, 180);
-  cursor: default;
 }
 
 .details {
@@ -77,7 +70,7 @@ img {
   top: 100%;
   width: 100%;
   padding: 6px 0;
-  background-color: tomato;
+  background-color: #20c997;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,14 +82,14 @@ img {
 
 .bottom-content a {
   text-decoration: none;
-  color: white;
+  color: #555;
   opacity: 0.8;
   transition: 200ms;
   margin: 0 8px;
 }
 
 .bottom-content a:hover {
-  opacity: 1;
+  color: white;
 }
 
 @media (max-width: 1790px) {

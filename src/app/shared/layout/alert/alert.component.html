@@ -1,19 +1,17 @@
-<ng-container *ngIf="visibleAlert">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-10 col-xl-10 col-lg-10">
-      <div class="backdrop"></div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-xl-10 col-lg-10">
+    <div class="backdrop"></div>
 
-      <div class="alert-box">
-        <p>{{ message }}</p>
-        <div class="alert-box-actions">
-          <button class="btn btn-success mx-3" (click)="onConfirm()">
-            OK
-          </button>
-          <button class="btn btn-danger mx-3" (click)="onClosed()">
-            Cancel
-          </button>
-        </div>
+    <div class="alert-box">
+      <p>{{ message }}</p>
+      <div class="alert-box-actions">
+        <button class="btn btn-new mx-3" (click)="onConfirm()">
+          OK
+        </button>
+        <button class="btn btn-cancel mx-3" (click)="onClosed()">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
-</ng-container>
+</div>
