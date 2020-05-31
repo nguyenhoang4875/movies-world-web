@@ -1,0 +1,10 @@
+.toast {
+  position: fixed;
+  right: 0;
+  top: 4rem;
+}
+
+.toast .toast-header {
+  background-color: #20c997;
+  color: white;
+}
