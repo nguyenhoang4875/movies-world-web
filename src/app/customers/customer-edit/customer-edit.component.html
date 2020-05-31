@@ -1,10 +1,10 @@
 <ng-template appPlaceholder></ng-template>
 
-<div class="row h-100 justify-content-end align-items-center">
-  <div class="col-xs-12 col-md-9 col-lg-9 col-xl-9">
+<div class="row h-100 justify-content-center align-items-center">
+  <div class="col-xs-12 col-md-9 col-lg-6 col-xl-6 form-container">
     <form #form="ngForm" (ngSubmit)="onSaveCustomer()">
       <div class="row">
-        <div class="col-xs-12 col-md-9 cl-lg-9">
+        <div class="col-12">
           <div class="form-group" *ngIf="editMode">
             <label for="id">ID</label>
             <input
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="username">User Name</label>
             <input
@@ -45,7 +45,7 @@
       </div>
 
       <div class="row" *ngIf="!editMode">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="password">Password</label>
             <input
@@ -78,7 +78,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="fullName">Full Name</label>
             <input
@@ -102,7 +102,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -127,7 +127,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="phone">Phone</label>
             <input
@@ -158,7 +158,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="form-group">
             <label for="address">Address</label>
             <textarea
@@ -183,7 +183,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
+        <div class="col-12">
           <div class="row justify-content-end mr-2">
             <button class="btn btn-new" type="submit" [disabled]="!form.valid">
               {{ editMode ? "Save" : "Submit" }}

@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy } from "@angular/core";
-import { Subject, Subscription } from "rxjs";
+import { Injectable, OnDestroy, EventEmitter } from "@angular/core";
+import { Subject, Subscription, BehaviorSubject } from "rxjs";
 
 import { UserDetail } from "../admin/user-detail.model";
 import { DataStorageService } from "../shared/services/data-storage.service";
@@ -9,9 +9,7 @@ import { tap } from "rxjs/operators";
 export class CustomerService {
   customers: UserDetail[] = [];
   subscription: Subscription;
-  customersChanged = new Subject<UserDetail[]>();
-  isGoBack = new Subject<boolean>();
-  goBack: boolean = false;
+  isToastsChanged = new BehaviorSubject<boolean>(false);
 
   constructor(private dataStorageService: DataStorageService) {}
 
@@ -56,6 +54,10 @@ export class CustomerService {
 
   deleteCustomer(id: number) {
     return this.dataStorageService.deleteCustomer(id);
+  }
+
+  onShowToasts(value: boolean) {
+    this.isToastsChanged.next(value);
   }
 
   // searchCustomer(value: string) {

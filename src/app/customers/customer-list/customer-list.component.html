@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
 
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-
+<app-toasts
+  *ngIf="isToastsShowing"
+  [isToastShowing]="isToastsShowing"
+></app-toasts>
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">

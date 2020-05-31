@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationStart) {
         this.parameterValue = this.onSubUrl(e.url.substring(1)).replace(
-          "/",
+          /\//g,
           " / "
         );
       }

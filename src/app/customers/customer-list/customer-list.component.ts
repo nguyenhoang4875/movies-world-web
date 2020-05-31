@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  AfterViewChecked,
+  AfterContentChecked,
+  DoCheck,
+} from "@angular/core";
 import { Subscription } from "rxjs";
 import { cloneDeep } from "lodash";
 
@@ -24,6 +32,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   numberOfPage = 5;
 
   isLoading = false;
+  isToastsShowing = false;
 
   constructor(
     private customerService: CustomerService,
@@ -33,9 +42,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadCustomers();
+    this.onShowToasts();
   }
 
-  loadCustomers() {
+  private loadCustomers() {
     this.isLoading = true;
     this.initialCustomers();
   }
@@ -48,6 +58,15 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         console.log(this.customers);
         this.separatePage(res);
       });
+  }
+
+  private onShowToasts() {
+    this.customerService.isToastsChanged.subscribe((value) => {
+      this.isToastsShowing = value;
+      setTimeout(() => {
+        this.isToastsShowing = false;
+      }, 2000);
+    });
   }
 
   private separatePage(customers: UserDetail[]) {

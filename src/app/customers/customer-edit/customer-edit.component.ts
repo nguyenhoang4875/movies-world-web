@@ -25,17 +25,15 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   id: number;
   customers: UserDetail[] = [];
   editMode: boolean = false;
-  editString: boolean = false;
+
   subscription: Subscription;
   editingCustomer: UserDetail = new UserDetail();
-  @Output() sendMessage = new EventEmitter();
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
 
   constructor(
     private customerService: CustomerService,
-    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -89,10 +87,13 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.customerService
         .updateCustomer(this.editingCustomer)
         .subscribe((cutomer) => {
-          this.customers[+this.editingCustomer.id - 1] = cutomer;
+          this.customers[this.editingCustomer.id - 1] = cutomer;
+          hostViewContainerRef.clear();
+          this.router
+            .navigate(["../../"], { relativeTo: this.route })
+            .then(() => {});
+          this.customerService.onShowToasts(true);
         });
-      hostViewContainerRef.clear();
-      this.router.navigate(["../../"], { relativeTo: this.route });
     });
 
     this.subscription = componentRef.instance.close.subscribe(() => {
@@ -122,16 +123,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   //       });
   //     this.router.navigate(["../"], { relativeTo: this.route });
   //   }
-  // }
-
-  // onGoBackFirstPage(e) {
-  //   this.visible = false;
-  //   this.onGoBackCustomersPage.emit(this.visible);
-  // }
-  // onClickedConfirmEditted(e) {
-  //   this.subscription = this.customerService
-  //     .updateCustomer(this.editingCustomer)
-  //     .subscribe();
   // }
 
   ngOnDestroy() {

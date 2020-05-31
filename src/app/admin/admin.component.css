@@ -76,3 +76,16 @@ i {
 .page-item > a.selected {
   background-color: #20c997;
 }
+
+.form-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.movie-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

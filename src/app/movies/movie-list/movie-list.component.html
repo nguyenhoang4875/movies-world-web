@@ -5,11 +5,7 @@
 <ng-container *ngIf="!isLoading && !isShowStaffDetail">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
-      <button
-        class="btn btn-new"
-        *ngIf="isAuthenticatedStaff"
-        (click)="newMovie($event)"
-      >
+      <button class="btn btn-new" (click)="newMovie($event)">
         + New Movie
       </button>
       <i></i>

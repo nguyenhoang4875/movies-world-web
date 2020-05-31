@@ -25,6 +25,7 @@ import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
 import { PlaceholderDirective } from "./shared/placeholder/placeholder.directive";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
+import { ToastsComponent } from './shared/layout/toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AlertComponent } from "./shared/layout/alert/alert.component";
     MovieDetailComponent,
     PlaceholderDirective,
     AlertComponent,
+    ToastsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [

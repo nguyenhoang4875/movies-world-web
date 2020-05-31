@@ -10,7 +10,6 @@
 .content .description {
   display: flex;
   flex-direction: row;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 .content .description img {
@@ -64,4 +63,14 @@
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+}
+
+.time-showing-item {
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.time-showing-item.active {
+  border-bottom: 1px solid #20c997;
+  color: #20c997 !important;
 }
