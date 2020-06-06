@@ -45,7 +45,7 @@ export class CustomerService {
   }
 
   newCustomer(customer: UserDetail) {
-    this.dataStorageService.newCustomer(customer);
+    return this.dataStorageService.newCustomer(customer);
   }
 
   updateCustomer(customer: UserDetail) {

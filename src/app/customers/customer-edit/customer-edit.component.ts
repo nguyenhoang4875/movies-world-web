@@ -46,7 +46,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.editMode = params["id"] != null;
       if (this.editMode) {
         this.editingCustomer = this.customerService.getCustomer(this.id);
-        console.log(this.editingCustomer);
       }
     });
     // this.authService.userAuth.subscribe((userAuth) => {
@@ -57,8 +56,12 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   onSaveCustomer() {
     if (!this.editMode) {
-      this.customerService.newCustomer(this.editingCustomer);
-      this.router.navigate(["../"], { relativeTo: this.route });
+      this.subscription = this.customerService
+        .newCustomer(this.editingCustomer)
+        .subscribe((cutomer) => {
+          this.customers.push(cutomer);
+          this.router.navigate(["../"], { relativeTo: this.route });
+        });
     } else {
       this.showNotification("Do you sure want to do it?");
     }
@@ -91,8 +94,9 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
           hostViewContainerRef.clear();
           this.router
             .navigate(["../../"], { relativeTo: this.route })
-            .then(() => {});
-          this.customerService.onShowToasts(true);
+            .then(() => {
+              this.customerService.onShowToasts(true);
+            });
         });
     });
 

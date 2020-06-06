@@ -40,7 +40,7 @@ form .inputLogin {
   color: #333333;
   margin: 10px auto;
   border: none;
-  border-bottom: 1.2px solid dodgerblue;
+  border-bottom: 1.2px solid #20c997;
   outline: none;
   padding: 6px 10px;
   box-sizing: border-box;
@@ -83,7 +83,8 @@ input:valid + label {
 }
 
 form button {
-  background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  /* background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%); */
+  background-color: #20c997;
   padding: 0.7rem 1rem;
   margin-top: 1rem;
   border: none;

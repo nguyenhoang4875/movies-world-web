@@ -2,10 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  AfterViewInit,
-  AfterViewChecked,
-  AfterContentChecked,
-  DoCheck,
+  ViewChild,
+  ComponentFactoryResolver,
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { cloneDeep } from "lodash";
@@ -13,6 +11,8 @@ import { cloneDeep } from "lodash";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserDetail } from "../../admin/user-detail.model";
 import { CustomerService } from "../customer.service";
+import { PlaceholderDirective } from "../../shared/placeholder/placeholder.directive";
+import { AlertComponent } from "src/app/shared/layout/alert/alert.component";
 
 @Component({
   selector: "app-customer-list",
@@ -34,10 +34,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   isLoading = false;
   isToastsShowing = false;
 
+  @ViewChild(PlaceholderDirective, { static: false })
+  alertHost: PlaceholderDirective;
   constructor(
     private customerService: CustomerService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
   ngOnInit() {
@@ -121,7 +124,36 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   deleteCustomer(id: number) {
-    this.subscription = this.customerService.deleteCustomer(id).subscribe();
+    this.showNotification("Do you sure want to do it?", id);
+  }
+
+  showNotification(errorMessage: string, id: number) {
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+      AlertComponent
+    );
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+    componentRef.instance.message = errorMessage;
+
+    this.subscription = componentRef.instance.confirm.subscribe(() => {
+      this.subscription.unsubscribe();
+      this.customerService.deleteCustomer(id).subscribe((value) => {
+        hostViewContainerRef.clear();
+        this.router
+          .navigate(["../../customers"], { relativeTo: this.route })
+          .then(() => {
+            this.customerService.onShowToasts(true);
+          });
+      });
+    });
+
+    this.subscription = componentRef.instance.close.subscribe(() => {
+      // remove subscription when component removed
+      this.subscription.unsubscribe();
+      hostViewContainerRef.clear();
+    });
   }
 
   searchCustomer() {

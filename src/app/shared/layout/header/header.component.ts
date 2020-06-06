@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
           /\//g,
           " / "
         );
+        console.log(this.parameterValue);
       }
     });
     this.authService.user.subscribe((user) => {

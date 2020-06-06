@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
+
 import { cloneDeep } from "lodash";
 import { Movie } from "../movie.model";
 import { MovieService } from "../movie.service";
-import { Subscription } from "rxjs";
-import { Router } from "@angular/router";
-import { element } from "protractor";
 import { AuthService } from "../../auth/auth.service";
 
 @Component({
@@ -31,8 +31,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
-    private route: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -114,7 +115,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.movieService.searchMovie(this.search);
   }
 
-  newMovie(e) {}
+  newMovie(e) {
+    this.router.navigate(["new"], { relativeTo: this.route });
+  }
 
   deleteMovie(id: number) {}
 

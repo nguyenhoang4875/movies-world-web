@@ -1,0 +1,243 @@
+<ng-container>
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 form-container">
+      <form action="">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" />
+                <label class="custom-file-label" for="customFile"
+                  >Choose file</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="nameFilm">Name Film</label>
+              <input
+                class="form-control"
+                id="nameFilm"
+                type="text"
+                name="nameFilm"
+                #nameFilm="ngModel"
+                ngModel
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-light btn-block text-left"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Description
+                </button>
+              </h2>
+            </div>
+
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="timeLimit">Time Limit</label>
+                      <input
+                        class="form-control"
+                        id="timeLimit"
+                        type="text"
+                        name="timeLimit"
+                        #timeLimit="ngModel"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="director">Director</label>
+                      <input
+                        class="form-control"
+                        id="director"
+                        type="text"
+                        name="director"
+                        #director="ngModel"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="artist">Artist</label>
+                      <input
+                        class="form-control"
+                        id="artist"
+                        type="text"
+                        name="artist"
+                        #artist="ngModel"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="nation">Nation</label>
+                      <input
+                        class="form-control"
+                        id="nation"
+                        type="text"
+                        name="nation"
+                        #nation="ngModel"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="premiere">Premiere</label>
+                      <input
+                        class="form-control"
+                        id="premiere"
+                        type="text"
+                        name="premiere"
+                        #premiere="ngModel"
+                        ngModel
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="content">Content</label>
+                      <textarea
+                        class="form-control"
+                        id="content"
+                        type="text"
+                        name="content"
+                        rows="3"
+                        #content="ngModel"
+                        ngModel
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-light btn-block text-left collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Time Showing
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapseTwo"
+              class="collapse"
+              aria-labelledby="headingTwo"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <label>Date Time</label>
+                    <div *ngFor="let i of amountOfDate">
+                      <div class="form-group">
+                        <input
+                          class="form-control"
+                          id="nameFilm"
+                          type="text"
+                          name="nameFilm"
+                          #nameFilm="ngModel"
+                          ngModel
+                          required
+                        />
+                        <div class="row" *ngFor="let j of i.time">
+                          <div class="col-6">
+                            <input
+                              class="form-control"
+                              type="text"
+                              name="nameFilm"
+                              ngModel
+                              required
+                            />
+                          </div>
+
+                          <div class="col-6">
+                            <input
+                              class="form-control"
+                              type="text"
+                              name="nameFilm"
+                              ngModel
+                              required
+                            />
+                          </div>
+                        </div>
+                        <i
+                          class="far fa-plus-circle mr-auto"
+                          (click)="IncreaseAmountTime(i)"
+                        ></i>
+                      </div>
+                    </div>
+                    <div>
+                      <i
+                        class="far fa-plus-circle mr-auto"
+                        style="color: #20c997;"
+                        (click)="Increase()"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

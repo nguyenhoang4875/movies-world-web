@@ -11,6 +11,7 @@ import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { CustomerDetailComponent } from "./customers/customer-detail/customer-detail.component";
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 import { CustomerEditComponent } from "./customers/customer-edit/customer-edit.component";
+import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -37,7 +38,9 @@ const appRoutes: Routes = [
         component: MoviesComponent,
         children: [
           { path: "", component: MovieListComponent },
+          { path: "new", component: MovieEditComponent },
           { path: ":id", component: MovieDetailComponent },
+          { path: ":id/edit", component: MovieEditComponent },
         ],
       },
     ],

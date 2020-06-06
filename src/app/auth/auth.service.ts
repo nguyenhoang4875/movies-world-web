@@ -99,7 +99,7 @@ export class AuthService {
 
   onGetProfile() {
     this.http
-      .get<UserDetail>("http://localhost:9000/api/profile")
+      .get<UserDetail>(this.baseUrl + "/profile")
       .subscribe((userAuth) => {
         console.log("userAuth:" + userAuth);
         this.userAuth.next(userAuth);
