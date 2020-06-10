@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { UserDetail } from "../../admin/user-detail.model";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
+import { Movie } from "../../movies/movie.model";
+import { ShowTimeFilm } from "../showTimeFilm.model";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +16,9 @@ export class DataStorageService {
   constructor(private httpClient: HttpClient) {}
 
   fetchCustomers() {
-    return this.httpClient.get<UserDetail[]>(this.baseUrl + "/users");
+    return this.httpClient.get<UserDetail[]>(
+      this.baseUrl + "/users" + "/customers"
+    );
   }
 
   updateCustomer(customer: UserDetail) {
@@ -36,4 +40,14 @@ export class DataStorageService {
   }
 
   searchCustomer() {}
+
+  fetchMovies() {
+    return this.httpClient.get<Movie[]>(this.baseUrl + "/film");
+  }
+
+  fetchShowTimeFilmById(id: number) {
+    return this.httpClient.get<ShowTimeFilm[]>(
+      this.baseUrl + "/showtimefilms" + "/" + id
+    );
+  }
 }

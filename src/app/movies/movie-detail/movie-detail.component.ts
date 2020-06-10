@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Description } from "../../shared/description.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
-import { TimeFilmShowing } from "../../shared/timeFilmShowing.model";
+import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
 
 @Component({
   selector: "app-movie-detail",
@@ -14,8 +14,8 @@ export class MovieDetailComponent implements OnInit {
   colon = ":";
   hyphen = "-";
   movie: Movie = new Movie();
-  description: Description = new Description();
-  timeFilmShowing: TimeFilmShowing = new TimeFilmShowing();
+  filmDescription: Description = new Description();
+  showTimeFilm: ShowTimeFilm[] = [];
   id: string;
   constructor(
     private movieService: MovieService,
@@ -25,26 +25,33 @@ export class MovieDetailComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.id = param["id"];
     });
-    this.movie = this.movieService.getMovie(this.id);
-    this.description = this.movieService.getDescription(this.id);
-    this.timeFilmShowing = this.movieService.getTimeFilmShowing(this.id);
-    this.getTimeEndOfMovie(this.timeFilmShowing);
+    this.movie = this.movieService.getMovie(+this.id);
+    console.log(this.movie);
+    this.filmDescription = this.movie.filmDescription;
+    console.log(this.filmDescription);
+    this.movieService.fetchShowTimeFilm(+this.id).subscribe((showTimeFilm) => {
+      this.showTimeFilm = showTimeFilm;
+      console.log(this.showTimeFilm);
+    });
+
+    // this.getTimeEndOfMovie(this.showTimeFilm);
   }
 
-  getTimeEndOfMovie(timeFilmShowing: TimeFilmShowing) {
-    let timeOffsetHours = Math.floor(+this.description.timeLimit / 60);
-    let timeOffsetMminutes = +this.description.timeLimit - timeOffsetHours * 60;
-    let time = timeFilmShowing.timeStart;
-    for (let i = 0; i < timeFilmShowing.timeStart.length; i++) {
-      timeFilmShowing.timeEnd.push(
-        new Date(
-          time[i].getFullYear(),
-          time[i].getMonth(),
-          time[i].getDate(),
-          time[i].getHours() + timeOffsetHours,
-          timeOffsetMminutes
-        )
-      );
-    }
-  }
+  // getTimeEndOfMovie(showTimeFilm: ShowTimeFilm) {
+  //   let timeOffsetHours = Math.floor(+this.filmDescription.timeLimit / 60);
+  //   let timeOffsetMminutes =
+  //     +this.filmDescription.timeLimit - timeOffsetHours * 60;
+  //   let time = showTimeFilm.time;
+  //   for (let i = 0; i < showTimeFilm.time.length; i++) {
+  //     showTimeFilm.timeEnd.push(
+  //       new Date(
+  //         time[i].getFullYear(),
+  //         time[i].getMonth(),
+  //         time[i].getDate(),
+  //         time[i].getHours() + timeOffsetHours,
+  //         timeOffsetMminutes
+  //       )
+  //     );
+  //   }
+  // }
 }

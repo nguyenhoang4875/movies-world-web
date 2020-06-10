@@ -22,10 +22,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
   pages: number;
   pagesArr: number[] = [];
   currentPage: number;
-  numberOfPage = 2;
+  numberOfPage = 5;
 
   isLoading = false;
-  isShowStaffDetail = false;
 
   isAuthenticatedStaff = false;
 
@@ -43,17 +42,16 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   private loadMovies() {
     this.isLoading = true;
+    this.initialMovies();
+  }
 
-    this.subscription = this.movieService.moviesChanged.subscribe(
-      (res: Movie[]) => {
-        this.movies = res;
-        console.log(this.movies);
+  private initialMovies() {
+    this.subscription = this.movieService
+      .fetchMoves()
+      .subscribe((movies: Movie[]) => {
+        this.movies = movies;
         this.separatePage(this.movies);
-      }
-    );
-
-    this.movies = this.movieService.getMovies();
-    this.separatePage(this.movies);
+      });
   }
 
   private decentralize() {
@@ -104,16 +102,16 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.onSelectPage(this.currentPage - 1);
   }
 
-  onChangeStatus(movie: Movie) {
-    if (movie.status === "Disable") {
-      movie.status = "Enable";
-      this.movieService.getUpdateStatusMovie(movie);
-    }
-  }
+  // onChangeStatus(movie: Movie) {
+  //   if (movie.status === "Disable") {
+  //     movie.status = "Enable";
+  //     this.movieService.getUpdateStatusMovie(movie);
+  //   }
+  // }
 
-  onSearchMovie() {
-    this.movieService.searchMovie(this.search);
-  }
+  // onSearchMovie() {
+  //   this.movieService.searchMovie(this.search);
+  // }
 
   newMovie(e) {
     this.router.navigate(["new"], { relativeTo: this.route });

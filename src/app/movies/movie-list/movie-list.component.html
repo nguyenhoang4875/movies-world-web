@@ -2,7 +2,7 @@
 
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<ng-container *ngIf="!isLoading && !isShowStaffDetail">
+<ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
       <button class="btn btn-new" (click)="newMovie($event)">
@@ -14,8 +14,7 @@
           type="text"
           placeholder="Enter your choice"
           [(ngModel)]="search"
-          (keyup.enter)="onSearchMovie()"
-        /><i class="fas fa-search" (click)="onSearchMovie()"></i>
+        /><i class="fas fa-search"></i>
       </div>
     </div>
 
@@ -29,7 +28,7 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Picture</th>
+                <th>Poster</th>
                 <th>Name</th>
                 <th>Trailer</th>
                 <th>Genre</th>
@@ -42,21 +41,20 @@
             <tbody>
               <tr *ngFor="let movie of showedMovies">
                 <td>{{ movie.id }}</td>
-                <td>{{ movie.picture }}</td>
+                <td>{{ movie.poster }}</td>
                 <td>{{ movie.name }}</td>
                 <td>{{ movie.trailer }}</td>
                 <td>{{ movie.genre }}</td>
-                <td>{{ movie.rating }}</td>
+                <td>{{ movie.ratePoint }}</td>
                 <td>
                   <span
                     style="cursor: pointer;"
                     [class]="
-                      movie.status === 'Disable'
-                        ? 'badge badge-danger'
-                        : 'badge badge-success'
+                      movie.status
+                        ? 'badge badge-success'
+                        : 'badge badge-danger'
                     "
-                    (click)="onChangeStatus(movie)"
-                    >{{ movie.status }}</span
+                    >{{ movie.status ? "Enable" : "Disable" }}</span
                   >
                 </td>
                 <td style="text-align: center; width: 135px;">

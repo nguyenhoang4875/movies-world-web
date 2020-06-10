@@ -3,42 +3,42 @@
     <div class="col-xs-12 col-md-9 col-lg-9 col-xl-9 movie-container">
       <div class="content">
         <div class="description">
-          <img [src]="movie.picture" />
+          <img [src]="movie.poster" />
           <div class="content-description">
             <h3>
               {{ movie.name }}
             </h3>
             <div>
               <label>Time Limit:</label>
-              <p>{{ description.timeLimit + " minutes" }}</p>
+              <p>{{ filmDescription.timeLimit + " minutes" }}</p>
             </div>
 
             <div>
               <label>Director:</label>
-              <p>{{ description.director }}</p>
+              <p>{{ filmDescription.director }}</p>
             </div>
 
             <div>
               <label>Artist:</label>
-              <p>{{ description.artist }}</p>
+              <p>{{ filmDescription.artist }}</p>
             </div>
             <div>
               <label>Nation:</label>
-              <p>{{ description.nation }}</p>
+              <p>{{ filmDescription.nation }}</p>
             </div>
 
             <div>
               <label>Premiere:</label>
-              <p>{{ description.premiere | date: "EEEE dd/MM/y" }}</p>
+              <p>{{ filmDescription.premiere | date: "EEEE dd/MM/y" }}</p>
             </div>
 
             <div>
               <label>Content:</label>
-              <p>{{ description.content }}</p>
+              <p>{{ filmDescription.content }}</p>
             </div>
           </div>
         </div>
-        <div class="row flex-column mt-5">
+        <!-- <div class="row flex-column mt-5">
           <div
             class="list-group flex-row col-6 border-top justify-content-center"
             id="list-tab"
@@ -95,7 +95,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="backPage">
           <a class="btn btn-primary" routerLink="/admin/movies">Close</a>
