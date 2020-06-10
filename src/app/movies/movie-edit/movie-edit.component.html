@@ -161,75 +161,60 @@
               </div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header" id="headingTwo">
               <h2 class="mb-0">
                 <button
-                  class="btn btn-light btn-block text-left collapsed"
+                  class="btn btn-light btn-block text-left"
                   type="button"
                   data-toggle="collapse"
-                  data-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
                 >
                   Time Showing
                 </button>
               </h2>
             </div>
+
             <div
-              id="collapseTwo"
-              class="collapse"
+              id="collapseOne"
+              class="collapse show"
               aria-labelledby="headingTwo"
               data-parent="#accordionExample"
             >
               <div class="card-body">
                 <div class="row">
                   <div class="col-12">
-                    <label>Date Time</label>
-                    <div *ngFor="let i of amountOfDate">
-                      <div class="form-group">
+                    <div class="form-group">
+                      <label for="datetime">Time Showing</label>
+                      <mat-form-field>
                         <input
-                          class="form-control"
-                          id="nameFilm"
-                          type="text"
-                          name="nameFilm"
-                          #nameFilm="ngModel"
-                          ngModel
-                          required
+                          id="datetime"
+                          matInput
+                          [ngxMatDatetimePicker]="picker"
+                          placeholder="Choose a date"
+                          [(ngModel)]="date"
+                          name="datetime"
                         />
-                        <div class="row" *ngFor="let j of i.time">
-                          <div class="col-6">
-                            <input
-                              class="form-control"
-                              type="text"
-                              name="nameFilm"
-                              ngModel
-                              required
-                            />
-                          </div>
-
-                          <div class="col-6">
-                            <input
-                              class="form-control"
-                              type="text"
-                              name="nameFilm"
-                              ngModel
-                              required
-                            />
-                          </div>
-                        </div>
-                        <i
-                          class="far fa-plus-circle mr-auto"
-                          (click)="IncreaseAmountTime(i)"
-                        ></i>
-                      </div>
-                    </div>
-                    <div>
-                      <i
-                        class="far fa-plus-circle mr-auto"
-                        style="color: #20c997;"
-                        (click)="Increase()"
-                      ></i>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker
+                          #picker
+                          [showSpinners]="true"
+                          [showSeconds]="true"
+                          [stepHour]="1"
+                          [stepMinute]="1"
+                          [stepSecond]="1"
+                          [touchUi]="true"
+                          [enableMeridian]="false"
+                          [color]="color"
+                        >
+                        </ngx-mat-datetime-picker>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>

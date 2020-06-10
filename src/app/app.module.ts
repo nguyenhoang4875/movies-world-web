@@ -3,6 +3,17 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
+import { AngularDateTimePickerModule } from "angular2-datetimepicker";
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from "@angular-material-components/datetime-picker";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatNativeDateModule } from "@angular/material/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
 import { AuthComponent } from "./auth/auth.component";
@@ -25,8 +36,8 @@ import { MovieListComponent } from "./movies/movie-list/movie-list.component";
 import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
 import { PlaceholderDirective } from "./shared/placeholder/placeholder.directive";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
-import { ToastsComponent } from './shared/layout/toasts/toasts.component';
-import { MovieEditComponent } from './movies/movie-edit/movie-edit.component';
+import { ToastsComponent } from "./shared/layout/toasts/toasts.component";
+import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +63,21 @@ import { MovieEditComponent } from './movies/movie-edit/movie-edit.component';
     ToastsComponent,
     MovieEditComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    AngularDateTimePickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+  ],
   providers: [
     CustomerService,
     {
