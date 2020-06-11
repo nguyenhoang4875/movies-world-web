@@ -169,9 +169,9 @@
                   class="btn btn-light btn-block text-left"
                   type="button"
                   data-toggle="collapse"
-                  data-target="#collapseOne"
+                  data-target="#collapseTwo"
                   aria-expanded="true"
-                  aria-controls="collapseOne"
+                  aria-controls="collapseTwo"
                 >
                   Time Showing
                 </button>
@@ -179,7 +179,7 @@
             </div>
 
             <div
-              id="collapseOne"
+              id="collapseTwo"
               class="collapse show"
               aria-labelledby="headingTwo"
               data-parent="#accordionExample"
@@ -188,33 +188,55 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="form-group">
-                      <label for="datetime">Time Showing</label>
-                      <mat-form-field>
-                        <input
-                          id="datetime"
-                          matInput
-                          [ngxMatDatetimePicker]="picker"
-                          placeholder="Choose a date"
-                          [(ngModel)]="date"
-                          name="datetime"
-                        />
-                        <mat-datepicker-toggle
-                          matSuffix
-                          [for]="picker"
-                        ></mat-datepicker-toggle>
-                        <ngx-mat-datetime-picker
-                          #picker
-                          [showSpinners]="true"
-                          [showSeconds]="true"
-                          [stepHour]="1"
-                          [stepMinute]="1"
-                          [stepSecond]="1"
-                          [touchUi]="true"
-                          [enableMeridian]="false"
-                          [color]="color"
-                        >
-                        </ngx-mat-datetime-picker>
-                      </mat-form-field>
+                      <div class="row">
+                        <div class="col-6">
+                          <label for="datetime">Time Showing</label>
+                          <mat-form-field class="ml-3">
+                            <input
+                              id="datetime"
+                              matInput
+                              [ngxMatDatetimePicker]="picker"
+                              placeholder="Choose a date"
+                              name="datetime"
+                              [(ngModel)]="date"
+                              #datetime="ngModel"
+                              required
+                            />
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker"
+                              style="color: #20c997;"
+                            ></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker
+                              #picker
+                              [showSpinners]="true"
+                              [showSeconds]="true"
+                              [stepHour]="1"
+                              [stepMinute]="1"
+                              [stepSecond]="1"
+                              [touchUi]="true"
+                              [enableMeridian]="false"
+                              [color]="color"
+                            >
+                            </ngx-mat-datetime-picker>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-6">
+                          <label for="room"
+                            >Rooms
+                            <input
+                              class="form-control"
+                              id="room"
+                              type="text"
+                              name="room"
+                              #room="ngModel"
+                              ngModel
+                              required
+                            />
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

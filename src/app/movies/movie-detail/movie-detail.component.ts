@@ -11,12 +11,16 @@ import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
   styleUrls: ["./movie-detail.component.css"],
 })
 export class MovieDetailComponent implements OnInit {
-  colon = ":";
   hyphen = "-";
   movie: Movie = new Movie();
   filmDescription: Description = new Description();
   showTimeFilm: ShowTimeFilm[] = [];
   id: string;
+
+  datetime = new Object();
+  dateOutput = new Array();
+  timeOutput = new Array();
+
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute
@@ -25,33 +29,63 @@ export class MovieDetailComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.id = param["id"];
     });
+
     this.movie = this.movieService.getMovie(+this.id);
-    console.log(this.movie);
+
     this.filmDescription = this.movie.filmDescription;
-    console.log(this.filmDescription);
+
     this.movieService.fetchShowTimeFilm(+this.id).subscribe((showTimeFilm) => {
       this.showTimeFilm = showTimeFilm;
-      console.log(this.showTimeFilm);
-    });
 
-    // this.getTimeEndOfMovie(this.showTimeFilm);
+      this.datetime = this.getDateTimeOfOneDate(
+        this.showTimeFilm,
+        this.filmDescription
+      );
+
+      // get date of a Date
+      this.dateOutput = Object.keys(this.datetime);
+
+      // get Time Start and End
+      this.dateOutput.forEach((item) => {
+        const timeStartEnd = new Array();
+        this.datetime[item].start.forEach((timeItem, index) => {
+          timeStartEnd.push({
+            start: this.datetime[item].start[index],
+            end: this.datetime[item].end[index],
+          });
+        });
+
+        this.timeOutput.push(timeStartEnd);
+      });
+    });
   }
 
-  // getTimeEndOfMovie(showTimeFilm: ShowTimeFilm) {
-  //   let timeOffsetHours = Math.floor(+this.filmDescription.timeLimit / 60);
-  //   let timeOffsetMminutes =
-  //     +this.filmDescription.timeLimit - timeOffsetHours * 60;
-  //   let time = showTimeFilm.time;
-  //   for (let i = 0; i < showTimeFilm.time.length; i++) {
-  //     showTimeFilm.timeEnd.push(
-  //       new Date(
-  //         time[i].getFullYear(),
-  //         time[i].getMonth(),
-  //         time[i].getDate(),
-  //         time[i].getHours() + timeOffsetHours,
-  //         timeOffsetMminutes
-  //       )
-  //     );
-  //   }
-  // }
+  private getDateTimeOfOneDate(array, filmDescription: Description) {
+    if (!array) {
+      return {};
+    } else {
+      return array.reduce((allDates, oneDate: ShowTimeFilm) => {
+        const time = new Date(oneDate.time);
+
+        const date = time.getDate();
+        const month = time.getMonth();
+        const year = time.getFullYear();
+
+        const key = "" + date + "/" + month + "/" + year;
+
+        allDates[key] = allDates[key] || new Object();
+        allDates[key].start = allDates[key].start || new Array();
+        allDates[key].end = allDates[key].end || new Array();
+        allDates[key].start.push(time);
+
+        const timeLimit = time.getMinutes() + +filmDescription.timeLimit;
+        const timeEnd = new Date(time);
+        timeEnd.setMinutes(timeLimit);
+
+        allDates[key].end.push(timeEnd);
+
+        return allDates;
+      }, {});
+    }
+  }
 }
