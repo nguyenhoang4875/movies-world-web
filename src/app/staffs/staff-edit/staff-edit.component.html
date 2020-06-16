@@ -1,0 +1,206 @@
+<ng-template appPlaceholder></ng-template>
+
+<div class="row h-100 justify-content-center align-items-center">
+  <div class="col-xs-12 col-md-9 col-lg-6 col-xl-6 form-container">
+    <form #form="ngForm" (ngSubmit)="onSaveStaff()">
+      <div class="row">
+        <div class="col-12">
+          <h3 style="text-align: center;">
+            {{ editMode ? "Edit " : "New " }} Staff
+          </h3>
+          <div class="form-group" *ngIf="editMode">
+            <label for="id">ID</label>
+            <input
+              class="form-control"
+              id="id"
+              type="text"
+              name="id"
+              [(ngModel)]="editingStaff.id"
+              readonly
+              ngModel
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="username">User Name</label>
+            <input
+              class="form-control"
+              id="username"
+              type="text"
+              name="username"
+              #username="ngModel"
+              [(ngModel)]="editingStaff.username"
+              ngModel
+              required
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="username.touched && username.errors?.required"
+            >
+              User Name is required!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!editMode">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              class="form-control"
+              type="password"
+              id="password"
+              name="password"
+              #password="ngModel"
+              minlength="6"
+              [(ngModel)]="editingStaff.password"
+              ngModel
+              required
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="password.touched && password.errors?.required"
+            >
+              Password is required!
+            </p>
+
+            <p
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="password.touched && password.errors?.minlength"
+            >
+              Password must be at least 6 characters long!!!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+              class="form-control"
+              type="text"
+              id="fullName"
+              name="fullName"
+              #fullName="ngModel"
+              [(ngModel)]="editingStaff.fullName"
+              ngModel
+              required
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="fullName.touched && fullName.errors?.required"
+            >
+              User Name is required!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              class="form-control"
+              type="text"
+              id="email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="editingStaff.email"
+              ngModel
+              required
+              email
+            />
+            <p
+              class="alert alert-danger"
+              *ngIf="!email.valid && email.touched && email.errors"
+            >
+              Email is invalid!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              class="form-control"
+              type="text"
+              id="phone"
+              name="phone"
+              #phone="ngModel"
+              minlength="10"
+              maxlength="11"
+              [(ngModel)]="editingStaff.phone"
+              ngModel
+              required
+            />
+
+            <p
+              class="alert alert-danger"
+              *ngIf="
+                (phone.touched &&
+                  (phone.errors?.minlength || phone.errors?.maxlength)) ||
+                (phone.touched && phone.errors?.pattern)
+              "
+            >
+              Phone must contain 10 or 11 characters are numbers!!!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea
+              class="form-control"
+              type="text"
+              id="address"
+              name="address"
+              #address="ngModel"
+              rows="3"
+              [(ngModel)]="editingStaff.address"
+              ngModel
+              required
+            ></textarea>
+            <p
+              class="alert alert-danger"
+              *ngIf="address.touched && address.errors?.required"
+            >
+              Address is required!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="row justify-content-end mr-2">
+            <button class="btn btn-new" type="submit" [disabled]="!form.valid">
+              {{ editMode ? "Save" : "Submit" }}
+            </button>
+            <button
+              class="btn btn-cancel ml-3"
+              type="button"
+              (click)="onCancel($event)"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
