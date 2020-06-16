@@ -5,6 +5,9 @@
     <form #form="ngForm" (ngSubmit)="onSaveCustomer()">
       <div class="row">
         <div class="col-12">
+          <h3 style="text-align: center;">
+            {{ editMode ? "Edit " : "New " }} Staff
+          </h3>
           <div class="form-group" *ngIf="editMode">
             <label for="id">ID</label>
             <input
@@ -146,9 +149,8 @@
             <p
               class="alert alert-danger"
               *ngIf="
-                (phone.touched &&
-                  (phone.errors?.minlength || phone.errors?.maxlength)) ||
-                (phone.touched && phone.errors?.pattern)
+                (phone.touched && phone.errors?.minlength) ||
+                (phone.touched && phone.errors?.maxlength)
               "
             >
               Phone must contain 10 or 11 characters are numbers!!!

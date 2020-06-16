@@ -12,6 +12,9 @@ import { CustomerDetailComponent } from "./customers/customer-detail/customer-de
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 import { CustomerEditComponent } from "./customers/customer-edit/customer-edit.component";
 import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
+import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
+import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
+import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -32,7 +35,16 @@ const appRoutes: Routes = [
           { path: ":id/edit", component: CustomerEditComponent },
         ],
       },
-      { path: "staffs", component: StaffsComponent },
+      {
+        path: "staffs",
+        component: StaffsComponent,
+        children: [
+          { path: "", component: StaffListComponent },
+          { path: "new", component: StaffEditComponent },
+          { path: ":id", component: StaffDetailComponent },
+          { path: ":id/edit", component: StaffEditComponent },
+        ],
+      },
       {
         path: "movies",
         component: MoviesComponent,

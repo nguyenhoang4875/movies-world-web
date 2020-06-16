@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Output,
-  EventEmitter,
   ViewChild,
   ComponentFactoryResolver,
 } from "@angular/core";
@@ -15,6 +13,8 @@ import { Subscription } from "rxjs";
 import { AlertComponent } from "../../shared/layout/alert/alert.component";
 import { PlaceholderDirective } from "../../shared/placeholder/placeholder.directive";
 import { AuthService } from "../../auth/auth.service";
+import { ToastShowService } from "../../shared/services/toast-show.service";
+import { ViewContainerRef } from "@angular/core";
 
 @Component({
   selector: "app-customer-edit",
@@ -31,9 +31,11 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
+  hostViewContainerRef: ViewContainerRef;
 
   constructor(
     private customerService: CustomerService,
+    private toastShowService: ToastShowService,
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -55,15 +57,11 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveCustomer() {
+    const message = "Do you sure want to do it?";
     if (!this.editMode) {
-      this.subscription = this.customerService
-        .newCustomer(this.editingCustomer)
-        .subscribe((cutomer) => {
-          this.customers.push(cutomer);
-          this.router.navigate(["../"], { relativeTo: this.route });
-        });
+      this.showNotificationNew(message);
     } else {
-      this.showNotification("Do you sure want to do it?");
+      this.showNotificationEdit(message);
     }
   }
 
@@ -75,7 +73,32 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  showNotification(errorMessage: string) {
+  private updateCustomer() {
+    this.customerService
+      .updateCustomer(this.editingCustomer)
+      .subscribe((cutomer) => {
+        this.customers[this.editingCustomer.id - 1] = cutomer;
+        this.router
+          .navigate(["../../"], { relativeTo: this.route })
+          .then(() => {
+            this.toastShowService.onShowToasts(true);
+          });
+      });
+  }
+
+  private newCustomer() {
+    this.customerService
+      .newCustomer(this.editingCustomer)
+      .subscribe((cutomer) => {
+        this.customers.push(cutomer);
+
+        this.router.navigate(["../"], { relativeTo: this.route }).then(() => {
+          this.toastShowService.onShowToasts(true);
+        });
+      });
+  }
+
+  showNotificationEdit(errorMessage: string) {
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
     );
@@ -87,17 +110,29 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
     this.subscription = componentRef.instance.confirm.subscribe(() => {
       this.subscription.unsubscribe();
-      this.customerService
-        .updateCustomer(this.editingCustomer)
-        .subscribe((cutomer) => {
-          this.customers[this.editingCustomer.id - 1] = cutomer;
-          hostViewContainerRef.clear();
-          this.router
-            .navigate(["../../"], { relativeTo: this.route })
-            .then(() => {
-              this.customerService.onShowToasts(true);
-            });
-        });
+      this.updateCustomer();
+    });
+
+    this.subscription = componentRef.instance.close.subscribe(() => {
+      // remove subscription when component removed
+      this.subscription.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+  }
+
+  showNotificationNew(errorMessage: string) {
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+      AlertComponent
+    );
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+    componentRef.instance.message = errorMessage;
+
+    this.subscription = componentRef.instance.confirm.subscribe(() => {
+      this.subscription.unsubscribe();
+      this.newCustomer();
     });
 
     this.subscription = componentRef.instance.close.subscribe(() => {
@@ -112,22 +147,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   // //     this.editingCustomer = cloneDeep(this.customer);
   // //   }
   // // }
-
-  // saveCustomer(e) {
-  //   if (this.customer && this.customer.id) {
-  //     // update
-  //     this.isConfirm = true;
-  //   } else {
-  //     // new
-  //     this.customerService
-  //       .newCustomer(this.editingCustomer)
-  //       .subscribe((customer) => {
-  //         console.log(customer);
-  //          this.customers.push(customer);
-  //       });
-  //     this.router.navigate(["../"], { relativeTo: this.route });
-  //   }
-  // }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

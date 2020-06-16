@@ -38,6 +38,9 @@ import { PlaceholderDirective } from "./shared/placeholder/placeholder.directive
 import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { ToastsComponent } from "./shared/layout/toasts/toasts.component";
 import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
+import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
+import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
+import { StaffService } from "./staffs/staff.service";
 
 @NgModule({
   declarations: [
@@ -62,6 +65,8 @@ import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
     AlertComponent,
     ToastsComponent,
     MovieEditComponent,
+    StaffListComponent,
+    StaffEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,12 @@ import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
   ],
   providers: [
     CustomerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    StaffService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

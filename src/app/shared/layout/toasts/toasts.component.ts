@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class ToastsComponent implements OnInit {
   @Input() isToastShowing: boolean;
+  @Input() message: string;
+  @Input() isSucceeding: boolean;
   constructor() {}
 
   ngOnInit() {}

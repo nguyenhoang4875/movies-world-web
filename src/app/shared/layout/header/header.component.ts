@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   loginedUser: User;
   parameterValue: string;
   id: number;
+  userAuth = new BehaviorSubject<UserDetail>(null);
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -34,7 +35,6 @@ export class HeaderComponent implements OnInit {
           /\//g,
           " / "
         );
-        console.log(this.parameterValue);
       }
     });
     this.authService.user.subscribe((user) => {
@@ -48,9 +48,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onGetProfile() {
-    this.authService.onGetProfile();
-    this.router.navigate(["customers", "1"], {
-      relativeTo: this.route,
+    this.authService.onGetProfile().subscribe((userAuth) => {
+      this.userAuth.next(userAuth);
+      this.router.navigate(["staffs", userAuth.id], {
+        relativeTo: this.route,
+      });
     });
   }
 

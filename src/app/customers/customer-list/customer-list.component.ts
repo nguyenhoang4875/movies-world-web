@@ -13,6 +13,7 @@ import { UserDetail } from "../../admin/user-detail.model";
 import { CustomerService } from "../customer.service";
 import { PlaceholderDirective } from "../../shared/placeholder/placeholder.directive";
 import { AlertComponent } from "src/app/shared/layout/alert/alert.component";
+import { ToastShowService } from "../../shared/services/toast-show.service";
 
 @Component({
   selector: "app-customer-list",
@@ -33,11 +34,14 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   isToastsShowing = false;
+  isSucceeding = false;
+  message: string = "";
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
   constructor(
     private customerService: CustomerService,
+    private toastShowService: ToastShowService,
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -64,12 +68,20 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   private onShowToasts() {
-    this.customerService.isToastsChanged.subscribe((value) => {
-      this.isToastsShowing = value;
-      setTimeout(() => {
-        this.isToastsShowing = false;
-      }, 2000);
-    });
+    this.toastShowService.isToastsChanged.subscribe(
+      (value) => {
+        this.isToastsShowing = value;
+        this.isSucceeding = true;
+        this.message = "Table has been updated successfully!!!";
+        setTimeout(() => {
+          this.isToastsShowing = false;
+        }, 2000);
+      },
+      (error) => {
+        this.isSucceeding = false;
+        this.message = "Manipulation has been implement !!!";
+      }
+    );
   }
 
   private separatePage(customers: UserDetail[]) {
@@ -144,7 +156,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.router
           .navigate(["../../customers"], { relativeTo: this.route })
           .then(() => {
-            this.customerService.onShowToasts(true);
+            this.toastShowService.onShowToasts(true);
           });
       });
     });

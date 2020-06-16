@@ -4,6 +4,8 @@
 <app-toasts
   *ngIf="isToastsShowing"
   [isToastShowing]="isToastsShowing"
+  [message]="message"
+  [isSucceeding]="isSucceeding"
 ></app-toasts>
 <ng-template appPlaceholder></ng-template>
 <ng-container *ngIf="!isLoading">

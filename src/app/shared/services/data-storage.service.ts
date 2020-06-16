@@ -41,6 +41,30 @@ export class DataStorageService {
 
   searchCustomer() {}
 
+  fetchStaffs() {
+    return this.httpClient.get<UserDetail[]>(
+      this.baseUrl + "/users" + "/staffs"
+    );
+  }
+
+  updateStaff(staff: UserDetail) {
+    return this.httpClient.put<UserDetail>(
+      `${this.baseUrl}/users/${staff.id}`,
+      staff
+    );
+  }
+
+  newStaff(staff: UserDetail) {
+    return this.httpClient.post<UserDetail>(
+      this.baseUrl + "/staffs/register",
+      staff
+    );
+  }
+
+  deleteStaff(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}/users/${id}`);
+  }
+
   fetchMovies() {
     return this.httpClient.get<Movie[]>(this.baseUrl + "/film");
   }
