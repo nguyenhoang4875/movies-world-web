@@ -188,9 +188,10 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="form-group">
-                      <div class="row">
+                      <div class="row" *ngFor="let i of arrayTimeShowing">
                         <div class="col-6">
                           <label for="datetime">Time Showing</label>
+
                           <mat-form-field class="ml-3">
                             <input
                               id="datetime"
@@ -222,23 +223,36 @@
                           </mat-form-field>
                         </div>
 
-                        <div class="col-6">
-                          <label for="room"
-                            >Rooms
-                            <input
-                              class="form-control"
-                              id="room"
-                              type="text"
-                              name="room"
-                              #room="ngModel"
-                              ngModel
-                              required
-                            />
-                          </label>
+                        <div class="col-auto">
+                          <label for="room">Room </label>
+                          <select
+                            class="form-control"
+                            #room="ngModel"
+                            name="room"
+                            id="room"
+                            size="3"
+                            ngModel
+                            required
+                          >
+                            <option
+                              *ngFor="let room of rooms"
+                              [value]="room.name"
+                              >{{ room.name }}</option
+                            >
+                            <p>{{ room.name }}</p>
+                          </select>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div>
+                  <i
+                    class="far fa-plus-circle"
+                    style="color: #20c997;"
+                    (click)="increaseTimeShowing()"
+                  ></i>
                 </div>
               </div>
             </div>

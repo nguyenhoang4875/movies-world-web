@@ -106,6 +106,10 @@ export class MovieService {
     return this.dataStorageService.fetchShowTimeFilmById(id);
   }
 
+  fetchRooms() {
+    return this.dataStorageService.fetchRooms();
+  }
+
   getUpdateStatusMovie(movie: Movie) {
     const index = +movie.id - 1;
     this.movies[index] = movie;

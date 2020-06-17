@@ -6,6 +6,7 @@ import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { Movie } from "../../movies/movie.model";
 import { ShowTimeFilm } from "../showTimeFilm.model";
+import { Room } from "../room.model";
 
 @Injectable({
   providedIn: "root",
@@ -66,7 +67,11 @@ export class DataStorageService {
   }
 
   fetchMovies() {
-    return this.httpClient.get<Movie[]>(this.baseUrl + "/film");
+    return this.httpClient.get<Movie[]>(this.baseUrl + "/films");
+  }
+
+  fetchRooms() {
+    return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
   }
 
   fetchShowTimeFilmById(id: number) {

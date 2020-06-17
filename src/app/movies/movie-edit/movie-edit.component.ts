@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { ThemePalette } from "@angular/material/core";
+import { Room } from "../../shared/room.model";
+import { MovieService } from "../movie.service";
 
 @Component({
   selector: "app-movie-edit",
@@ -8,8 +11,9 @@ import { ThemePalette } from "@angular/material/core";
 })
 export class MovieEditComponent implements OnInit {
   count = 0;
-  countTime = 0;
-  //amountOfDate: DateTime[] = [];
+  arrayTimeShowing = [];
+  rooms: Room[] = [];
+  subscription: Subscription;
   @ViewChild("picker", {
     static: false,
   })
@@ -18,19 +22,17 @@ export class MovieEditComponent implements OnInit {
 
   date: Date = new Date();
 
-  constructor() {}
+  constructor(private movieService: MovieService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription = this.movieService.fetchRooms().subscribe((rooms) => {
+      this.rooms = rooms;
+      console.log(this.rooms);
+    });
+  }
 
-  // Increase() {
-  //   this.amountOfDate.push({
-  //     //  count: this.count,
-  //     time: [],
-  //   });
-  //   this.count++;
-  // }
-  // IncreaseAmountTime(i: DateTime) {
-  //   i.time.push(this.countTime);
-  //   this.countTime++;
-  // }
+  increaseTimeShowing() {
+    this.arrayTimeShowing.push(this.count);
+    this.count++;
+  }
 }
