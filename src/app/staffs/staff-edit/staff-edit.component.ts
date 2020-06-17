@@ -13,6 +13,7 @@ import { PlaceholderDirective } from "../../shared/placeholder/placeholder.direc
 import { StaffService } from "../staff.service";
 import { AlertComponent } from "src/app/shared/layout/alert/alert.component";
 import { ToastShowService } from "../../shared/services/toast-show.service";
+import { DataStorageService } from "../../shared/services/data-storage.service";
 
 @Component({
   selector: "app-staff-edit",
@@ -33,6 +34,7 @@ export class StaffEditComponent implements OnInit, OnDestroy {
   constructor(
     private staffService: StaffService,
     private toastService: ToastShowService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -44,7 +46,10 @@ export class StaffEditComponent implements OnInit, OnDestroy {
       this.id = +params["id"];
       this.editMode = params["id"] != null;
       if (this.editMode) {
-        this.editingStaff = this.staffService.getStaff(this.id);
+        //this.editingStaff = this.staffService.getStaff(this.id);
+        this.dataStorageService.fetchUser(this.id).subscribe((staff) => {
+          this.editingStaff = staff;
+        });
       }
     });
   }

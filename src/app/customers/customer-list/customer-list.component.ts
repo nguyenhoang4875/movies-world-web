@@ -68,18 +68,20 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   private onShowToasts() {
-    this.toastShowService.isToastsChanged.subscribe(
+    this.subscription = this.toastShowService.isToastsChanged.subscribe(
       (value) => {
-        this.isToastsShowing = value;
-        this.isSucceeding = true;
-        this.message = "Table has been updated successfully!!!";
+        if (typeof value === "boolean") {
+          this.isToastsShowing = value;
+          this.isSucceeding = true;
+          this.message = "Table has been updated successfully!!!";
+        } else {
+          this.isToastsShowing = true;
+          this.isSucceeding = false;
+          this.message = "Manipulation has been implement !!!";
+        }
         setTimeout(() => {
           this.isToastsShowing = false;
         }, 2000);
-      },
-      (error) => {
-        this.isSucceeding = false;
-        this.message = "Manipulation has been implement !!!";
       }
     );
   }

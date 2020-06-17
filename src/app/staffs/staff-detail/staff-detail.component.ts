@@ -13,6 +13,7 @@ import { StaffService } from "../staff.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, Params } from "@angular/router";
 import { OnDestroy } from "@angular/core";
+import { DataStorageService } from "../../shared/services/data-storage.service";
 
 @Component({
   selector: "app-staff-detail",
@@ -27,13 +28,16 @@ export class StaffDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private staffService: StaffService,
+    private dataStorageService: DataStorageService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.editingStaff = this.staffService.getStaff(this.id);
+      this.dataStorageService.fetchUser(this.id).subscribe((staff) => {
+        this.editingStaff = staff;
+      });
     });
   }
 

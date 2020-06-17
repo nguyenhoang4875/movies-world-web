@@ -1,12 +1,24 @@
 <ng-container>
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 form-container">
-      <form action="">
+      <form #form="ngForm" (ngSubmit)="onSaveMovie()">
         <div class="row">
           <div class="col-12">
+            <h3 style="text-align: center;">
+              {{ editMode ? "Edit " : "New " }}Movie
+            </h3>
             <div class="form-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile" />
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="customFile"
+                  name="filePath"
+                  #filePath="ngModel"
+                  [(ngModel)]="editingMovie.poster"
+                  ngModel
+                  required
+                />
                 <label class="custom-file-label" for="customFile"
                   >Choose file</label
                 >
@@ -25,6 +37,7 @@
                 type="text"
                 name="nameFilm"
                 #nameFilm="ngModel"
+                [(ngModel)]="editingMovie.name"
                 ngModel
                 required
               />
@@ -66,6 +79,7 @@
                         type="text"
                         name="timeLimit"
                         #timeLimit="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.timeLimit"
                         ngModel
                         required
                       />
@@ -83,6 +97,7 @@
                         type="text"
                         name="director"
                         #director="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.director"
                         ngModel
                         required
                       />
@@ -100,6 +115,7 @@
                         type="text"
                         name="artist"
                         #artist="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.artist"
                         ngModel
                         required
                       />
@@ -117,6 +133,7 @@
                         type="text"
                         name="nation"
                         #nation="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.nation"
                         ngModel
                         required
                       />
@@ -134,6 +151,7 @@
                         type="text"
                         name="premiere"
                         #premiere="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.premiere"
                         ngModel
                         required
                       />
@@ -152,6 +170,7 @@
                         name="content"
                         rows="3"
                         #content="ngModel"
+                        [(ngModel)]="editingMovie.filmDescription.content"
                         ngModel
                         required
                       ></textarea>
@@ -185,7 +204,7 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                <div class="row">
+                <div class="row" *ngIf="!editMode">
                   <div class="col-12">
                     <div class="form-group">
                       <div class="row" *ngFor="let i of arrayTimeShowing">
@@ -199,7 +218,7 @@
                               [ngxMatDatetimePicker]="picker"
                               placeholder="Choose a date"
                               name="datetime"
-                              [(ngModel)]="date"
+                              [(ngModel)]="showTimeFilmNew.time"
                               #datetime="ngModel"
                               required
                             />
@@ -230,7 +249,7 @@
                             #room="ngModel"
                             name="room"
                             id="room"
-                            size="3"
+                            [(ngModel)]="showTimeFilmNew.room"
                             ngModel
                             required
                           >
@@ -245,16 +264,96 @@
                       </div>
                     </div>
                   </div>
+                  <div>
+                    <i
+                      class="far fa-plus-circle"
+                      style="color: #20c997;"
+                      (click)="increaseTimeShowing()"
+                    ></i>
+                  </div>
                 </div>
 
-                <div>
-                  <i
-                    class="far fa-plus-circle"
-                    style="color: #20c997;"
-                    (click)="increaseTimeShowing()"
-                  ></i>
+                <div class="row" *ngIf="editMode">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <div class="row" *ngFor="let time of showTimeFilm">
+                        <div class="col-6">
+                          <label for="datetime">Time Showing</label>
+
+                          <mat-form-field class="ml-3">
+                            <input
+                              id="datetime"
+                              matInput
+                              [ngxMatDatetimePicker]="picker"
+                              placeholder="Choose a date"
+                              name="datetime"
+                              [(ngModel)]="time.time"
+                              #datetime="ngModel"
+                              required
+                            />
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker"
+                              style="color: #20c997;"
+                            ></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker
+                              #picker
+                              [showSpinners]="true"
+                              [showSeconds]="true"
+                              [stepHour]="1"
+                              [stepMinute]="1"
+                              [stepSecond]="1"
+                              [touchUi]="true"
+                              [enableMeridian]="false"
+                              [color]="color"
+                            >
+                            </ngx-mat-datetime-picker>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-auto">
+                          <label for="room">Room </label>
+                          <select
+                            class="form-control"
+                            #room="ngModel"
+                            name="room"
+                            id="room"
+                            [(ngModel)]="time.room.name"
+                            ngModel
+                            required
+                          >
+                            <option [value]="time.room.name">{{
+                              time.room.name
+                            }}</option>
+                            <p>{{ time.room.name }}</p>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="row justify-content-end mr-2">
+              <button
+                class="btn btn-new"
+                type="submit"
+                [disabled]="!form.valid"
+              >
+                {{ editMode ? "Save" : "Submit" }}
+              </button>
+              <button
+                class="btn btn-cancel ml-3"
+                type="button"
+                (click)="onCancel()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

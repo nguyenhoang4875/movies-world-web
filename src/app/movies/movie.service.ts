@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Movie } from "./movie.model";
 import { Description } from "../shared/description.model";
 import { ShowTimeFilm } from "../shared/showTimeFilm.model";
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { DataStorageService } from "../shared/services/data-storage.service";
 import { tap } from "rxjs/operators";
 
@@ -10,68 +10,7 @@ import { tap } from "rxjs/operators";
 export class MovieService {
   private movies: Movie[] = [];
 
-  private showTimeFilm: ShowTimeFilm[] = [
-    // new TimeFilmShowing({
-    //   id: 1,
-    //   date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
-    //   timeStart: [
-    //     new Date(2020, 4, 8, 9),
-    //     new Date(2020, 4, 8, 15),
-    //     new Date(2020, 4, 9, 11),
-    //     new Date(2020, 4, 10, 12),
-    //     new Date(2020, 4, 10, 14),
-    //   ],
-    //   timeEnd: [],
-    // }),
-    // new TimeFilmShowing({
-    //   id: 2,
-    //   date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
-    //   timeStart: [
-    //     new Date(2020, 4, 8, 9),
-    //     new Date(2020, 4, 8, 15),
-    //     new Date(2020, 4, 9, 11),
-    //     new Date(2020, 4, 10, 12),
-    //     new Date(2020, 4, 10, 14),
-    //   ],
-    //   timeEnd: [],
-    // }),
-    // new TimeFilmShowing({
-    //   id: 3,
-    //   date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
-    //   timeStart: [
-    //     new Date(2020, 4, 8, 9),
-    //     new Date(2020, 4, 8, 15),
-    //     new Date(2020, 4, 9, 11),
-    //     new Date(2020, 4, 10, 12),
-    //     new Date(2020, 4, 10, 14),
-    //   ],
-    //   timeEnd: [],
-    // }),
-    // new TimeFilmShowing({
-    //   id: 4,
-    //   date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
-    //   timeStart: [
-    //     new Date(2020, 4, 8, 9, 15),
-    //     new Date(2020, 4, 8, 15),
-    //     new Date(2020, 4, 9, 11),
-    //     new Date(2020, 4, 10, 12),
-    //     new Date(2020, 4, 10, 14),
-    //   ],
-    //   timeEnd: [],
-    // }),
-    // new TimeFilmShowing({
-    //   id: 5,
-    //   date: [new Date(2020, 4, 8), new Date(2020, 4, 9), new Date(2020, 4, 10)],
-    //   timeStart: [
-    //     new Date(2020, 4, 8, 9),
-    //     new Date(2020, 4, 8, 15),
-    //     new Date(2020, 4, 9, 11),
-    //     new Date(2020, 4, 10, 12),
-    //     new Date(2020, 4, 10, 14),
-    //   ],
-    //   timeEnd: [],
-    // }),
-  ];
+  private showTimeFilm: ShowTimeFilm[] = [];
   moviesChanged = new Subject<Movie[]>();
 
   constructor(private dataStorageService: DataStorageService) {}
@@ -85,6 +24,10 @@ export class MovieService {
 
   setMovies(movies: Movie[]) {
     this.movies = movies;
+  }
+
+  getMovies() {
+    return this.movies.slice();
   }
 
   getMovie(id: number) {
@@ -114,6 +57,17 @@ export class MovieService {
     const index = +movie.id - 1;
     this.movies[index] = movie;
     this.moviesChanged.next(this.movies.slice());
+  }
+
+  newMovie(movie: Movie): Observable<Movie> {
+    return this.dataStorageService.newMovie(movie);
+  }
+
+  newShowTimeFilm(
+    id: number,
+    showTimeFilm: ShowTimeFilm
+  ): Observable<ShowTimeFilm> {
+    return this.dataStorageService.newShowTimeFilm(id, showTimeFilm);
   }
 
   // searchMovie(value: string) {

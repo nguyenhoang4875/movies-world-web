@@ -21,6 +21,9 @@ export class DataStorageService {
       this.baseUrl + "/users" + "/customers"
     );
   }
+  fetchUser(id: number) {
+    return this.httpClient.get<UserDetail>(`${this.baseUrl}/users/${id}`);
+  }
 
   updateCustomer(customer: UserDetail) {
     return this.httpClient.put<UserDetail>(
@@ -31,7 +34,7 @@ export class DataStorageService {
 
   newCustomer(customer: UserDetail) {
     return this.httpClient.post<UserDetail>(
-      this.baseUrl + "/staffs/register",
+      this.baseUrl + "/register",
       customer
     );
   }
@@ -74,9 +77,23 @@ export class DataStorageService {
     return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
   }
 
-  fetchShowTimeFilmById(id: number) {
+  fetchShowTimeFilmById(id: number): Observable<ShowTimeFilm[]> {
     return this.httpClient.get<ShowTimeFilm[]>(
       this.baseUrl + "/showtimefilms" + "/" + id
+    );
+  }
+
+  newMovie(movie: Movie): Observable<Movie> {
+    return this.httpClient.post<Movie>(this.baseUrl + "/api" + "/films", movie);
+  }
+
+  newShowTimeFilm(
+    id: number,
+    showTimeFilm: ShowTimeFilm
+  ): Observable<ShowTimeFilm> {
+    return this.httpClient.post<ShowTimeFilm>(
+      this.baseUrl + "/api" + "/showtimefilms" + "/" + id,
+      showTimeFilm
     );
   }
 }

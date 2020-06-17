@@ -66,23 +66,25 @@ export class StaffListComponent implements OnInit {
   }
 
   private onShowToasts() {
-    this.toastShowService.isToastsChanged.subscribe((value) => {
-      if (typeof value === "boolean") {
-        this.isToastsShowing = value;
-        this.isSucceeding = true;
-        this.message = "Table has been updated successfully!!!";
-        setTimeout(() => {
-          this.isToastsShowing = false;
-        }, 2000);
-      } else {
-        this.isToastsShowing = true;
-        this.isSucceeding = false;
-        this.message = "Manipulation has been implement !!!";
-        setTimeout(() => {
-          this.isToastsShowing = false;
-        }, 2000);
+    this.subscription = this.toastShowService.isToastsChanged.subscribe(
+      (value) => {
+        if (typeof value === "boolean") {
+          this.isToastsShowing = value;
+          this.isSucceeding = true;
+          this.message = "Table has been updated successfully!!!";
+          setTimeout(() => {
+            this.isToastsShowing = false;
+          }, 2000);
+        } else {
+          this.isToastsShowing = true;
+          this.isSucceeding = false;
+          this.message = "Manipulation has been implement !!!";
+          setTimeout(() => {
+            this.isToastsShowing = false;
+          }, 2000);
+        }
       }
-    });
+    );
   }
 
   private separatePage(staffs: UserDetail[]) {

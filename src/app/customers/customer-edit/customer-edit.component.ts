@@ -15,6 +15,7 @@ import { PlaceholderDirective } from "../../shared/placeholder/placeholder.direc
 import { AuthService } from "../../auth/auth.service";
 import { ToastShowService } from "../../shared/services/toast-show.service";
 import { ViewContainerRef } from "@angular/core";
+import { DataStorageService } from "../../shared/services/data-storage.service";
 
 @Component({
   selector: "app-customer-edit",
@@ -36,6 +37,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   constructor(
     private customerService: CustomerService,
     private toastShowService: ToastShowService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -47,13 +49,12 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.id = +params["id"];
       this.editMode = params["id"] != null;
       if (this.editMode) {
-        this.editingCustomer = this.customerService.getCustomer(this.id);
+        //this.editingCustomer = this.customerService.getCustomer(this.id);
+        this.dataStorageService.fetchUser(this.id).subscribe((customer) => {
+          this.editingCustomer = customer;
+        });
       }
     });
-    // this.authService.userAuth.subscribe((userAuth) => {
-    //   this.editingCustomer = this.customerService.getCustomer(userAuth.id);
-    //   console.log(this.editingCustomer);
-    // });
   }
 
   onSaveCustomer() {
@@ -87,15 +88,19 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   private newCustomer() {
-    this.customerService
-      .newCustomer(this.editingCustomer)
-      .subscribe((cutomer) => {
+    this.customerService.newCustomer(this.editingCustomer).subscribe(
+      (cutomer) => {
         this.customers.push(cutomer);
 
         this.router.navigate(["../"], { relativeTo: this.route }).then(() => {
           this.toastShowService.onShowToasts(true);
         });
-      });
+      },
+      (error) => {
+        this.router.navigate(["../"], { relativeTo: this.route });
+        this.toastShowService.onShowToasts(error);
+      }
+    );
   }
 
   showNotificationEdit(errorMessage: string) {

@@ -10,6 +10,7 @@ import { cloneDeep } from "lodash";
 import { UserDetail } from "../../admin/user-detail.model";
 import { CustomerService } from "../customer.service";
 import { Subscription } from "rxjs";
+import { DataStorageService } from "../../shared/services/data-storage.service";
 
 @Component({
   selector: "app-customer-detail",
@@ -24,13 +25,17 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private customerService: CustomerService,
+    private dataStorageService: DataStorageService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.editingCustomer = this.customerService.getCustomer(this.id);
+      //this.editingCustomer = this.customerService.getCustomer(this.id);
+      this.dataStorageService.fetchUser(this.id).subscribe((customer) => {
+        this.editingCustomer = customer;
+      });
     });
   }
 

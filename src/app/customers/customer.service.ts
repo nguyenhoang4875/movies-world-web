@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 import { UserDetail } from "../admin/user-detail.model";
 import { DataStorageService } from "../shared/services/data-storage.service";
@@ -8,6 +8,7 @@ import { tap } from "rxjs/operators";
 @Injectable()
 export class CustomerService {
   customers: UserDetail[] = [];
+  customerChanged = new Subject<UserDetail[]>();
   //isToastsChanged = new BehaviorSubject<boolean>(false);
 
   constructor(private dataStorageService: DataStorageService) {}
@@ -22,6 +23,7 @@ export class CustomerService {
 
   setCustomers(customers: UserDetail[]) {
     this.customers = customers;
+    this.customerChanged.next(this.customers);
   }
 
   getCustomers(): UserDetail[] {

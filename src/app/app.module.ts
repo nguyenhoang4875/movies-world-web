@@ -41,6 +41,7 @@ import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
 import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 import { StaffService } from "./staffs/staff.service";
+import { MovieService } from "./movies/movie.service";
 
 @NgModule({
   declarations: [
@@ -58,15 +59,15 @@ import { StaffService } from "./staffs/staff.service";
     CustomerEditComponent,
     StaffsComponent,
     StaffDetailComponent,
+    StaffListComponent,
+    StaffEditComponent,
     MoviesComponent,
     MovieListComponent,
     MovieDetailComponent,
+    MovieEditComponent,
     PlaceholderDirective,
     AlertComponent,
     ToastsComponent,
-    MovieEditComponent,
-    StaffListComponent,
-    StaffEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +92,12 @@ import { StaffService } from "./staffs/staff.service";
       multi: true,
     },
     StaffService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    MovieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
