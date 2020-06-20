@@ -104,8 +104,10 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       });
       this.movieService
         .postFileUpLoad(this.fileToUpload)
-        .subscribe((poster: string) => {
-          movie.poster = poster;
+        .subscribe((poster: any) => {
+          console.log(poster);
+           movie.poster = "http://localhost:9000/api/images/"+ poster.fileName;
+
           this.movieService.newMovie(movie).subscribe((movie) => {
             console.log(movie);
             this.movies.push(movie);
@@ -128,9 +130,9 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     this.movieForm = this.formBuilder.group({
       name: [null, Validators.required],
       trailer: [null, Validators.required],
-      poster: [null, Validators.required],
+      poster: [null],
       image: [null, Validators.required],
-      genres: [null, Validators.required],
+      genres: [null],
       filmDescription: this.formBuilder.group({
         timeLimit: [null, Validators.required],
         director: [null, Validators.required],

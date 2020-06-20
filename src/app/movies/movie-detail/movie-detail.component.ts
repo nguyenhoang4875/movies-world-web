@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵɵi18nPostprocess } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Description } from "../../shared/description.model";
 import { MovieService } from "../movie.service";
@@ -29,8 +29,12 @@ export class MovieDetailComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.id = param["id"];
     });
-
+    
     this.movie = this.movieService.getMovie(+this.id);
+    console.log("_________________________________");
+    
+    console.log(this.movie);
+    
 
     this.filmDescription = this.movie.filmDescription;
 
