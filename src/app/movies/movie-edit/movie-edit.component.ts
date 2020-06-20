@@ -7,7 +7,12 @@ import {
 } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Subscription } from "rxjs";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 
 import { Room } from "../../shared/room.model";
@@ -39,6 +44,8 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     "Tomato",
   ];
 
+  movie: Movie;
+
   // color: ThemePalette = "accent";
 
   @ViewChild("picker", {
@@ -51,7 +58,8 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   constructor(
     private movieService: MovieService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -72,10 +80,11 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     //   console.log(this.rooms);
     // });
     this.movies = this.movieService.getMovies();
+    this.initForm();
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
       this.editMode = params["id"] != null;
-      this.initForm();
+      this.initData();
     });
   }
 
@@ -86,8 +95,15 @@ export class MovieEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (!this.editMode) {
+      let movie = new Movie({
+        name: this.movieForm.get("nameFilm").value,
+        trailer: this.movieForm.get("trailer").value,
+        poster: null,
+        genres: this.movieForm.get("genres").value,
+        filmDescription: this.movieForm.get("filmDescription").value,
+      });
       this.subscription = this.movieService
-        .newMovie(this.movieForm.value)
+        .newMovie(this.fileToUpload, movie)
         .subscribe((movie) => {
           this.movies.push(movie);
           this.router.navigate(["../"], { relativeTo: this.route });
@@ -105,46 +121,44 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    let nameFilm = "";
-    let trailer = "";
-    let importFile = "";
-    let genres = [];
-    let timeLimit = "";
-    let director = "";
-    let artist = "";
-    let nation = "";
-    let premiere = null;
-    let content = "";
-
-    if (this.editMode) {
-      const movie = this.movieService.getMovie(this.id);
-      nameFilm = movie.name;
-      trailer = movie.trailer;
-      importFile = movie.poster;
-      genres = movie.genre;
-      timeLimit = movie.filmDescription.timeLimit;
-      director = movie.filmDescription.director;
-      artist = movie.filmDescription.artist;
-      nation = movie.filmDescription.nation;
-      premiere = movie.filmDescription.premiere;
-      content = movie.filmDescription.content;
-    }
-
     //initial form
-    this.movieForm = new FormGroup({
-      nameFilm: new FormControl(nameFilm),
-      trailer: new FormControl(trailer),
-      importFile: new FormControl(importFile),
-      genres: new FormControl(this.genres),
-      filmDescription: new FormGroup({
-        timeLimit: new FormControl(timeLimit),
-        director: new FormControl(director),
-        artist: new FormControl(artist),
-        nation: new FormControl(nation),
-        premiere: new FormControl(premiere),
-        content: new FormControl(content),
-      }),
+    this.movieForm = this.formBuilder.group({
+      name: [null, Validators.required],
+      trailer: [null, Validators.required],
+      poster: [null, Validators.required],
+      genres: [null, Validators.required],
+      filmDescription: [
+        this.formBuilder.group({
+          timeLimit: [null, Validators.required],
+          director: [null, Validators.required],
+          artist: [null, Validators.required],
+          nation: [null, Validators.required],
+          premiere: [null, Validators.required],
+          content: [null, Validators.required],
+        }),
+      ],
     });
+  }
+
+  //initData for existed movie
+  initData(): void {
+    if (this.editMode) {
+      this.movieService.fetchMovie(this.id).subscribe((movie: Movie) => {
+        this.movie = movie;
+        this.movieForm.setValue({
+          name: movie.name || "",
+          trailer: movie.trailer || "",
+          poster: movie.poster || "",
+          genres: movie.genres || [],
+          timeLimit: movie.filmDescription.timeLimit || "",
+          director: movie.filmDescription.director || "",
+          artist: movie.filmDescription.artist || "",
+          nation: movie.filmDescription.nation || "",
+          premiere: movie.filmDescription.premiere || null,
+          content: movie.filmDescription.content || "",
+        });
+      });
+    }
   }
 
   onCancel() {

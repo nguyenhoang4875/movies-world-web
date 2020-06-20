@@ -15,6 +15,7 @@ import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
 import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
 import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
+import { ShowTimeFilm } from "./shared/showTimeFilm.model";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -57,7 +58,11 @@ const appRoutes: Routes = [
         children: [
           { path: "", component: MovieListComponent },
           { path: "new", component: MovieEditComponent },
-          { path: ":id", component: MovieDetailComponent },
+          {
+            path: ":id",
+            component: MovieDetailComponent,
+            children: [{ path: "", component: ShowTimeFilm }],
+          },
           { path: ":id/edit", component: MovieEditComponent },
         ],
       },

@@ -22,6 +22,10 @@ export class MovieService {
     );
   }
 
+  fetchMovie(id: number): Observable<Movie> {
+    return this.dataStorageService.fetchMovie(id);
+  }
+
   setMovies(movies: Movie[]) {
     this.movies = movies;
   }
@@ -59,8 +63,8 @@ export class MovieService {
     this.moviesChanged.next(this.movies.slice());
   }
 
-  newMovie(movie: Movie): Observable<Movie> {
-    return this.dataStorageService.newMovie(movie);
+  newMovie(fileToUpLoad: File, movie: Movie): Observable<Movie> {
+    return this.dataStorageService.newMovie(fileToUpLoad, movie);
   }
 
   editMovie(id: number, movie: Movie): Observable<Movie> {

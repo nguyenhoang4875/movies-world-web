@@ -36,16 +36,16 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="importFile">Poster Path</label>
+              <label for="image">Poster Image</label>
               <div class="custom-file">
                 <input
-                  id="importFile"
+                  id="image"
                   type="file"
                   class="custom-file-input"
-                  formControlName="importFile"
+                  formControlName="image"
                   (change)="onFileChange($event.target.files)"
                 />
-                <label class="custom-file-label" for="importFile" #labelImport
+                <label class="custom-file-label" for="image" #labelImport
                   >Choose file</label
                 >
               </div>
@@ -59,7 +59,7 @@
               <label for="" class="mr-5">Genres</label>
               <mat-form-field>
                 <mat-label>Genres</mat-label>
-                <mat-select [formControl]="genres" multiple>
+                <mat-select formControlName="genres" multiple>
                   <mat-option *ngFor="let genre of genreList" [value]="genre">{{
                     genre
                   }}</mat-option>

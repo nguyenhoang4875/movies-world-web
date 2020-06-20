@@ -44,6 +44,7 @@ import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 import { StaffService } from "./staffs/staff.service";
 import { MovieService } from "./movies/movie.service";
+// import { ShowTimeFilmComponent } from './show-time-film/show-time-film.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { MovieService } from "./movies/movie.service";
     PlaceholderDirective,
     AlertComponent,
     ToastsComponent,
+    // ShowTimeFilmComponent,
   ],
   imports: [
     BrowserModule,

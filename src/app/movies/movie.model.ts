@@ -4,7 +4,7 @@ export class Movie {
   public name: string;
   public trailer: string;
   public poster: string;
-  public genre: string[];
+  public genres: string[];
   public ratePoint: number;
   public status: boolean;
   public filmDescription: Description;

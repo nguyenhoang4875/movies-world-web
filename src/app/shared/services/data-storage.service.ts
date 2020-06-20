@@ -73,6 +73,10 @@ export class DataStorageService {
     return this.httpClient.get<Movie[]>(this.baseUrl + "/films");
   }
 
+  fetchMovie(id: number): Observable<Movie> {
+    return this.httpClient.get<Movie>(this.baseUrl + "/films" + "/" + id);
+  }
+
   fetchRooms() {
     return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
   }
@@ -83,8 +87,13 @@ export class DataStorageService {
     );
   }
 
-  newMovie(movie: Movie): Observable<Movie> {
-    return this.httpClient.post<Movie>(this.baseUrl + "/films", movie);
+  newMovie(fileToUpLoad: File, movie: Movie): Observable<Movie> {
+    const formData: FormData = new FormData();
+    formData.append("file", fileToUpLoad, fileToUpLoad.name);
+    return this.httpClient.post<Movie>(this.baseUrl + "/films", {
+      formData: formData,
+      movie: movie,
+    });
   }
 
   // editMovie(id:number, movie:Movie):Observable<Movie>{
