@@ -98,17 +98,20 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       let movie = new Movie({
         name: this.movieForm.get("name").value,
         trailer: this.movieForm.get("trailer").value,
-        poster: null,
+        poster: this.movieForm.get("poster").value,
         genres: this.movieForm.get("genres").value,
         filmDescription: this.movieForm.get("filmDescription").value,
       });
-      this.subscription = this.movieService
-        .newMovie(this.fileToUpload, movie)
-        .subscribe((movie) => {
-          this.movies.push(movie);
-          this.router.navigate(["../"], { relativeTo: this.route });
+      this.movieService
+        .postFileUpLoad(this.fileToUpload)
+        .subscribe((poster: string) => {
+          movie.poster = poster;
+          this.movieService.newMovie(movie).subscribe((movie) => {
+            console.log(movie);
+            this.movies.push(movie);
+            this.router.navigate(["../"], { relativeTo: this.route });
+          });
         });
-      console.log(this.movieForm.value);
     } else {
     }
   }
@@ -126,6 +129,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       name: [null, Validators.required],
       trailer: [null, Validators.required],
       poster: [null, Validators.required],
+      image: [null, Validators.required],
       genres: [null, Validators.required],
       filmDescription: this.formBuilder.group({
         timeLimit: [null, Validators.required],
@@ -147,6 +151,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
           name: movie.name || "",
           trailer: movie.trailer || "",
           poster: movie.poster || "",
+          image: null,
           genres: movie.genres || [],
           timeLimit: movie.filmDescription.timeLimit || "",
           director: movie.filmDescription.director || "",

@@ -63,8 +63,11 @@ export class MovieService {
     this.moviesChanged.next(this.movies.slice());
   }
 
-  newMovie(fileToUpLoad: File, movie: Movie): Observable<Movie> {
-    return this.dataStorageService.newMovie(fileToUpLoad, movie);
+  postFileUpLoad(fileToUpLoad: File) {
+    return this.dataStorageService.postFileUpLoad(fileToUpLoad);
+  }
+  newMovie(movie: Movie): Observable<Movie> {
+    return this.dataStorageService.newMovie(movie);
   }
 
   editMovie(id: number, movie: Movie): Observable<Movie> {

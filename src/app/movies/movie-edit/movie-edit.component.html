@@ -33,10 +33,24 @@
           </div>
         </div>
 
+        <div class="row" *ngIf="editMode">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="poster">Poster</label>
+              <input
+                id="poster"
+                type="text"
+                class="form-control"
+                formControlName="poster"
+              />
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="image">Poster Image</label>
+              <label for="image">Image Path</label>
               <div class="custom-file">
                 <input
                   id="image"

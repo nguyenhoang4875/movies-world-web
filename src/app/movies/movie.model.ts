@@ -8,6 +8,7 @@ export class Movie {
   public ratePoint: number;
   public status: boolean;
   public filmDescription: Description;
+  public image?: File;
 
   constructor(init?: Partial<Movie>) {
     Object.assign(this, init);
