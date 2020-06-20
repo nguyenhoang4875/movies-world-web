@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AngularDateTimePickerModule } from "angular2-datetimepicker";
@@ -13,6 +13,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
@@ -42,6 +44,7 @@ import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 import { StaffService } from "./staffs/staff.service";
 import { MovieService } from "./movies/movie.service";
+import { ShowTimeFilmComponent } from './show-time-film/show-time-film.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,7 @@ import { MovieService } from "./movies/movie.service";
     PlaceholderDirective,
     AlertComponent,
     ToastsComponent,
+    ShowTimeFilmComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,9 @@ import { MovieService } from "./movies/movie.service";
     MatInputModule,
     MatButtonModule,
     MatNativeDateModule,
+    MatSelectModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CustomerService,

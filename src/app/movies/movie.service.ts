@@ -63,6 +63,10 @@ export class MovieService {
     return this.dataStorageService.newMovie(movie);
   }
 
+  editMovie(id: number, movie: Movie): Observable<Movie> {
+    return;
+  }
+
   newShowTimeFilm(
     id: number,
     showTimeFilm: ShowTimeFilm

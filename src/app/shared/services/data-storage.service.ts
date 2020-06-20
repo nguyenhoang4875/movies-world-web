@@ -84,8 +84,12 @@ export class DataStorageService {
   }
 
   newMovie(movie: Movie): Observable<Movie> {
-    return this.httpClient.post<Movie>(this.baseUrl + "/api" + "/films", movie);
+    return this.httpClient.post<Movie>(this.baseUrl + "/films", movie);
   }
+
+  // editMovie(id:number, movie:Movie):Observable<Movie>{
+  //   return this.httpClient.put<Movie>(this.baseUrl + "");
+  // }
 
   newShowTimeFilm(
     id: number,

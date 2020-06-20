@@ -1,25 +1,51 @@
 <ng-container>
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-6 form-container">
-      <form #form="ngForm" (ngSubmit)="onSaveMovie()">
+      <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-12">
             <h3 style="text-align: center;">
               {{ editMode ? "Edit " : "New " }}Movie
             </h3>
             <div class="form-group">
+              <label for="nameFilm">Name Film</label>
+              <input
+                id="nameFilm"
+                class="form-control"
+                type="text"
+                formControlName="nameFilm"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="trailer">Trailer</label>
+              <input
+                type="text"
+                class="form-control"
+                id="trailer"
+                formControlName="trailer"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="importFile">Poster Path</label>
               <div class="custom-file">
                 <input
+                  id="importFile"
                   type="file"
                   class="custom-file-input"
-                  id="customFile"
-                  name="filePath"
-                  #filePath="ngModel"
-                  [(ngModel)]="editingMovie.poster"
-                  ngModel
-                  required
+                  formControlName="importFile"
+                  (change)="onFileChange($event.target.files)"
                 />
-                <label class="custom-file-label" for="customFile"
+                <label class="custom-file-label" for="importFile" #labelImport
                   >Choose file</label
                 >
               </div>
@@ -30,158 +56,119 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="nameFilm">Name Film</label>
-              <input
-                class="form-control"
-                id="nameFilm"
-                type="text"
-                name="nameFilm"
-                #nameFilm="ngModel"
-                [(ngModel)]="editingMovie.name"
-                ngModel
-                required
-              />
+              <label for="" class="mr-5">Genres</label>
+              <mat-form-field>
+                <mat-label>Genres</mat-label>
+                <mat-select [formControl]="genres" multiple>
+                  <mat-option *ngFor="let genre of genreList" [value]="genre">{{
+                    genre
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
         </div>
 
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button
-                  class="btn btn-light btn-block text-left"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  Description
-                </button>
-              </h2>
-            </div>
-
-            <div
-              id="collapseOne"
-              class="collapse show"
-              aria-labelledby="headingOne"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="timeLimit">Time Limit</label>
-                      <input
-                        class="form-control"
-                        id="timeLimit"
-                        type="text"
-                        name="timeLimit"
-                        #timeLimit="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.timeLimit"
-                        ngModel
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="director">Director</label>
-                      <input
-                        class="form-control"
-                        id="director"
-                        type="text"
-                        name="director"
-                        #director="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.director"
-                        ngModel
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="artist">Artist</label>
-                      <input
-                        class="form-control"
-                        id="artist"
-                        type="text"
-                        name="artist"
-                        #artist="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.artist"
-                        ngModel
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="nation">Nation</label>
-                      <input
-                        class="form-control"
-                        id="nation"
-                        type="text"
-                        name="nation"
-                        #nation="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.nation"
-                        ngModel
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="premiere">Premiere</label>
-                      <input
-                        class="form-control"
-                        id="premiere"
-                        type="text"
-                        name="premiere"
-                        #premiere="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.premiere"
-                        ngModel
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="content">Content</label>
-                      <textarea
-                        class="form-control"
-                        id="content"
-                        type="text"
-                        name="content"
-                        rows="3"
-                        #content="ngModel"
-                        [(ngModel)]="editingMovie.filmDescription.content"
-                        ngModel
-                        required
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
+        <div formGroupName="filmDescription">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="timeLimit">Time Limit</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="timeLimit"
+                  formControlName="timeLimit"
+                />
               </div>
             </div>
           </div>
 
-          <div class="card">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="director">Director</label>
+                <input
+                  class="form-control"
+                  id="director"
+                  type="text"
+                  formControlName="director"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="artist">Artist</label>
+                <input
+                  id="artist"
+                  class="form-control"
+                  type="text"
+                  formControlName="artist"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="nation">Nation</label>
+                <input
+                  class="form-control"
+                  id="nation"
+                  type="text"
+                  formControlName="nation"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="premiere" class="mr-3">Premiere</label>
+
+                <mat-form-field>
+                  <mat-label style="color: gray;">Choose a date</mat-label>
+                  <input
+                    matInput
+                    style="border: none;"
+                    [matDatepicker]="picker"
+                    class="form-control"
+                    id="premiere"
+                    formControlName="premiere"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                    style="color: #20c997;"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="content">Content</label>
+                <textarea
+                  class="form-control"
+                  id="content"
+                  type="text"
+                  rows="3"
+                  formControlName="content"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="card">
             <div class="card-header" id="headingTwo">
               <h2 class="mb-0">
                 <button
@@ -204,130 +191,55 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                <div class="row" *ngIf="!editMode">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <div class="row" *ngFor="let i of arrayTimeShowing">
-                        <div class="col-6">
-                          <label for="datetime">Time Showing</label>
-
-                          <mat-form-field class="ml-3">
-                            <input
-                              id="datetime"
-                              matInput
-                              [ngxMatDatetimePicker]="picker"
-                              placeholder="Choose a date"
-                              name="datetime"
-                              [(ngModel)]="showTimeFilmNew.time"
-                              #datetime="ngModel"
-                              required
-                            />
-                            <mat-datepicker-toggle
-                              matSuffix
-                              [for]="picker"
-                              style="color: #20c997;"
-                            ></mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker
-                              #picker
-                              [showSpinners]="true"
-                              [showSeconds]="true"
-                              [stepHour]="1"
-                              [stepMinute]="1"
-                              [stepSecond]="1"
-                              [touchUi]="true"
-                              [enableMeridian]="false"
-                              [color]="color"
-                            >
-                            </ngx-mat-datetime-picker>
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-auto">
-                          <label for="room">Room </label>
-                          <select
-                            class="form-control"
-                            #room="ngModel"
-                            name="room"
-                            id="room"
-                            [(ngModel)]="showTimeFilmNew.room"
-                            ngModel
-                            required
+                <div class="row">
+                  <div class="col-12" formArrayName="showTimeFilm">
+                    <div
+                      class="row"
+                      *ngFor="let time of controls; let i = index"
+                      [formGroupName]="i"
+                    >
+                      <div class="col-6">
+                        <label for="datetime">Time Showing</label>
+                        <mat-form-field class="ml-3">
+                          <input
+                            matInput
+                            [ngxMatDatetimePicker]="picker"
+                            placeholder="Choose a date"
+                            formControlName="time"
+                          />
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                            style="color: #20c997;"
+                          ></mat-datepicker-toggle>
+                          <ngx-mat-datetime-picker
+                            #picker
+                            [showSpinners]="true"
+                            [showSeconds]="true"
+                            [stepHour]="1"
+                            [stepMinute]="1"
+                            [stepSecond]="1"
+                            [touchUi]="true"
+                            [enableMeridian]="false"
+                            [color]="color"
                           >
-                            <option
-                              *ngFor="let room of rooms"
-                              [value]="room.name"
-                              >{{ room.name }}</option
-                            >
-                            <p>{{ room.name }}</p>
-                          </select>
-                        </div>
+                          </ngx-mat-datetime-picker>
+                        </mat-form-field>
                       </div>
-                    </div>
-                  </div>
-                  <div>
-                    <i
-                      class="far fa-plus-circle"
-                      style="color: #20c997;"
-                      (click)="increaseTimeShowing()"
-                    ></i>
-                  </div>
-                </div>
 
-                <div class="row" *ngIf="editMode">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <div class="row" *ngFor="let time of showTimeFilm">
-                        <div class="col-6">
-                          <label for="datetime">Time Showing</label>
-
-                          <mat-form-field class="ml-3">
-                            <input
-                              id="datetime"
-                              matInput
-                              [ngxMatDatetimePicker]="picker"
-                              placeholder="Choose a date"
-                              name="datetime"
-                              [(ngModel)]="time.time"
-                              #datetime="ngModel"
-                              required
-                            />
-                            <mat-datepicker-toggle
-                              matSuffix
-                              [for]="picker"
-                              style="color: #20c997;"
-                            ></mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker
-                              #picker
-                              [showSpinners]="true"
-                              [showSeconds]="true"
-                              [stepHour]="1"
-                              [stepMinute]="1"
-                              [stepSecond]="1"
-                              [touchUi]="true"
-                              [enableMeridian]="false"
-                              [color]="color"
-                            >
-                            </ngx-mat-datetime-picker>
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-auto">
-                          <label for="room">Room </label>
-                          <select
-                            class="form-control"
-                            #room="ngModel"
-                            name="room"
-                            id="room"
-                            [(ngModel)]="time.room.name"
-                            ngModel
-                            required
+                      <div class="col-auto">
+                        <label for="room">Room </label>
+                        <select
+                          id="room"
+                          class="form-control"
+                          formControlName="room"
+                        >
+                          <option
+                            *ngFor="let room of rooms"
+                            [value]="room.id"
+                            >{{ room.name }}</option
                           >
-                            <option [value]="time.room.name">{{
-                              time.room.name
-                            }}</option>
-                            <p>{{ time.room.name }}</p>
-                          </select>
-                        </div>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -335,21 +247,21 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
           <div class="col-12">
             <div class="row justify-content-end mr-2">
               <button
-                class="btn btn-new"
                 type="submit"
-                [disabled]="!form.valid"
+                class="btn btn-new"
+                [disabled]="!movieForm.valid"
               >
                 {{ editMode ? "Save" : "Submit" }}
               </button>
               <button
-                class="btn btn-cancel ml-3"
                 type="button"
+                class="btn btn-cancel ml-3"
                 (click)="onCancel()"
               >
                 Cancel

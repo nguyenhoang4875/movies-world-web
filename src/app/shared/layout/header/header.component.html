@@ -7,7 +7,9 @@
       class="dropdown-toggle"
       role="button"
     >
-      <span style="color: #555;">{{ "Hi," + loginedUser.username }}</span>
+      <span style="color: #555;">{{
+        "Hi, " + loginedUser.username | titlecase
+      }}</span>
       <img
         src="assets/images/avatar.svg"
         width="50"
