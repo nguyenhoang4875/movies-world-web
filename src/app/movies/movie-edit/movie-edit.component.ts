@@ -96,7 +96,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (!this.editMode) {
       let movie = new Movie({
-        name: this.movieForm.get("nameFilm").value,
+        name: this.movieForm.get("name").value,
         trailer: this.movieForm.get("trailer").value,
         poster: null,
         genres: this.movieForm.get("genres").value,
@@ -127,16 +127,14 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       trailer: [null, Validators.required],
       poster: [null, Validators.required],
       genres: [null, Validators.required],
-      filmDescription: [
-        this.formBuilder.group({
-          timeLimit: [null, Validators.required],
-          director: [null, Validators.required],
-          artist: [null, Validators.required],
-          nation: [null, Validators.required],
-          premiere: [null, Validators.required],
-          content: [null, Validators.required],
-        }),
-      ],
+      filmDescription: this.formBuilder.group({
+        timeLimit: [null, Validators.required],
+        director: [null, Validators.required],
+        artist: [null, Validators.required],
+        nation: [null, Validators.required],
+        premiere: [null, Validators.required],
+        content: [null, Validators.required],
+      }),
     });
   }
 

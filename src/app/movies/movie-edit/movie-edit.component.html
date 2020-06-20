@@ -8,12 +8,12 @@
               {{ editMode ? "Edit " : "New " }}Movie
             </h3>
             <div class="form-group">
-              <label for="nameFilm">Name Film</label>
+              <label for="name">Name Film</label>
               <input
-                id="nameFilm"
+                id="name"
                 class="form-control"
                 type="text"
-                formControlName="nameFilm"
+                formControlName="name"
               />
             </div>
           </div>
@@ -36,16 +36,16 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="image">Poster Image</label>
+              <label for="poster">Poster Image</label>
               <div class="custom-file">
                 <input
-                  id="image"
+                  id="poster"
                   type="file"
                   class="custom-file-input"
-                  formControlName="image"
+                  formControlName="poster"
                   (change)="onFileChange($event.target.files)"
                 />
-                <label class="custom-file-label" for="image" #labelImport
+                <label class="custom-file-label" for="poster" #labelImport
                   >Choose file</label
                 >
               </div>
