@@ -99,21 +99,24 @@ export class MovieEditComponent implements OnInit, OnDestroy {
         genres: this.movieForm.get("genres").value,
         filmDescription: this.movieForm.get("filmDescription").value,
       });
-      console.log(this.movieForm.get("genres").value);
-      console.log(movie);
-      this.movieService
+      this.subscription = this.movieService
         .postFileUpLoad(this.fileToUpload)
         .subscribe((poster: any) => {
           movie.poster = poster.fileName;
 
-          this.movieService.newMovie(movie).subscribe((movie) => {
-            console.log(movie);
-            this.movies.push(movie);
-            this.router.navigate(["../"], { relativeTo: this.route });
-          });
+          this.subscription = this.movieService
+            .newMovie(movie)
+            .subscribe((movie) => {
+              this.movies.push(movie);
+              this.router.navigate(["../"], { relativeTo: this.route });
+            });
         });
     } else {
     }
+  }
+
+  compareFn(c1: Genre, c2: Genre): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   onFileChange(files: FileList) {
@@ -147,8 +150,6 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       this.movieService.fetchMovie(this.id).subscribe((movie: Movie) => {
         this.movie = movie;
-        console.log(this.movie);
-        console.log("primiere " + typeof this.movie.filmDescription.premiere);
         this.movieForm.setValue({
           name: movie.name || "",
           trailer: movie.trailer || "",

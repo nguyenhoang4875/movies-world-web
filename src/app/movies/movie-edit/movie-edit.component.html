@@ -74,10 +74,14 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="" class="mr-5">Genres</label>
+              <label class="mr-5">Genres</label>
               <mat-form-field>
                 <mat-label>Genres</mat-label>
-                <mat-select formControlName="genres" multiple>
+                <mat-select
+                  [compareWith]="compareFn"
+                  formControlName="genres"
+                  multiple
+                >
                   <mat-option *ngFor="let genre of genreList" [value]="genre">{{
                     genre.name
                   }}</mat-option>
