@@ -4,6 +4,7 @@ import { Description } from "../../shared/description.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
 import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-movie-detail",
@@ -16,6 +17,9 @@ export class MovieDetailComponent implements OnInit {
   filmDescription: Description = new Description();
   showTimeFilm: ShowTimeFilm[] = [];
   id: string;
+  urlImage: string;
+  genre: string;
+  baseUrl = environment.baseUrl;
 
   datetime = new Object();
   dateOutput = new Array();
@@ -29,14 +33,18 @@ export class MovieDetailComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.id = param["id"];
     });
-    
-    this.movie = this.movieService.getMovie(+this.id);
-    console.log("_________________________________");
-    
-    console.log(this.movie);
-    
 
-    this.filmDescription = this.movie.filmDescription;
+    this.movieService.fetchMovie(+this.id).subscribe((movie: Movie) => {
+      this.movie = movie;
+      this.genre = movie.genres
+        .map((item) => {
+          return item.name;
+        })
+        .join(", ");
+      this.urlImage = this.baseUrl + "/images" + "/" + this.movie.poster;
+      console.log(this.urlImage);
+      this.filmDescription = this.movie.filmDescription;
+    });
 
     this.movieService.fetchShowTimeFilm(+this.id).subscribe((showTimeFilm) => {
       this.showTimeFilm = showTimeFilm;

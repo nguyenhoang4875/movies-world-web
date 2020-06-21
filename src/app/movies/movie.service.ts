@@ -5,6 +5,7 @@ import { ShowTimeFilm } from "../shared/showTimeFilm.model";
 import { Subject, Observable } from "rxjs";
 import { DataStorageService } from "../shared/services/data-storage.service";
 import { tap } from "rxjs/operators";
+import { Genre } from "../shared/genre.model";
 
 @Injectable({ providedIn: "root" })
 export class MovieService {
@@ -14,7 +15,7 @@ export class MovieService {
   moviesChanged = new Subject<Movie[]>();
 
   constructor(private dataStorageService: DataStorageService) {}
-  fetchMoves() {
+  fetchMovies() {
     return this.dataStorageService.fetchMovies().pipe(
       tap((movies) => {
         this.setMovies(movies);
@@ -24,6 +25,10 @@ export class MovieService {
 
   fetchMovie(id: number): Observable<Movie> {
     return this.dataStorageService.fetchMovie(id);
+  }
+
+  fetchGenre(): Observable<Genre[]> {
+    return this.dataStorageService.fetchGenre();
   }
 
   setMovies(movies: Movie[]) {

@@ -3,11 +3,22 @@
     <div class="col-xs-12 col-md-7 col-lg-7 col-xl-7 movie-container p-4">
       <div class="content">
         <div class="description">
-          <img [src]="movie.poster" />
+          <img [src]="urlImage" />
           <div class="content-description">
             <h3>
               {{ movie.name }}
             </h3>
+
+            <div>
+              <label>Trailer: </label>
+              <p>{{ movie.trailer }}</p>
+            </div>
+
+            <div>
+              <label>Genre: </label>
+              <p>{{ genre }}</p>
+            </div>
+
             <div>
               <label>Time Limit:</label>
               <p>{{ filmDescription.timeLimit + " minutes" }}</p>
@@ -29,7 +40,7 @@
 
             <div>
               <label>Premiere:</label>
-              <p>{{ filmDescription.premiere | date: "EEEE dd/MM/y" }}</p>
+              <p>{{ filmDescription.premiere | date: "EEEE dd/MM/yyyy" }}</p>
             </div>
 
             <div>

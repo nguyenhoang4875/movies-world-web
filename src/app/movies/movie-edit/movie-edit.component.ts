@@ -18,6 +18,7 @@ import { ThemePalette } from "@angular/material/core";
 import { Room } from "../../shared/room.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
+import { Genre } from "../../shared/genre.model";
 
 @Component({
   selector: "app-movie-edit",
@@ -35,14 +36,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   movieForm: FormGroup;
   fileToUpload: File = null;
   genres = new FormControl();
-  genreList: string[] = [
-    "Extra cheese",
-    "Mushroom",
-    "Onion",
-    "Pepperoni",
-    "Sausage",
-    "Tomato",
-  ];
+  genreList: Genre[] = [];
 
   movie: Movie;
 
@@ -80,6 +74,9 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     //   console.log(this.rooms);
     // });
     this.movies = this.movieService.getMovies();
+    this.movieService.fetchGenre().subscribe((genres: Genre[]) => {
+      this.genreList = genres;
+    });
     this.initForm();
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
@@ -102,11 +99,12 @@ export class MovieEditComponent implements OnInit, OnDestroy {
         genres: this.movieForm.get("genres").value,
         filmDescription: this.movieForm.get("filmDescription").value,
       });
+      console.log(this.movieForm.get("genres").value);
+      console.log(movie);
       this.movieService
         .postFileUpLoad(this.fileToUpload)
         .subscribe((poster: any) => {
-          console.log(poster);
-           movie.poster = "http://localhost:9000/api/images/"+ poster.fileName;
+          movie.poster = poster.fileName;
 
           this.movieService.newMovie(movie).subscribe((movie) => {
             console.log(movie);
@@ -132,7 +130,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       trailer: [null, Validators.required],
       poster: [null],
       image: [null, Validators.required],
-      genres: [null],
+      genres: [null, Validators.required],
       filmDescription: this.formBuilder.group({
         timeLimit: [null, Validators.required],
         director: [null, Validators.required],
@@ -149,18 +147,22 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       this.movieService.fetchMovie(this.id).subscribe((movie: Movie) => {
         this.movie = movie;
+        console.log(this.movie);
+        console.log("primiere " + typeof this.movie.filmDescription.premiere);
         this.movieForm.setValue({
           name: movie.name || "",
           trailer: movie.trailer || "",
           poster: movie.poster || "",
           image: null,
           genres: movie.genres || [],
-          timeLimit: movie.filmDescription.timeLimit || "",
-          director: movie.filmDescription.director || "",
-          artist: movie.filmDescription.artist || "",
-          nation: movie.filmDescription.nation || "",
-          premiere: movie.filmDescription.premiere || null,
-          content: movie.filmDescription.content || "",
+          filmDescription: {
+            timeLimit: movie.filmDescription.timeLimit || "",
+            director: movie.filmDescription.director || "",
+            artist: movie.filmDescription.artist || "",
+            nation: movie.filmDescription.nation || "",
+            premiere: new Date(movie.filmDescription.premiere) || null,
+            content: movie.filmDescription.content || "",
+          },
         });
       });
     }

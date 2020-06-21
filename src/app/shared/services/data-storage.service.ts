@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { Movie } from "../../movies/movie.model";
 import { ShowTimeFilm } from "../showTimeFilm.model";
 import { Room } from "../room.model";
+import { Genre } from "../genre.model";
 
 @Injectable({
   providedIn: "root",
@@ -89,6 +90,10 @@ export class DataStorageService {
 
   newMovie(movie: Movie): Observable<Movie> {
     return this.httpClient.post<Movie>(this.baseUrl + "/films", movie);
+  }
+
+  fetchGenre(): Observable<Genre[]> {
+    return this.httpClient.get<Genre[]>(this.baseUrl + "/genres");
   }
 
   postFileUpLoad(fileToUpLoad: File) {

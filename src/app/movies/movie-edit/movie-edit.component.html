@@ -59,7 +59,11 @@
                   formControlName="image"
                   (change)="onFileChange($event.target.files)"
                 />
-                <label class="custom-file-label" for="image" #labelImport
+                <label
+                  style="color: black; font-weight: normal;"
+                  class="custom-file-label"
+                  for="customFile"
+                  #labelImport
                   >Choose file</label
                 >
               </div>
@@ -75,7 +79,7 @@
                 <mat-label>Genres</mat-label>
                 <mat-select formControlName="genres" multiple>
                   <mat-option *ngFor="let genre of genreList" [value]="genre">{{
-                    genre
+                    genre.name
                   }}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -143,10 +147,12 @@
           <div class="row">
             <div class="col-12">
               <div class="form-group">
-                <label for="premiere" class="mr-3">Premiere</label>
+                <label for="premiere" class="mr-5">Premiere</label>
 
                 <mat-form-field>
-                  <mat-label style="color: gray;">Choose a date</mat-label>
+                  <mat-label style="color: gray; font-weight: normal;"
+                    >Choose a date</mat-label
+                  >
                   <input
                     matInput
                     style="border: none;"

@@ -47,11 +47,19 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   private initialMovies() {
     this.subscription = this.movieService
-      .fetchMoves()
+      .fetchMovies()
       .subscribe((movies: Movie[]) => {
         this.movies = movies;
         this.separatePage(this.movies);
       });
+  }
+
+  getGenre(movie: Movie): string {
+    return movie.genres
+      .map((item) => {
+        return item.name;
+      })
+      .join(", ");
   }
 
   private decentralize() {
