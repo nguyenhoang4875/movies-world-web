@@ -19,6 +19,7 @@ import { Room } from "../../shared/room.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
 import { Genre } from "../../shared/genre.model";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-movie-edit",
@@ -37,6 +38,8 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   fileToUpload: File = null;
   genres = new FormControl();
   genreList: Genre[] = [];
+  urlImage: string;
+  baseUrl = environment.baseUrl;
 
   movie: Movie;
 
@@ -57,26 +60,12 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.movies = this.movieService.getMovies();
-    // this.subscription = this.route.params.subscribe((params: Params) => {
-    //   this.id = +params["id"];
-    //   this.editMode = params["id"] != null;
-    //   console.log(this.editMode);
-    //   if (this.editMode) {
-    //     this.editingMovie = this.movieService.getMovie(this.id);
-    //     this.movieService.fetchShowTimeFilm(this.id).subscribe((dates) => {
-    //       this.showTimeFilm = dates;
-    //     });
-    //   }
-    // });
-    // this.subscription = this.movieService.fetchRooms().subscribe((rooms) => {
-    //   this.rooms = rooms;
-    //   console.log(this.rooms);
-    // });
     this.movies = this.movieService.getMovies();
-    this.movieService.fetchGenre().subscribe((genres: Genre[]) => {
-      this.genreList = genres;
-    });
+    this.subscription = this.movieService
+      .fetchGenre()
+      .subscribe((genres: Genre[]) => {
+        this.genreList = genres;
+      });
     this.initForm();
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
@@ -91,14 +80,15 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   // }
 
   onSubmit() {
+    let movie = new Movie({
+      name: this.movieForm.get("name").value,
+      trailer: this.movieForm.get("trailer").value,
+      poster: this.movieForm.get("poster").value,
+      genres: this.movieForm.get("genres").value,
+      filmDescription: this.movieForm.get("filmDescription").value,
+    });
+
     if (!this.editMode) {
-      let movie = new Movie({
-        name: this.movieForm.get("name").value,
-        trailer: this.movieForm.get("trailer").value,
-        poster: this.movieForm.get("poster").value,
-        genres: this.movieForm.get("genres").value,
-        filmDescription: this.movieForm.get("filmDescription").value,
-      });
       this.subscription = this.movieService
         .postFileUpLoad(this.fileToUpload)
         .subscribe((poster: any) => {
@@ -112,18 +102,13 @@ export class MovieEditComponent implements OnInit, OnDestroy {
             });
         });
     } else {
+      this.movieService
+        .updateMovie(this.id, movie)
+        .subscribe((movieNew: Movie) => {
+          this.movies[this.id - 1] = movieNew;
+          this.router.navigate(["../../"], { relativeTo: this.route });
+        });
     }
-  }
-
-  compareFn(c1: Genre, c2: Genre): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  }
-
-  onFileChange(files: FileList) {
-    this.labelImport.nativeElement.innerText = Array.from(files)
-      .map((f) => f.name)
-      .join(", ");
-    this.fileToUpload = files.item(0);
   }
 
   initForm() {
@@ -165,8 +150,20 @@ export class MovieEditComponent implements OnInit, OnDestroy {
             content: movie.filmDescription.content || "",
           },
         });
+        this.urlImage = this.baseUrl + "/images" + "/" + this.movie.poster;
       });
     }
+  }
+
+  compareFn(c1: Genre, c2: Genre): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
+  onFileChange(files: FileList) {
+    this.labelImport.nativeElement.innerText = Array.from(files)
+      .map((f) => f.name)
+      .join(", ");
+    this.fileToUpload = files.item(0);
   }
 
   onCancel() {

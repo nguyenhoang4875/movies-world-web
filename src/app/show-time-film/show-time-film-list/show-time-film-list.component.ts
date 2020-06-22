@@ -1,10 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { cloneDeep } from "lodash";
-
-import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
-import { DataStorageService } from "../../shared/services/data-storage.service";
 import { Subscription } from "rxjs";
+
+import { DataStorageService } from "../../shared/services/data-storage.service";
+import { Movie } from "../../movies/movie.model";
+import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
+import { MovieService } from "../../movies/movie.service";
 
 @Component({
   selector: "app-show-time-film-list",
@@ -14,7 +16,8 @@ import { Subscription } from "rxjs";
 export class ShowTimeFilmListComponent implements OnInit {
   subscription: Subscription;
   id: number;
-  showTimeFilm: ShowTimeFilm[] = [];
+  movie: Movie = new Movie();
+  showTImeFilmList: ShowTimeFilm[] = [];
   showedShowTimeFilm: ShowTimeFilm[] = [];
   search: string;
   page: number;
@@ -24,38 +27,51 @@ export class ShowTimeFilmListComponent implements OnInit {
   numberOfPage = 5;
 
   isLoading = false;
+  @ViewChild("picker", {
+    static: false,
+  })
+  picker;
 
   constructor(
+    private movieService: MovieService,
     private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.loadingShowTimeFilm();
+    this.subscription = this.route.params.subscribe((params: Params) => {
+      this.id = +params["id"];
+    });
+    this.loadingMovie(this.id);
   }
 
   private loadingShowTimeFilm() {
     this.isLoading = true;
-    this.initShowTimeFilm();
+    this.initShowTimeFilm(this.id);
   }
 
-  private initShowTimeFilm() {
-    this.subscription = this.route.params.subscribe((params: Params) => {
-      this.id = +params["id"];
-    });
-    this.subscription = this.dataStorageService
-      .fetchShowTimeFilmById(this.id)
-      .subscribe((showTimeFilm: ShowTimeFilm[]) => {
-        this.showTimeFilm = showTimeFilm;
-        console.log(showTimeFilm);
-        this.separatePage(showTimeFilm);
+  private loadingMovie(id: number) {
+    this.subscription = this.movieService
+      .fetchMovie(id)
+      .subscribe((movie: Movie) => {
+        this.movie = movie;
+        this.loadingShowTimeFilm();
       });
   }
 
-  private separatePage(showTimeFilm: ShowTimeFilm[]) {
-    if (showTimeFilm) {
-      this.pages = Math.ceil(showTimeFilm.length / this.numberOfPage);
+  private initShowTimeFilm(id: number) {
+    this.subscription = this.dataStorageService
+      .fetchShowTimeFilmById(id)
+      .subscribe((showTImeFilmList: ShowTimeFilm[]) => {
+        this.showTImeFilmList = showTImeFilmList;
+        this.separatePage(showTImeFilmList);
+      });
+  }
+
+  private separatePage(showTImeFilmList: ShowTimeFilm[]) {
+    if (showTImeFilmList) {
+      this.pages = Math.ceil(showTImeFilmList.length / this.numberOfPage);
       for (let i = 1; i <= this.pages; i++) {
         this.pagesArr.push(i);
       }
@@ -68,7 +84,7 @@ export class ShowTimeFilmListComponent implements OnInit {
 
   onSelectPage(page: number) {
     this.currentPage = page;
-    const temp = cloneDeep(this.showTimeFilm);
+    const temp = cloneDeep(this.showTImeFilmList);
 
     this.showedShowTimeFilm = temp.splice(
       this.numberOfPage * (page - 1),
@@ -88,5 +104,9 @@ export class ShowTimeFilmListComponent implements OnInit {
       return;
     }
     this.onSelectPage(this.currentPage - 1);
+  }
+
+  newShowTimeFilm(e) {
+    this.router.navigate(["new"], { relativeTo: this.route });
   }
 }

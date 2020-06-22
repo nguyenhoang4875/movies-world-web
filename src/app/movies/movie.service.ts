@@ -31,6 +31,14 @@ export class MovieService {
     return this.dataStorageService.fetchGenre();
   }
 
+  fetchShowTimeFilm(id: number) {
+    return this.dataStorageService.fetchShowTimeFilmById(id);
+  }
+
+  fetchRooms() {
+    return this.dataStorageService.fetchRooms();
+  }
+
   setMovies(movies: Movie[]) {
     this.movies = movies;
   }
@@ -54,14 +62,6 @@ export class MovieService {
     return position;
   }
 
-  fetchShowTimeFilm(id: number) {
-    return this.dataStorageService.fetchShowTimeFilmById(id);
-  }
-
-  fetchRooms() {
-    return this.dataStorageService.fetchRooms();
-  }
-
   getUpdateStatusMovie(movie: Movie) {
     const index = +movie.id - 1;
     this.movies[index] = movie;
@@ -75,8 +75,8 @@ export class MovieService {
     return this.dataStorageService.newMovie(movie);
   }
 
-  editMovie(id: number, movie: Movie): Observable<Movie> {
-    return;
+  updateMovie(id: number, movie: Movie): Observable<Movie> {
+    return this.dataStorageService.updateMovie(id, movie);
   }
 
   newShowTimeFilm(

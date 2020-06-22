@@ -4,7 +4,12 @@
 
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
+    <h3 style="text-align: center;">Movie: {{ movie.name | uppercase }}</h3>
+
     <div class="headerBody">
+      <button class="btn btn-new" (click)="newShowTimeFilm($event)">
+        + New Show Time Film
+      </button>
       <i></i>
       <div class="search">
         <input
@@ -44,7 +49,7 @@
                   ></i>
                   <i
                     class="far fa-edit iedit"
-                    [routerLink]="[timeFilm.id, 'edit']"
+                    [routerLink]="['edit', timeFilm.id]"
                   ></i>
                   <i class="far fa-trash-alt idelete"></i>
                 </td>

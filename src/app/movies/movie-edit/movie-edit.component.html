@@ -36,13 +36,7 @@
         <div class="row" *ngIf="editMode">
           <div class="col-12">
             <div class="form-group">
-              <label for="poster">Poster</label>
-              <input
-                id="poster"
-                type="text"
-                class="form-control"
-                formControlName="poster"
-              />
+              <img [src]="urlImage" />
             </div>
           </div>
         </div>

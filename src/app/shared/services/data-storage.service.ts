@@ -92,6 +92,13 @@ export class DataStorageService {
     return this.httpClient.post<Movie>(this.baseUrl + "/films", movie);
   }
 
+  updateMovie(id: number, movie: Movie): Observable<Movie> {
+    return this.httpClient.put<Movie>(
+      this.baseUrl + "/films" + "/" + id,
+      movie
+    );
+  }
+
   fetchGenre(): Observable<Genre[]> {
     return this.httpClient.get<Genre[]>(this.baseUrl + "/genres");
   }
@@ -102,16 +109,12 @@ export class DataStorageService {
     return this.httpClient.post(this.baseUrl + "/images", formData);
   }
 
-  // editMovie(id:number, movie:Movie):Observable<Movie>{
-  //   return this.httpClient.put<Movie>(this.baseUrl + "");
-  // }
-
   newShowTimeFilm(
     id: number,
     showTimeFilm: ShowTimeFilm
   ): Observable<ShowTimeFilm> {
     return this.httpClient.post<ShowTimeFilm>(
-      this.baseUrl + "/api" + "/showtimefilms" + "/" + id,
+      this.baseUrl + "/showtimefilms" + "/" + id,
       showTimeFilm
     );
   }
