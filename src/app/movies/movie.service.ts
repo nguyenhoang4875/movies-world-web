@@ -31,8 +31,8 @@ export class MovieService {
     return this.dataStorageService.fetchGenre();
   }
 
-  fetchShowTimeFilm(id: number) {
-    return this.dataStorageService.fetchShowTimeFilmById(id);
+  fetchShowTimeFilmList(id: number) {
+    return this.dataStorageService.fetchShowTimeFilmListById(id);
   }
 
   fetchRooms() {

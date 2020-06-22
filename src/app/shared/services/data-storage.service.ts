@@ -82,9 +82,9 @@ export class DataStorageService {
     return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
   }
 
-  fetchShowTimeFilmById(id: number): Observable<ShowTimeFilm[]> {
+  fetchShowTimeFilmListById(id: number): Observable<ShowTimeFilm[]> {
     return this.httpClient.get<ShowTimeFilm[]>(
-      this.baseUrl + "/showtimefilms" + "/" + id
+      this.baseUrl + "/showtimefilms" + "/films" + "/" + id
     );
   }
 

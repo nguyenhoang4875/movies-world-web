@@ -62,7 +62,7 @@ export class ShowTimeFilmListComponent implements OnInit {
 
   private initShowTimeFilm(id: number) {
     this.subscription = this.dataStorageService
-      .fetchShowTimeFilmById(id)
+      .fetchShowTimeFilmListById(id)
       .subscribe((showTImeFilmList: ShowTimeFilm[]) => {
         this.showTImeFilmList = showTImeFilmList;
         this.separatePage(showTImeFilmList);

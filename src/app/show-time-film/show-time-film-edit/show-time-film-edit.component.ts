@@ -39,17 +39,26 @@ export class ShowTimeFilmEditComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.movieService
-      .fetchRooms()
-      .subscribe((rooms: Room[]) => {
-        this.rooms = rooms;
-      });
+    this.initRooms();
+
     this.initForm();
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
       this.initData();
     });
     this.initShowTimeFilm(this.id);
+    this.getUrl();
+  }
+
+  private initRooms() {
+    this.subscription = this.movieService
+      .fetchRooms()
+      .subscribe((rooms: Room[]) => {
+        this.rooms = rooms;
+      });
+  }
+
+  private getUrl() {
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationStart) {
         this.parameterValue = this.onSubUrl(e.url.substring(1)).replace(
@@ -70,7 +79,7 @@ export class ShowTimeFilmEditComponent implements OnInit {
 
   private initShowTimeFilm(id: number) {
     this.subscription = this.dataStorageService
-      .fetchShowTimeFilmById(this.id)
+      .fetchShowTimeFilmListById(this.id)
       .subscribe((showTimeFilmList: ShowTimeFilm[]) => {
         this.showTimeFilmList = showTimeFilmList;
       });
@@ -103,7 +112,9 @@ export class ShowTimeFilmEditComponent implements OnInit {
   //initData for existed movie
   private initData(): void {
     if (this.editMode) {
-      //  this.dataStorageService.fetchShowTimeFilmById(this.id).subscribe
+      // this.showTimeFilmForm.setValue({
+      //   datetime:
+      // });
     }
   }
 
