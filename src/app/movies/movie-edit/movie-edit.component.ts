@@ -13,13 +13,10 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
-import { ThemePalette } from "@angular/material/core";
-
-import { Room } from "../../shared/room.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
 import { Genre } from "../../shared/genre.model";
-import { environment } from "../../../environments/environment";
+import { environment } from "../../../environments/environment.prod";
 
 @Component({
   selector: "app-movie-edit",
@@ -45,12 +42,10 @@ export class MovieEditComponent implements OnInit, OnDestroy {
 
   // color: ThemePalette = "accent";
 
-  @ViewChild("picker", {
-    static: false,
-  })
+  @ViewChild("picker")
   picker;
 
-  @ViewChild("labelImport", { static: false }) labelImport: ElementRef;
+  @ViewChild("labelImport") labelImport: ElementRef;
 
   constructor(
     private movieService: MovieService,

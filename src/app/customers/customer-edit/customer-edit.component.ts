@@ -30,7 +30,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   editingCustomer: UserDetail = new UserDetail();
 
-  @ViewChild(PlaceholderDirective, { static: false })
+  @ViewChild(PlaceholderDirective)
   alertHost: PlaceholderDirective;
   hostViewContainerRef: ViewContainerRef;
 

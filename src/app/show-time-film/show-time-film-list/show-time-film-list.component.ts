@@ -27,9 +27,7 @@ export class ShowTimeFilmListComponent implements OnInit {
   numberOfPage = 5;
 
   isLoading = false;
-  @ViewChild("picker", {
-    static: false,
-  })
+  @ViewChild("picker")
   picker;
 
   constructor(

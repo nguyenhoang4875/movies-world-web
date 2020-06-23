@@ -36,7 +36,7 @@ export class StaffListComponent implements OnInit {
   isSucceeding = false;
   message: string = "";
 
-  @ViewChild(PlaceholderDirective, { static: false })
+  @ViewChild(PlaceholderDirective)
   alertHost: PlaceholderDirective;
   constructor(
     private staffService: StaffService,

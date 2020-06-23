@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { UserDetail } from "../../admin/user-detail.model";
-import { environment } from "../../../environments/environment";
+import { environment } from "../../../environments/environment.prod";
 import { Observable } from "rxjs";
 import { Movie } from "../../movies/movie.model";
 import { ShowTimeFilm } from "../showTimeFilm.model";

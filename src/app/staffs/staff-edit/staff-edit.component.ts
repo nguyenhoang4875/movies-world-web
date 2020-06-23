@@ -28,7 +28,7 @@ export class StaffEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   editingStaff: UserDetail = new UserDetail();
 
-  @ViewChild(PlaceholderDirective, { static: false })
+  @ViewChild(PlaceholderDirective)
   alertHost: PlaceholderDirective;
 
   constructor(

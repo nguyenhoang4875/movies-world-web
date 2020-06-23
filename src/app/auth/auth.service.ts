@@ -6,8 +6,8 @@ import { catchError, tap } from "rxjs/operators";
 
 import { User } from "./user.model";
 import { Role } from "./role.model";
-import { environment } from "../../environments/environment";
 import { UserDetail } from "../admin/user-detail.model";
+import { environment } from 'src/environments/environment.prod';
 
 export interface AuthResponseData {
   username: string;

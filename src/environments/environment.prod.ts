@@ -1,3 +1,6 @@
+import { environment as common } from './environment';
 export const environment = {
-  production: true
+  ...common,
+  production: true,
+  baseUrl: "http://localhost:9000/api",
 };

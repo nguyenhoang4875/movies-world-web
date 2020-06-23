@@ -1,10 +1,10 @@
-import { Component, OnInit, ɵɵi18nPostprocess } from "@angular/core";
+import { Component, OnInit  } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Description } from "../../shared/description.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
 import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
-import { environment } from "../../../environments/environment";
+import { environment } from "../../../environments/environment.prod";
 
 @Component({
   selector: "app-movie-detail",

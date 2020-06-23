@@ -37,7 +37,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   isSucceeding = false;
   message: string = "";
 
-  @ViewChild(PlaceholderDirective, { static: false })
+  @ViewChild(PlaceholderDirective)
   alertHost: PlaceholderDirective;
   constructor(
     private customerService: CustomerService,
