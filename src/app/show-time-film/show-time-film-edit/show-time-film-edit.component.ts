@@ -2,12 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { Subscription } from "rxjs";
-import {
-  Router,
-  ActivatedRoute,
-  Params,
-  NavigationStart,
-} from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { Room } from "../../shared/room.model";
 import { DataStorageService } from "../../shared/services/data-storage.service";
@@ -27,6 +22,8 @@ export class ShowTimeFilmEditComponent implements OnInit {
   showTimeFilmList: ShowTimeFilm[] = [];
   rooms: Room[] = [];
 
+  url: string = "";
+
   color: ThemePalette = "accent";
   parameterValue: string;
 
@@ -42,12 +39,11 @@ export class ShowTimeFilmEditComponent implements OnInit {
     this.initRooms();
 
     this.initForm();
-    this.subscription = this.route.params.subscribe((params: Params) => {
-      this.id = +params["id"];
-      this.initData();
-    });
+
+    this.url = this.router.url;
+    this.setIdMovie(this.url);
     this.initShowTimeFilm(this.id);
-    this.getUrl();
+    this.getCondition(this.url);
   }
 
   private initRooms() {
@@ -58,18 +54,20 @@ export class ShowTimeFilmEditComponent implements OnInit {
       });
   }
 
-  private getUrl() {
-    this.router.events.subscribe((e) => {
-      if (e instanceof NavigationStart) {
-        this.parameterValue = this.onSubUrl(e.url.substring(1)).replace(
-          /\//g,
-          " / "
-        );
-        if (this.parameterValue === "new") {
-          this.editMode = false;
-        }
+  private setIdMovie(url: string) {
+    let stringArray = url.split("/");
+    stringArray.forEach((item) => {
+      if (Number(item)) {
+        this.id = Number(item);
       }
     });
+  }
+
+  private getCondition(url: string) {
+    this.parameterValue = this.onSubUrl(url.substring(1)).replace(/\//g, " / ");
+    if (this.parameterValue === "new") {
+      this.editMode = false;
+    }
   }
 
   private onSubUrl(url: string): string {

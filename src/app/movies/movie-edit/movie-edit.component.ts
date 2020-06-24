@@ -43,6 +43,8 @@ export class MovieEditComponent implements OnInit, OnDestroy {
 
   movie: Movie;
 
+  extensionImage = ["png", "jpg", "svg"];
+
   // color: ThemePalette = "accent";
 
   @ViewChild("picker", {
@@ -117,7 +119,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       name: [null, Validators.required],
       trailer: [null, Validators.required],
       poster: [null],
-      image: [null, Validators.required],
+      image: [null],
       genres: [null, Validators.required],
       filmDescription: this.formBuilder.group({
         timeLimit: [null, Validators.required],
@@ -164,6 +166,16 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       .map((f) => f.name)
       .join(", ");
     this.fileToUpload = files.item(0);
+    console.log(files.item(0));
+  }
+
+  onCheckImageFile(control: FormControl): { [s: string]: boolean } {
+    let positionDot = control.value.name.lastIndexOf(".");
+    let extension = control.value.name.substring(positionDot + 1);
+    if (this.extensionImage.indexOf(extension)) {
+      return { extension: false };
+    }
+    return { extension: true };
   }
 
   onCancel() {

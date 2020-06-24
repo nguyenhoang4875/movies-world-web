@@ -12,10 +12,25 @@
   flex-direction: row;
 }
 
+.content .filmContent label {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.content .filmContent label::after {
+  display: block;
+  width: 100px;
+  height: 2px;
+  margin-top: 8px;
+  content: "";
+  background-color: #20c997;
+}
+
 .content .description img {
-  width: 20em;
-  height: 20em;
+  width: 100%;
+  object-fit: cover;
   margin-right: 1.2rem;
+  border-radius: 12px;
 }
 
 .content .description .content-description h3 {

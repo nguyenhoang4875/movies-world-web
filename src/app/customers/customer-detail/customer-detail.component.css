@@ -1,24 +1,27 @@
-.container {
+/* .container {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding: 12px 20px;
+  padding: 12px 12px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  width: 60%;
+  width: 80%;
+} */
+
+.content-container {
+  background-color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
 
 img {
-  max-width: 70%;
-}
-
-.left-content {
-  width: 40%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  position: relative;
+  top: 10px;
+  left: 20px;
 }
 
 .say-hi {
@@ -66,12 +69,7 @@ img {
 }
 
 .bottom-content {
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  padding: 6px 0;
   background-color: #20c997;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;

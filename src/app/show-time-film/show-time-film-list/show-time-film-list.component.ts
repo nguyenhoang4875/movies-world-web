@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { cloneDeep } from "lodash";
-import { Subscription } from "rxjs";
+import { Subscription, Subject } from "rxjs";
 
 import { DataStorageService } from "../../shared/services/data-storage.service";
 import { Movie } from "../../movies/movie.model";
@@ -17,6 +17,8 @@ export class ShowTimeFilmListComponent implements OnInit {
   subscription: Subscription;
   id: number;
   movie: Movie = new Movie();
+  isLoading = false;
+
   showTImeFilmList: ShowTimeFilm[] = [];
   showedShowTimeFilm: ShowTimeFilm[] = [];
   search: string;
@@ -26,11 +28,7 @@ export class ShowTimeFilmListComponent implements OnInit {
   currentPage: number;
   numberOfPage = 5;
 
-  isLoading = false;
-  @ViewChild("picker", {
-    static: false,
-  })
-  picker;
+  idChange = new Subject<number>();
 
   constructor(
     private movieService: MovieService,
@@ -107,6 +105,7 @@ export class ShowTimeFilmListComponent implements OnInit {
   }
 
   newShowTimeFilm(e) {
+    this.idChange.next(this.id);
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 }

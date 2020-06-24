@@ -47,6 +47,7 @@ import { MovieService } from "./movies/movie.service";
 import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component";
 import { ShowTimeFilmListComponent } from './show-time-film/show-time-film-list/show-time-film-list.component';
 import { ShowTimeFilmEditComponent } from './show-time-film/show-time-film-edit/show-time-film-edit.component';
+import { MovieInforComponent } from './movies/movie-infor/movie-infor.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ShowTimeFilmEditComponent } from './show-time-film/show-time-film-edit/
     ShowTimeFilmComponent,
     ShowTimeFilmListComponent,
     ShowTimeFilmEditComponent,
+    MovieInforComponent,
   ],
   imports: [
     BrowserModule,

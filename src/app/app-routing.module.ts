@@ -15,10 +15,10 @@ import { MovieEditComponent } from "./movies/movie-edit/movie-edit.component";
 import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.component";
 import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
-import { ShowTimeFilm } from "./shared/showTimeFilm.model";
 import { ShowTimeFilmListComponent } from "./show-time-film/show-time-film-list/show-time-film-list.component";
 import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component";
 import { ShowTimeFilmEditComponent } from "./show-time-film/show-time-film-edit/show-time-film-edit.component";
+import { MovieInforComponent } from "./movies/movie-infor/movie-infor.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -61,19 +61,30 @@ const appRoutes: Routes = [
         children: [
           { path: "", component: MovieListComponent },
           { path: "new", component: MovieEditComponent },
-          { path: ":id", component: MovieDetailComponent },
+          {
+            path: ":id",
+            component: MovieDetailComponent,
+          },
+          {
+            path: ":id/showtimefilm",
+            component: MovieInforComponent,
+            children: [
+              { path: "", component: ShowTimeFilmListComponent },
+              { path: "new", component: ShowTimeFilmEditComponent },
+            ],
+          },
           { path: ":id/edit", component: MovieEditComponent },
         ],
       },
-      {
-        path: "movies/showtimefilm",
-        component: ShowTimeFilmComponent,
-        children: [
-          { path: ":id/new", component: ShowTimeFilmEditComponent },
-          { path: ":id", component: ShowTimeFilmListComponent },
-          { path: ":id/edit/:id", component: ShowTimeFilmEditComponent },
-        ],
-      },
+      // {
+      //   path: "movies/showtimefilm",
+      //   component: ShowTimeFilmComponent,
+      //   children: [
+      //     { path: ":id/new", component: ShowTimeFilmEditComponent },
+      //     { path: ":id", component: ShowTimeFilmListComponent },
+      //     { path: ":id/edit/:id", component: ShowTimeFilmEditComponent },
+      //   ],
+      // },
     ],
   },
 ];
