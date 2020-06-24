@@ -1,46 +1,90 @@
 <div class="row h-100 justify-content-end align-items-center">
   <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12">
-    <div class="container">
-      <div class="left-content">
-        <img src="assets/images/avatar.svg" />
-      </div>
-
-      <div class="right-content">
-        <span class="say-hi">HELLO</span>
-
-        <h2 class="my-name">
-          I'm <span>{{ editingStaff.fullName }}</span>
-        </h2>
-
-        <div class="details">
-          <div class="labels">
-            <p>ID</p>
-            <p>Full Name</p>
-            <p>User Name</p>
-            <p>Email</p>
-            <p>Phone</p>
-            <p>Address</p>
+    <div class="container content-container">
+      <div class="row pt-4 pb-2">
+        <div class="col-6">
+          <div class="row justify-content-center align-items-center">
+            <img class="avatar" src="assets/images/avatar.svg" />
           </div>
+        </div>
 
-          <div class="information">
-            <p>{{ editingStaff.id }}</p>
-            <p>{{ editingStaff.fullName }}</p>
-            <p>{{ editingStaff.username }}</p>
-            <p>{{ editingStaff.email }}</p>
-            <p>{{ editingStaff.phone }}</p>
-            <p>{{ editingStaff.address }}</p>
+        <div class="col-6 content">
+          <span class="say-hi">HELLO</span>
+
+          <h2 class="my-name">
+            I'm <span>{{ editingStaff.fullName }}</span>
+          </h2>
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  ID
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.id }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  Full Name
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.fullName }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  User Name
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.username }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  Email
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.email }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  Phone
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.phone }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-12 labels labels">
+                  Address
+                </div>
+                <div class="col-auto">
+                  {{ editingStaff.address }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="bottom-content">
-        <a [routerLink]="'../'">
-          <i class="far fa-arrow-alt-circle-left"></i>
-        </a>
-        <a [routerLink]="'edit'">
-          <i class="far fa-edit"></i>
-        </a>
+      <div class="row bottom-content">
+        <div class="col-auto">
+          <a [routerLink]="'../'">
+            <i class="far fa-arrow-alt-circle-left"></i>
+          </a>
+          <a [routerLink]="'edit'">
+            <i class="far fa-edit"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+v

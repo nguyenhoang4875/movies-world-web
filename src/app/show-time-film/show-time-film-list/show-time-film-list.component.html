@@ -7,7 +7,7 @@
     <h3 style="text-align: center;">Movie: {{ movie.name | uppercase }}</h3>
 
     <div class="headerBody">
-      <button class="btn btn-new" (click)="newShowTimeFilm($event)">
+      <button class="btn-new" (click)="newShowTimeFilm($event)">
         + New Show Time Film
       </button>
       <i></i>
@@ -49,7 +49,7 @@
                   ></i>
                   <i
                     class="far fa-edit iedit"
-                    [routerLink]="['edit', timeFilm.id]"
+                    [routerLink]="[timeFilm.id, 'edit']"
                   ></i>
                   <i class="far fa-trash-alt idelete"></i>
                 </td>
