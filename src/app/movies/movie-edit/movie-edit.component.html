@@ -60,6 +60,9 @@
                   #labelImport
                   >Choose file</label
                 >
+                <!-- <span *ngIf="movieForm.get('image').errors['extension']"
+                  >The file is invalid!</span
+                > -->
               </div>
             </div>
           </div>
@@ -153,10 +156,9 @@
                   >
                   <input
                     matInput
-                    style="border: none;"
-                    [matDatepicker]="picker"
                     class="form-control"
                     id="premiere"
+                    [matDatepicker]="picker"
                     formControlName="premiere"
                   />
                   <mat-datepicker-toggle
@@ -272,14 +274,14 @@
             <div class="row justify-content-end mr-2">
               <button
                 type="submit"
-                class="btn btn-new"
+                class="btn-new"
                 [disabled]="!movieForm.valid"
               >
                 {{ editMode ? "Save" : "Submit" }}
               </button>
               <button
                 type="button"
-                class="btn btn-cancel ml-3"
+                class="btn btn-danger btn-cancel ml-3"
                 (click)="onCancel()"
               >
                 Cancel

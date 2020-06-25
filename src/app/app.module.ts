@@ -45,8 +45,11 @@ import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 import { StaffService } from "./staffs/staff.service";
 import { MovieService } from "./movies/movie.service";
 import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component";
-import { ShowTimeFilmListComponent } from './show-time-film/show-time-film-list/show-time-film-list.component';
-import { ShowTimeFilmEditComponent } from './show-time-film/show-time-film-edit/show-time-film-edit.component';
+import { ShowTimeFilmListComponent } from "./show-time-film/show-time-film-list/show-time-film-list.component";
+import { ShowTimeFilmEditComponent } from "./show-time-film/show-time-film-edit/show-time-film-edit.component";
+import { MovieInforComponent } from "./movies/movie-infor/movie-infor.component";
+import { ShowTimeFilmDetailComponent } from "./show-time-film/show-time-film-detail/show-time-film-detail.component";
+import { SeatComponent } from "./seat/seat.component";
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import { ShowTimeFilmEditComponent } from './show-time-film/show-time-film-edit/
     ShowTimeFilmComponent,
     ShowTimeFilmListComponent,
     ShowTimeFilmEditComponent,
+    MovieInforComponent,
+    ShowTimeFilmDetailComponent,
+    SeatComponent,
   ],
   imports: [
     BrowserModule,

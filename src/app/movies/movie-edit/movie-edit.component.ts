@@ -40,12 +40,16 @@ export class MovieEditComponent implements OnInit, OnDestroy {
 
   movie: Movie;
 
-  // color: ThemePalette = "accent";
+  extensionImage = ["png", "jpg", "svg"];
 
-  @ViewChild("picker")
+
+
+ @ViewChild("picker", {
+    static: false,
+  })
   picker;
 
-  @ViewChild("labelImport") labelImport: ElementRef;
+  @ViewChild("labelImport", { static: false }) labelImport: ElementRef;
 
   constructor(
     private movieService: MovieService,
@@ -112,7 +116,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       name: [null, Validators.required],
       trailer: [null, Validators.required],
       poster: [null],
-      image: [null, Validators.required],
+      image: [null],
       genres: [null, Validators.required],
       filmDescription: this.formBuilder.group({
         timeLimit: [null, Validators.required],
@@ -130,6 +134,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       this.movieService.fetchMovie(this.id).subscribe((movie: Movie) => {
         this.movie = movie;
+        console.log(movie);
         this.movieForm.setValue({
           name: movie.name || "",
           trailer: movie.trailer || "",
@@ -159,6 +164,15 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       .map((f) => f.name)
       .join(", ");
     this.fileToUpload = files.item(0);
+  }
+
+  onCheckImageFile(control: FormControl): { [s: string]: boolean } {
+    let positionDot = control.value.name.lastIndexOf(".");
+    let extension = control.value.name.substring(positionDot + 1);
+    if (this.extensionImage.indexOf(extension)) {
+      return { extension: false };
+    }
+    return { extension: true };
   }
 
   onCancel() {

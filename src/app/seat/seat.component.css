@@ -1,0 +1,76 @@
+.seats {
+  background-color: white;
+  padding: 10px;
+}
+
+.history {
+  background-color: white;
+  padding: 10px;
+}
+
+h2,
+h3 {
+  font-style: normal;
+  font-weight: normal;
+  line-height: 42px;
+  text-transform: capitalize;
+}
+
+.date {
+  color: #a6a6a6;
+}
+
+.title {
+  margin-top: 25px;
+  text-align: start;
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+.content {
+  margin-top: 25px;
+  font-size: 18px;
+  color: #a5a5a5;
+  text-align: end;
+  margin-bottom: 0px;
+}
+
+.btn-seat {
+  background-color: #e3e3e3;
+  border-radius: 10px;
+  color: white;
+  margin: 10px 0px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.btn-reserved {
+  background-color: #20c997;
+  opacity: 0.6;
+  transition: 0.1s;
+  margin: 10px 0px;
+  padding: 12px 14px;
+}
+
+.btn-reserved:hover {
+  background-color: #20c997;
+  opacity: 1;
+}
+
+.disable-demo {
+  pointer-events: none;
+}
+.demo {
+  border-radius: 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+.color-paid {
+  color: #20c997 !important;
+  opacity: 0.6;
+}

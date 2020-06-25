@@ -17,6 +17,7 @@ export class DataStorageService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // Customer
   fetchCustomers() {
     return this.httpClient.get<UserDetail[]>(
       this.baseUrl + "/users" + "/customers"
@@ -46,6 +47,7 @@ export class DataStorageService {
 
   searchCustomer() {}
 
+  // Staff
   fetchStaffs() {
     return this.httpClient.get<UserDetail[]>(
       this.baseUrl + "/users" + "/staffs"
@@ -70,22 +72,13 @@ export class DataStorageService {
     return this.httpClient.delete(`${this.baseUrl}/users/${id}`);
   }
 
+  // Movie
   fetchMovies() {
     return this.httpClient.get<Movie[]>(this.baseUrl + "/films");
   }
 
   fetchMovie(id: number): Observable<Movie> {
     return this.httpClient.get<Movie>(this.baseUrl + "/films" + "/" + id);
-  }
-
-  fetchRooms() {
-    return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
-  }
-
-  fetchShowTimeFilmById(id: number): Observable<ShowTimeFilm[]> {
-    return this.httpClient.get<ShowTimeFilm[]>(
-      this.baseUrl + "/showtimefilms" + "/" + id
-    );
   }
 
   newMovie(movie: Movie): Observable<Movie> {
@@ -99,14 +92,22 @@ export class DataStorageService {
     );
   }
 
-  fetchGenre(): Observable<Genre[]> {
-    return this.httpClient.get<Genre[]>(this.baseUrl + "/genres");
+  // Room
+  fetchRooms() {
+    return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");
   }
 
-  postFileUpLoad(fileToUpLoad: File) {
-    const formData: FormData = new FormData();
-    formData.append("file", fileToUpLoad, fileToUpLoad.name);
-    return this.httpClient.post(this.baseUrl + "/images", formData);
+  // Show Time Film
+  fetchShowTimeFilmListById(id: number): Observable<ShowTimeFilm[]> {
+    return this.httpClient.get<ShowTimeFilm[]>(
+      this.baseUrl + "/showtimefilms" + "/films" + "/" + id
+    );
+  }
+
+  fetchShowTimeFilm(id: number): Observable<ShowTimeFilm> {
+    return this.httpClient.get<ShowTimeFilm>(
+      this.baseUrl + "/showtimefilms" + "/" + id
+    );
   }
 
   newShowTimeFilm(
@@ -117,5 +118,26 @@ export class DataStorageService {
       this.baseUrl + "/showtimefilms" + "/" + id,
       showTimeFilm
     );
+  }
+
+  updateShowTimeFilm(
+    id: number,
+    showTimeFilm: ShowTimeFilm
+  ): Observable<ShowTimeFilm> {
+    return this.httpClient.put<ShowTimeFilm>(
+      this.baseUrl + "/showtimefilms" + "/" + id,
+      showTimeFilm
+    );
+  }
+
+  // Genre
+  fetchGenre(): Observable<Genre[]> {
+    return this.httpClient.get<Genre[]>(this.baseUrl + "/genres");
+  }
+
+  postFileUpLoad(fileToUpLoad: File) {
+    const formData: FormData = new FormData();
+    formData.append("file", fileToUpLoad, fileToUpLoad.name);
+    return this.httpClient.post(this.baseUrl + "/images", formData);
   }
 }

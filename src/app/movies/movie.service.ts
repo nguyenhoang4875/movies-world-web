@@ -31,8 +31,12 @@ export class MovieService {
     return this.dataStorageService.fetchGenre();
   }
 
+  fetchShowTimeFilmList(id: number) {
+    return this.dataStorageService.fetchShowTimeFilmListById(id);
+  }
+
   fetchShowTimeFilm(id: number) {
-    return this.dataStorageService.fetchShowTimeFilmById(id);
+    return this.dataStorageService.fetchShowTimeFilm(id);
   }
 
   fetchRooms() {
@@ -84,6 +88,10 @@ export class MovieService {
     showTimeFilm: ShowTimeFilm
   ): Observable<ShowTimeFilm> {
     return this.dataStorageService.newShowTimeFilm(id, showTimeFilm);
+  }
+
+  updateShowTimeFilm(id: number, showTimeFilm: ShowTimeFilm) {
+    return this.dataStorageService.updateShowTimeFilm(id, showTimeFilm);
   }
 
   // searchMovie(value: string) {

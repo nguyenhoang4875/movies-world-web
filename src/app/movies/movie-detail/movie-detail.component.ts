@@ -46,30 +46,32 @@ export class MovieDetailComponent implements OnInit {
       this.filmDescription = this.movie.filmDescription;
     });
 
-    this.movieService.fetchShowTimeFilm(+this.id).subscribe((showTimeFilm) => {
-      this.showTimeFilm = showTimeFilm;
+    this.movieService
+      .fetchShowTimeFilmList(+this.id)
+      .subscribe((showTimeFilm) => {
+        this.showTimeFilm = showTimeFilm;
 
-      this.datetime = this.getDateTimeOfOneDate(
-        this.showTimeFilm,
-        this.filmDescription
-      );
+        this.datetime = this.getDateTimeOfOneDate(
+          this.showTimeFilm,
+          this.filmDescription
+        );
 
-      // get date of a Date
-      this.dateOutput = Object.keys(this.datetime);
+        // get date of a Date
+        this.dateOutput = Object.keys(this.datetime);
 
-      // get Time Start and End
-      this.dateOutput.forEach((item) => {
-        const timeStartEnd = new Array();
-        this.datetime[item].start.forEach((timeItem, index) => {
-          timeStartEnd.push({
-            start: this.datetime[item].start[index],
-            end: this.datetime[item].end[index],
+        // get Time Start and End
+        this.dateOutput.forEach((item) => {
+          const timeStartEnd = new Array();
+          this.datetime[item].start.forEach((timeItem, index) => {
+            timeStartEnd.push({
+              start: this.datetime[item].start[index],
+              end: this.datetime[item].end[index],
+            });
           });
-        });
 
-        this.timeOutput.push(timeStartEnd);
+          this.timeOutput.push(timeStartEnd);
+        });
       });
-    });
   }
 
   private getDateTimeOfOneDate(array, filmDescription: Description) {
