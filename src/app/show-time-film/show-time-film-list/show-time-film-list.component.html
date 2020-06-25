@@ -39,7 +39,7 @@
             <tbody>
               <tr *ngFor="let timeFilm of showedShowTimeFilm">
                 <td>{{ timeFilm.id }}</td>
-                <td>{{ timeFilm.time }}</td>
+                <td>{{ timeFilm.time | date: "EEEE dd/MM/yyyy HH:mm:ss" }}</td>
                 <td>{{ timeFilm.room.name }}</td>
 
                 <td style="text-align: center; width: 135px;">

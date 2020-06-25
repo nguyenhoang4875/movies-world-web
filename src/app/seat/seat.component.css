@@ -33,6 +33,7 @@ h3 {
   color: #a5a5a5;
   text-align: end;
   margin-bottom: 0px;
+  word-break: break-word;
 }
 
 .btn-seat {

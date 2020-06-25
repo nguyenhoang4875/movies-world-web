@@ -36,6 +36,7 @@ export class MovieDetailComponent implements OnInit {
 
     this.movieService.fetchMovie(+this.id).subscribe((movie: Movie) => {
       this.movie = movie;
+      console.log(movie);
       this.genre = movie.genres
         .map((item) => {
           return item.name;

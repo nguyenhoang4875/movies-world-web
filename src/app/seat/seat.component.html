@@ -13,8 +13,10 @@
         <div class="col-5">
           <div class="row">
             <div class="col-auto">
-              <h2 class="name-film">Film ABC</h2>
-              <p class="date">2020 - 06 - 25</p>
+              <h2 class="name-film">{{ movie.name }}</h2>
+              <p class="date">
+                {{ showTimeFilm.time | date: "EEEE dd/MM/yyyy HH:mm:ss" }}
+              </p>
             </div>
           </div>
 
@@ -26,7 +28,9 @@
                   *ngFor="let seat of seats"
                 >
                   <button
+                    (click)="onGetInforReservation(seat.reservationId)"
                     [ngClass]="seat.status ? 'btn-reserved' : 'btn-seat'"
+                    [disabled]="seat.status ? false : true"
                     class="btn-seat"
                   >
                     {{ seat.name }}
@@ -52,6 +56,14 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+              <a class="btn btn-danger btn-cancel" [routerLink]="['../']"
+                >Close</a
+              >
+            </div>
+          </div>
         </div>
 
         <div class="col-auto d-flex align-items-center">
@@ -72,7 +84,7 @@
                     class="row flex-column justify-content-center align-items-center mt-4"
                   >
                     <i class="fas fa-check-circle fa-5x color-paid"></i>
-                    <h3>Paid Successful</h3>
+                    <h3>Reservation Successful</h3>
                   </div>
                 </div>
               </div>
@@ -80,71 +92,75 @@
               <div class="row">
                 <div class="col">
                   <div class="row">
-                    <div class="col-5">
-                      <p class="title">Row</p>
+                    <div class="col-5 title">
+                      Row
                     </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
+                    <div class="col-md-6 col-12 content"></div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5 title">
+                      Column
+                    </div>
+                    <div class="col-md-6 col-12 content">
+                      A
                     </div>
                   </div>
                   <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
                   <div class="row">
-                    <div class="col-5">
-                      <p class="title">Column</p>
+                    <div class="col-5 title">
+                      Customer Name
                     </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
-                    </div>
-                  </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
-
-                  <div class="row">
-                    <div class="col-5">
-                      <p class="title">Customer Name</p>
-                    </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
+                    <div class="col-md-6 col-12 content">
+                      {{ inforReservation.fullNameUser }}
                     </div>
                   </div>
                   <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
                   <div class="row">
-                    <div class="col-5">
-                      <p class="title">Email</p>
+                    <div class="col-5 title">
+                      Email
                     </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
-                    </div>
-                  </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
-
-                  <div class="row">
-                    <div class="col-5">
-                      <p class="title">Film Name</p>
-                    </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
+                    <div class="col-md-6 col-12 content">
+                      {{ inforReservation.emailUser }}
                     </div>
                   </div>
                   <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
                   <div class="row">
-                    <div class="col-5">
-                      <p class="title">Purchase Date</p>
+                    <div class="col-5 title">
+                      Film Name
                     </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
+                    <div class="col-md-6 col-12 content">
+                      {{ movie.name }}
                     </div>
                   </div>
                   <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
                   <div class="row">
-                    <div class="col-5">
-                      <p class="title">Transaction Status</p>
+                    <div class="col-5 title">
+                      Purchase Date
                     </div>
-                    <div class="col-6">
-                      <p class="content">A</p>
+                    <div class="col-md-6 col-12 content">
+                      {{
+                        inforReservation.timeCreated
+                          | date: "EEEE dd/MM/yyyy HH:mm:ss"
+                      }}
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5 title">
+                      Transaction Status
+                    </div>
+                    <div
+                      style="color: #20c997;"
+                      class="col-md-6 col-12 content"
+                    >
+                      Reserved
                     </div>
                   </div>
                   <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>

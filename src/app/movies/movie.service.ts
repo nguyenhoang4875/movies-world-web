@@ -66,6 +66,12 @@ export class MovieService {
     return position;
   }
 
+  setIdMovie(url: string): number {
+    let s = url.substring(14);
+    let index = s.indexOf("/");
+    return +s.substring(0, index);
+  }
+
   getUpdateStatusMovie(movie: Movie) {
     const index = +movie.id - 1;
     this.movies[index] = movie;
@@ -92,6 +98,14 @@ export class MovieService {
 
   updateShowTimeFilm(id: number, showTimeFilm: ShowTimeFilm) {
     return this.dataStorageService.updateShowTimeFilm(id, showTimeFilm);
+  }
+
+  getSeats(id: number) {
+    return this.dataStorageService.getSeats(id);
+  }
+
+  getInforReservation(id: number) {
+    return this.dataStorageService.getInforReservation(id);
   }
 
   // searchMovie(value: string) {

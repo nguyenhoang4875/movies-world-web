@@ -46,7 +46,7 @@ export class ShowTimeFilmEditComponent implements OnInit, OnDestroy {
     this.initRooms();
 
     this.url = this.router.url;
-    this.setIdMovie(this.url);
+    this.idFilm = this.movieService.setIdMovie(this.url);
     this.initShowTimeFilm(this.idFilm);
     this.initForm();
     this.subscription = this.route.params.subscribe((params: Params) => {
@@ -62,12 +62,6 @@ export class ShowTimeFilmEditComponent implements OnInit, OnDestroy {
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
       });
-  }
-
-  private setIdMovie(url: string) {
-    let s = url.substring(14);
-    let index = s.indexOf("/");
-    this.idFilm = +s.substring(0, index);
   }
 
   private initShowTimeFilm(id: number) {
@@ -95,8 +89,9 @@ export class ShowTimeFilmEditComponent implements OnInit, OnDestroy {
       this.subscription = this.movieService
         .updateShowTimeFilm(this.idShowTimeFilm, showTimeFilm)
         .subscribe((showTimeFilmNew: ShowTimeFilm) => {
+          console.log(showTimeFilm);
           this.showTimeFilmList[this.idShowTimeFilm - 1] = showTimeFilmNew;
-          this.router.navigate(["../"], { relativeTo: this.route });
+          this.router.navigate(["../../"], { relativeTo: this.route });
         });
     }
   }

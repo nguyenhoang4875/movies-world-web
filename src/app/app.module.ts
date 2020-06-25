@@ -48,7 +48,6 @@ import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component
 import { ShowTimeFilmListComponent } from "./show-time-film/show-time-film-list/show-time-film-list.component";
 import { ShowTimeFilmEditComponent } from "./show-time-film/show-time-film-edit/show-time-film-edit.component";
 import { MovieInforComponent } from "./movies/movie-infor/movie-infor.component";
-import { ShowTimeFilmDetailComponent } from "./show-time-film/show-time-film-detail/show-time-film-detail.component";
 import { SeatComponent } from "./seat/seat.component";
 
 @NgModule({
@@ -80,7 +79,6 @@ import { SeatComponent } from "./seat/seat.component";
     ShowTimeFilmListComponent,
     ShowTimeFilmEditComponent,
     MovieInforComponent,
-    ShowTimeFilmDetailComponent,
     SeatComponent,
   ],
   imports: [
