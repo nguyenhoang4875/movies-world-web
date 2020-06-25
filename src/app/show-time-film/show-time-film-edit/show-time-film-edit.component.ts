@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { Subscription } from "rxjs";
-import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { Room } from "../../shared/room.model";
 import { DataStorageService } from "../../shared/services/data-storage.service";
@@ -14,18 +14,25 @@ import { ShowTimeFilm } from "../../shared/showTimeFilm.model";
   templateUrl: "./show-time-film-edit.component.html",
   styleUrls: ["./show-time-film-edit.component.css"],
 })
-export class ShowTimeFilmEditComponent implements OnInit {
+export class ShowTimeFilmEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  id: number;
+  idFilm: number;
+  idShowTimeFilm: number;
   editMode: boolean = false;
   showTimeFilmForm: FormGroup;
   showTimeFilmList: ShowTimeFilm[] = [];
+  showTimeFilm: ShowTimeFilm;
   rooms: Room[] = [];
 
   url: string = "";
 
   color: ThemePalette = "accent";
   parameterValue: string;
+
+  @ViewChild("picker", {
+    static: false,
+  })
+  picker;
 
   constructor(
     private movieService: MovieService,
@@ -38,12 +45,15 @@ export class ShowTimeFilmEditComponent implements OnInit {
   ngOnInit() {
     this.initRooms();
 
-    this.initForm();
-
     this.url = this.router.url;
     this.setIdMovie(this.url);
-    this.initShowTimeFilm(this.id);
-    this.getCondition(this.url);
+    this.initShowTimeFilm(this.idFilm);
+    this.initForm();
+    this.subscription = this.route.params.subscribe((params: Params) => {
+      this.idShowTimeFilm = +params["id"];
+      this.editMode = params["id"] != null;
+      this.initData();
+    });
   }
 
   private initRooms() {
@@ -55,29 +65,14 @@ export class ShowTimeFilmEditComponent implements OnInit {
   }
 
   private setIdMovie(url: string) {
-    let stringArray = url.split("/");
-    stringArray.forEach((item) => {
-      if (Number(item)) {
-        this.id = Number(item);
-      }
-    });
-  }
-
-  private getCondition(url: string) {
-    this.parameterValue = this.onSubUrl(url.substring(1)).replace(/\//g, " / ");
-    if (this.parameterValue === "new") {
-      this.editMode = false;
-    }
-  }
-
-  private onSubUrl(url: string): string {
-    let index = url.indexOf("/");
-    return url.substring(index + 1);
+    let s = url.substring(14);
+    let index = s.indexOf("/");
+    this.idFilm = +s.substring(0, index);
   }
 
   private initShowTimeFilm(id: number) {
     this.subscription = this.dataStorageService
-      .fetchShowTimeFilmListById(this.id)
+      .fetchShowTimeFilmListById(id)
       .subscribe((showTimeFilmList: ShowTimeFilm[]) => {
         this.showTimeFilmList = showTimeFilmList;
       });
@@ -89,12 +84,18 @@ export class ShowTimeFilmEditComponent implements OnInit {
       room: this.showTimeFilmForm.get("room").value,
     });
     if (!this.editMode) {
-      console.log(this.editMode);
-      this.movieService
-        .newShowTimeFilm(this.id, showTimeFilm)
+      this.subscription = this.movieService
+        .newShowTimeFilm(this.idFilm, showTimeFilm)
         .subscribe((showTimeFilm: ShowTimeFilm) => {
           console.log(showTimeFilm);
           this.showTimeFilmList.push(showTimeFilm);
+          this.router.navigate(["../"], { relativeTo: this.route });
+        });
+    } else {
+      this.subscription = this.movieService
+        .updateShowTimeFilm(this.idShowTimeFilm, showTimeFilm)
+        .subscribe((showTimeFilmNew: ShowTimeFilm) => {
+          this.showTimeFilmList[this.idShowTimeFilm - 1] = showTimeFilmNew;
           this.router.navigate(["../"], { relativeTo: this.route });
         });
     }
@@ -110,19 +111,34 @@ export class ShowTimeFilmEditComponent implements OnInit {
   //initData for existed movie
   private initData(): void {
     if (this.editMode) {
-      // this.showTimeFilmForm.setValue({
-      //   datetime:
-      // });
+      this.subscription = this.movieService
+        .fetchShowTimeFilm(this.idShowTimeFilm)
+        .subscribe((showTimeFilm: ShowTimeFilm) => {
+          console.log(showTimeFilm);
+          this.showTimeFilm = showTimeFilm;
+          this.showTimeFilmForm.setValue({
+            datetime: new Date(showTimeFilm.time) || null,
+            room: showTimeFilm.room || null,
+          });
+        });
     }
+  }
+
+  compareFn(c1: Room, c2: Room): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   onCancel() {
     if (!this.editMode) {
-      this.router.navigate(["/showtimefilm", this.id], {
+      this.router.navigate(["../"], {
         relativeTo: this.route,
       });
     } else {
       this.router.navigate(["../../"], { relativeTo: this.route });
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

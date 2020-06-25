@@ -51,7 +51,10 @@
                     class="far fa-edit iedit"
                     [routerLink]="[timeFilm.id, 'edit']"
                   ></i>
-                  <i class="far fa-trash-alt idelete"></i>
+                  <i
+                    class="far fa-trash-alt idelete"
+                    (click)="onDeleteShowTimeFilm()"
+                  ></i>
                 </td>
               </tr>
             </tbody>

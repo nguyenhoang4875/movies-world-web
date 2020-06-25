@@ -1,0 +1,159 @@
+<!-- <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<ng-container *ngIf="isLoading">
+
+
+
+</ng-container > -->
+
+<div class="container">
+  <div class="row seats">
+    <div class="col-12">
+      <div class="row justify-content-around">
+        <div class="col-5">
+          <div class="row">
+            <div class="col-auto">
+              <h2 class="name-film">Film ABC</h2>
+              <p class="date">2020 - 06 - 25</p>
+            </div>
+          </div>
+
+          <div class="row mx-auto" style="width: 300px;">
+            <div class="col-auto">
+              <div class="row">
+                <div
+                  class="col-3 d-flex justify-content-center align-items-stretch"
+                  *ngFor="let seat of seats"
+                >
+                  <button
+                    [ngClass]="seat.status ? 'btn-reserved' : 'btn-seat'"
+                    class="btn-seat"
+                  >
+                    {{ seat.name }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-auto">
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn-reserved demo disable-demo"></button>
+                  <span class="ml-4">Reserved</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn-seat demo"></button>
+                  <span class="ml-4">Unreserved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto d-flex align-items-center">
+          <div style="border-right: 0.5px solid #e3e3e3; height: 80%;"></div>
+        </div>
+
+        <div class="col-5">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col">
+                  <h2>Information of Seat</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div
+                    class="row flex-column justify-content-center align-items-center mt-4"
+                  >
+                    <i class="fas fa-check-circle fa-5x color-paid"></i>
+                    <h3>Paid Successful</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Row</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Column</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Customer Name</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Email</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Film Name</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Purchase Date</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                  <div class="row">
+                    <div class="col-5">
+                      <p class="title">Transaction Status</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="content">A</p>
+                    </div>
+                  </div>
+                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

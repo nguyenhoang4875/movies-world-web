@@ -13,12 +13,14 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label for="datetime">Time Showing</label>
-              <mat-form-field class="ml-3">
+              <label for="datetime" class="mr-5">Time Showing</label>
+              <mat-form-field>
                 <input
                   matInput
-                  [ngxMatDatetimePicker]="picker"
+                  class="form-control"
+                  id="datetime"
                   placeholder="Choose a date"
+                  [ngxMatDatetimePicker]="picker"
                   formControlName="datetime"
                 />
                 <mat-datepicker-toggle
@@ -28,12 +30,7 @@
                 ></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker
                   #picker
-                  [showSeconds]="true"
-                  [stepHour]="1"
-                  [stepMinute]="1"
-                  [stepSecond]="1"
-                  [touchUi]="true"
-                  [enableMeridian]="false"
+                  [touchUi]="false"
                   [color]="color"
                 >
                 </ngx-mat-datetime-picker>
@@ -48,7 +45,7 @@
               <label class="mr-5">Room</label>
               <mat-form-field>
                 <mat-label>Room</mat-label>
-                <mat-select formControlName="room">
+                <mat-select [compareWith]="compareFn" formControlName="room">
                   <mat-option *ngFor="let room of rooms" [value]="room">
                     {{ room.name }}
                   </mat-option>

@@ -108,4 +108,6 @@ export class ShowTimeFilmListComponent implements OnInit {
     this.idChange.next(this.id);
     this.router.navigate(["new"], { relativeTo: this.route });
   }
+
+  onDeleteShowTimeFilm() {}
 }

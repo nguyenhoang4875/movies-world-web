@@ -19,6 +19,8 @@ import { ShowTimeFilmListComponent } from "./show-time-film/show-time-film-list/
 import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component";
 import { ShowTimeFilmEditComponent } from "./show-time-film/show-time-film-edit/show-time-film-edit.component";
 import { MovieInforComponent } from "./movies/movie-infor/movie-infor.component";
+import { ShowTimeFilmDetailComponent } from "./show-time-film/show-time-film-detail/show-time-film-detail.component";
+import { SeatComponent } from "./seat/seat.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -71,20 +73,14 @@ const appRoutes: Routes = [
             children: [
               { path: "", component: ShowTimeFilmListComponent },
               { path: "new", component: ShowTimeFilmEditComponent },
+              { path: ":id", component: ShowTimeFilmDetailComponent },
+              { path: ":id/edit", component: ShowTimeFilmEditComponent },
             ],
           },
           { path: ":id/edit", component: MovieEditComponent },
         ],
       },
-      // {
-      //   path: "movies/showtimefilm",
-      //   component: ShowTimeFilmComponent,
-      //   children: [
-      //     { path: ":id/new", component: ShowTimeFilmEditComponent },
-      //     { path: ":id", component: ShowTimeFilmListComponent },
-      //     { path: ":id/edit/:id", component: ShowTimeFilmEditComponent },
-      //   ],
-      // },
+      { path: "seat", component: SeatComponent },
     ],
   },
 ];

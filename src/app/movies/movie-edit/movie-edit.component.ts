@@ -13,9 +13,7 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
-import { ThemePalette } from "@angular/material/core";
 
-import { Room } from "../../shared/room.model";
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie.model";
 import { Genre } from "../../shared/genre.model";
@@ -44,8 +42,6 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   movie: Movie;
 
   extensionImage = ["png", "jpg", "svg"];
-
-  // color: ThemePalette = "accent";
 
   @ViewChild("picker", {
     static: false,
@@ -137,6 +133,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       this.movieService.fetchMovie(this.id).subscribe((movie: Movie) => {
         this.movie = movie;
+        console.log(movie);
         this.movieForm.setValue({
           name: movie.name || "",
           trailer: movie.trailer || "",
@@ -166,7 +163,6 @@ export class MovieEditComponent implements OnInit, OnDestroy {
       .map((f) => f.name)
       .join(", ");
     this.fileToUpload = files.item(0);
-    console.log(files.item(0));
   }
 
   onCheckImageFile(control: FormControl): { [s: string]: boolean } {
