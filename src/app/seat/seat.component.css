@@ -8,6 +8,11 @@
   padding: 10px;
 }
 
+.col-button-64 {
+  max-width: 12.5%;
+  flex-basis: 12.5%;
+}
+
 h2,
 h3 {
   font-style: normal;
@@ -33,18 +38,23 @@ h3 {
   color: #a5a5a5;
   text-align: end;
   margin-bottom: 0px;
-  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .btn-seat {
   background-color: #e3e3e3;
-  border-radius: 10px;
+  border-radius: 5px;
   color: white;
   margin: 10px 0px;
   padding: 12px 14px;
-  border-radius: 10px;
   border: none;
   outline: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.col-5 .btn-seat {
+  padding: 6px 7px;
 }
 
 .btn-reserved {
@@ -52,7 +62,6 @@ h3 {
   opacity: 0.6;
   transition: 0.1s;
   margin: 10px 0px;
-  padding: 12px 14px;
 }
 
 .btn-reserved:hover {
@@ -64,12 +73,12 @@ h3 {
   pointer-events: none;
 }
 .demo {
-  border-radius: 10px;
+  border-radius: 5px;
   width: 35px;
   height: 35px;
-  border-radius: 10px;
   border: none;
   outline: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 .color-paid {
   color: #20c997 !important;

@@ -41,17 +41,25 @@
               <tr *ngFor="let movie of showedMovies">
                 <td>{{ movie.id }}</td>
                 <td>{{ movie.name }}</td>
-                <td>{{ movie.trailer }}</td>
+                <td>
+                  <a
+                    class="idetail"
+                    style="text-decoration: none;"
+                    [href]="movie.trailer"
+                    >{{ movie.trailer }}</a
+                  >
+                </td>
                 <td>{{ getGenre(movie) }}</td>
                 <td>{{ movie.ratePoint }}</td>
                 <td>
                   <span
                     style="cursor: pointer;"
-                    [class]="
+                    [ngClass]="
                       movie.status
-                        ? 'badge badge-success'
+                        ? 'badge badge-success disabled'
                         : 'badge badge-danger'
                     "
+                    (click)="onChangeStatus(movie.id)"
                     >{{ movie.status ? "Enable" : "Disable" }}</span
                   >
                 </td>

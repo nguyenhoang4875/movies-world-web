@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, throwError } from "rxjs";
+import { tap, catchError } from "rxjs/operators";
 
 import { UserDetail } from "../admin/user-detail.model";
 import { DataStorageService } from "../shared/services/data-storage.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class StaffService {
@@ -44,7 +45,24 @@ export class StaffService {
   }
 
   newStaff(staff: UserDetail) {
-    return this.dataStorageService.newCustomer(staff);
+    return this.dataStorageService
+      .newCustomer(staff)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    let errorMessage = "An unknown error occurred!";
+
+    switch (errorResponse.error.message) {
+      case "EXISTED EMAIL":
+        errorMessage = "This email exists already";
+        break;
+      case "EXISTED USER":
+        errorMessage = "This user exists already";
+        break;
+    }
+
+    return throwError(errorMessage);
   }
 
   updateStaff(staff: UserDetail) {

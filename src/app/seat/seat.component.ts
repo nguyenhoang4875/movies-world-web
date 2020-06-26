@@ -21,6 +21,8 @@ export class SeatComponent implements OnInit, OnDestroy {
   movie: Movie = new Movie();
   subscription: Subscription;
 
+  isChoose: boolean = false;
+
   inforReservation: Reservation = new Reservation();
 
   constructor(
@@ -59,7 +61,7 @@ export class SeatComponent implements OnInit, OnDestroy {
   }
 
   onGetInforReservation(reservationId: number) {
-    console.log(reservationId);
+    this.isChoose = true;
     this.subscription = this.movieService
       .getInforReservation(reservationId)
       .subscribe((reservation: Reservation) => {

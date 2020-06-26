@@ -156,4 +156,11 @@ export class DataStorageService {
       this.baseUrl + "/reservations" + "/" + id
     );
   }
+
+  updateStatus(id: number, movie: Movie): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      this.baseUrl + "/films" + "/update-status" + "/" + id,
+      movie
+    );
+  }
 }

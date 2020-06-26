@@ -108,6 +108,10 @@ export class MovieService {
     return this.dataStorageService.getInforReservation(id);
   }
 
+  updateStatus(id: number, movie: Movie) {
+    return this.dataStorageService.updateStatus(id, movie);
+  }
+
   // searchMovie(value: string) {
   //   let filterMovies: Movie[] = [];
   //   if (!value) {

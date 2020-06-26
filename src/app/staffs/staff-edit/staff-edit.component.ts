@@ -27,6 +27,7 @@ export class StaffEditComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   editingStaff: UserDetail = new UserDetail();
+  errorMessage: string = "";
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
@@ -82,20 +83,6 @@ export class StaffEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  private newStaff() {
-    this.subscription = this.staffService.newStaff(this.editingStaff).subscribe(
-      (staff) => {
-        this.staffs.push(staff);
-        this.router.navigate(["../"], { relativeTo: this.route });
-        this.toastService.onShowToasts(true);
-      },
-      (error) => {
-        this.router.navigate(["../"], { relativeTo: this.route });
-        this.toastService.onShowToasts(error);
-      }
-    );
-  }
-
   showNotificationEdit(errorMessage: string) {
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
@@ -130,7 +117,24 @@ export class StaffEditComponent implements OnInit, OnDestroy {
 
     this.subscription = componentRef.instance.confirm.subscribe(() => {
       this.subscription.unsubscribe();
-      this.newStaff();
+      //this.newStaff();
+      this.subscription = this.staffService
+        .newStaff(this.editingStaff)
+        .subscribe(
+          (staff) => {
+            this.staffs.push(staff);
+            hostViewContainerRef.clear();
+            this.router.navigate(["../"], { relativeTo: this.route });
+            this.toastService.onShowToasts(true);
+          },
+          (errorMessage) => {
+            hostViewContainerRef.clear();
+            this.errorMessage = errorMessage;
+            // this.router.navigate(["../"], { relativeTo: this.route });
+            // this.toastService.onShowToasts(error);
+            //this.router.navigate([""], { relativeTo: this.route });
+          }
+        );
     });
 
     this.subscription = componentRef.instance.close.subscribe(() => {
