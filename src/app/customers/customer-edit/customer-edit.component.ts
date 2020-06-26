@@ -49,7 +49,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.id = +params["id"];
       this.editMode = params["id"] != null;
       if (this.editMode) {
-        //this.editingCustomer = this.customerService.getCustomer(this.id);
         this.dataStorageService.fetchUser(this.id).subscribe((customer) => {
           this.editingCustomer = customer;
         });
@@ -58,23 +57,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveCustomer() {
-    const message = "Do you sure want to do it?";
-    if (!this.editMode) {
-      this.showNotificationNew(message);
-    } else {
-      this.showNotificationEdit(message);
-    }
-  }
-
-  onCancel(e) {
-    if (!this.editMode) {
-      this.router.navigate(["../"], { relativeTo: this.route });
-    } else {
-      this.router.navigate(["../../"], { relativeTo: this.route });
-    }
-  }
-
-  private updateCustomer() {
     this.customerService
       .updateCustomer(this.editingCustomer)
       .subscribe((cutomer) => {
@@ -87,64 +69,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       });
   }
 
-  private newCustomer() {
-    this.customerService.newCustomer(this.editingCustomer).subscribe(
-      (cutomer) => {
-        this.customers.push(cutomer);
-
-        this.router.navigate(["../"], { relativeTo: this.route }).then(() => {
-          this.toastShowService.onShowToasts(true);
-        });
-      },
-      (error) => {
-        this.router.navigate(["../"], { relativeTo: this.route });
-        this.toastShowService.onShowToasts(error);
-      }
-    );
-  }
-
-  showNotificationEdit(errorMessage: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-
-    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
-    componentRef.instance.message = errorMessage;
-
-    this.subscription = componentRef.instance.confirm.subscribe(() => {
-      this.subscription.unsubscribe();
-      this.updateCustomer();
-    });
-
-    this.subscription = componentRef.instance.close.subscribe(() => {
-      // remove subscription when component removed
-      this.subscription.unsubscribe();
-      hostViewContainerRef.clear();
-    });
-  }
-
-  showNotificationNew(errorMessage: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-
-    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
-    componentRef.instance.message = errorMessage;
-
-    this.subscription = componentRef.instance.confirm.subscribe(() => {
-      this.subscription.unsubscribe();
-      this.newCustomer();
-    });
-
-    this.subscription = componentRef.instance.close.subscribe(() => {
-      // remove subscription when component removed
-      this.subscription.unsubscribe();
-      hostViewContainerRef.clear();
-    });
+  onCancel() {
+    this.router.navigate(["../../"], { relativeTo: this.route });
   }
 
   // // ngOnChanges(params: SimpleChanges) {

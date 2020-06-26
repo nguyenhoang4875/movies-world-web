@@ -46,7 +46,7 @@ export class StaffService {
 
   newStaff(staff: UserDetail) {
     return this.dataStorageService
-      .newCustomer(staff)
+      .newStaff(staff)
       .pipe(catchError(this.handleError));
   }
 

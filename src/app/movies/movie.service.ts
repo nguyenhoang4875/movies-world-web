@@ -100,6 +100,10 @@ export class MovieService {
     return this.dataStorageService.updateShowTimeFilm(id, showTimeFilm);
   }
 
+  deleteShowTimeFilm(id: number) {
+    return this.dataStorageService.deleteShowTimeFilm(id);
+  }
+
   getSeats(id: number) {
     return this.dataStorageService.getSeats(id);
   }

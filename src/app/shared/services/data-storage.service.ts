@@ -132,7 +132,9 @@ export class DataStorageService {
     );
   }
 
-  deleteShowTimeFilm() {}
+  deleteShowTimeFilm(id: number) {
+    return this.httpClient.delete(this.baseUrl + "/showtimefilms" + "/" + id);
+  }
 
   // Genre
   fetchGenre(): Observable<Genre[]> {
