@@ -17,6 +17,7 @@ export class SeatComponent implements OnInit, OnDestroy {
   idFilm: number;
   url: string = "";
   seats: Seat[] = [];
+  seat: Seat = new Seat();
   showTimeFilm: ShowTimeFilm = new ShowTimeFilm();
   movie: Movie = new Movie();
   subscription: Subscription;
@@ -60,10 +61,11 @@ export class SeatComponent implements OnInit, OnDestroy {
       });
   }
 
-  onGetInforReservation(reservationId: number) {
+  onGetInforReservation(seat: Seat) {
+    this.seat = seat;
     this.isChoose = true;
     this.subscription = this.movieService
-      .getInforReservation(reservationId)
+      .getInforReservation(this.seat.reservationId)
       .subscribe((reservation: Reservation) => {
         console.log(reservation);
         this.inforReservation = reservation;

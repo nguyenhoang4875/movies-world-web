@@ -53,13 +53,15 @@ export class StaffService {
   private handleError(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unknown error occurred!";
 
-    switch (errorResponse.error.message) {
-      case "EXISTED EMAIL":
-        errorMessage = "This email exists already";
-        break;
-      case "EXISTED USER":
-        errorMessage = "This user exists already";
-        break;
+    if (errorResponse.error) {
+      switch (errorResponse.error.message) {
+        case "EXISTED EMAIL":
+          errorMessage = "This email exists already";
+          break;
+        case "EXISTED USER":
+          errorMessage = "This user exists already";
+          break;
+      }
     }
 
     return throwError(errorMessage);

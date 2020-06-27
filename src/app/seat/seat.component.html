@@ -5,177 +5,180 @@
 
 
 </ng-container > -->
-
-<div class="container">
-  <div class="row seats">
-    <div class="col-12" style="transition: 0.5s;">
-      <div class="row justify-content-around">
-        <div [ngClass]="isChoose ? 'col-5' : 'col-8'">
-          <div class="row">
-            <div class="col-auto">
-              <h2 class="name-film">{{ movie.name }}</h2>
-              <p class="date">
-                {{ showTimeFilm.time | date: "EEEE dd/MM/yyyy HH:mm:ss" }}
-              </p>
-            </div>
-          </div>
-
-          <div class="row mx-auto">
-            <div class="col-auto">
-              <div class="row">
-                <div
-                  class="col-button-64 d-flex justify-content-center align-items-stretch"
-                  *ngFor="let seat of seats"
-                >
-                  <button
-                    (click)="onGetInforReservation(seat.reservationId)"
-                    [ngClass]="seat.status ? 'btn-reserved' : ''"
-                    [disabled]="seat.status ? false : true"
-                    class="btn-seat"
-                  >
-                    {{ seat.name }}
-                  </button>
-                </div>
+<div class="row h-100 align-items-center">
+  <div class="container">
+    <div class="row seats">
+      <div class="col-12" style="transition: 0.5s;">
+        <div class="row justify-content-around">
+          <div [ngClass]="isChoose ? 'col-5' : 'col-8'">
+            <div class="row">
+              <div class="col-auto">
+                <h2 class="name-film">{{ movie.name }}</h2>
+                <p class="date">
+                  {{ showTimeFilm.time | date: "EEEE dd/MM/yyyy HH:mm:ss" }}
+                </p>
               </div>
             </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-auto">
-              <div class="row">
-                <div class="col-12">
-                  <button class="btn-reserved demo disable-demo"></button>
-                  <span class="ml-4">Reserved</span>
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12">
-                  <button class="btn-seat demo"></button>
-                  <span class="ml-4">Unreserved</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-              <a class="btn btn-danger btn-cancel" [routerLink]="['../']"
-                >Close</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="isChoose" class="col-auto d-flex align-items-center">
-          <div style="border-right: 0.5px solid #e3e3e3; height: 80%;"></div>
-        </div>
-
-        <div *ngIf="isChoose" class="col-5">
-          <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="col">
-                  <h2>Information of Seat</h2>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
+            <div class="row mx-auto">
+              <div class="col-auto">
+                <div class="row">
                   <div
-                    class="row flex-column justify-content-center align-items-center mt-4"
+                    class="col-button-64 d-flex justify-content-center align-items-stretch"
+                    *ngFor="let seat of seats"
                   >
-                    <i class="fas fa-check-circle fa-5x color-paid"></i>
-                    <h3>Reservation Successful</h3>
+                    <button
+                      (click)="onGetInforReservation(seat)"
+                      [ngClass]="seat.status ? 'btn-reserved' : ''"
+                      [disabled]="seat.status ? false : true"
+                      class="btn-seat"
+                    >
+                      {{ seat.name }}
+                    </button>
                   </div>
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col">
-                  <div class="row">
-                    <div class="col-5 title">
-                      Row
-                    </div>
-                    <div class="col-md-6 col-12 content"></div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-auto">
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn-reserved demo disable-demo"></button>
+                    <span class="ml-4">Reserved</span>
                   </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                </div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Column
-                    </div>
-                    <div class="col-md-6 col-12 content">
-                      A
-                    </div>
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn-seat demo"></button>
+                    <span class="ml-4">Unreserved</span>
                   </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                </div>
+              </div>
+            </div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Customer Name
-                    </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-end">
+                <a class="btn btn-danger btn-cancel" [routerLink]="['../']"
+                  >Close</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="isChoose" class="col-auto d-flex align-items-center">
+            <div style="border-right: 0.5px solid #e3e3e3; height: 80%;"></div>
+          </div>
+
+          <div *ngIf="isChoose" class="col-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col">
+                    <h2>Information of Seat</h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
                     <div
-                      class="col-md-6 col-12 content"
-                      data-toggle="tooltip"
-                      data-html="true"
-                      [title]="inforReservation.fullNameUser"
+                      class="row flex-column justify-content-center align-items-center mt-4"
                     >
-                      {{ inforReservation.fullNameUser }}
+                      <i class="fas fa-check-circle fa-5x color-paid"></i>
+                      <h3>Reservation Successful</h3>
                     </div>
                   </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                </div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Email
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-5 title">
+                        Row
+                      </div>
+                      <div class="col-md-6 col-12 content">
+                        {{ seat.name[0] }}
+                      </div>
                     </div>
-                    <div
-                      class="col-md-6 col-12 content"
-                      data-toggle="tooltip"
-                      data-html="true"
-                      [title]="inforReservation.emailUser"
-                    >
-                      {{ inforReservation.emailUser }}
-                    </div>
-                  </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Film Name
+                    <div class="row">
+                      <div class="col-5 title">
+                        Column
+                      </div>
+                      <div class="col-md-6 col-12 content">
+                        {{ seat.name[1] }}
+                      </div>
                     </div>
-                    <div
-                      class="col-md-6 col-12 content"
-                      data-toggle="tooltip"
-                      data-html="true"
-                      [title]="movie.name"
-                    >
-                      {{ movie.name }}
-                    </div>
-                  </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Purchase Date
+                    <div class="row">
+                      <div class="col-5 title">
+                        Customer Name
+                      </div>
+                      <div
+                        class="col-md-6 col-12 content"
+                        data-toggle="tooltip"
+                        data-html="true"
+                        [title]="inforReservation.fullNameUser"
+                      >
+                        {{ inforReservation.fullNameUser }}
+                      </div>
                     </div>
-                    <div class="col-md-6 col-12 content">
-                      {{ inforReservation.timeCreated }}
-                    </div>
-                  </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
 
-                  <div class="row">
-                    <div class="col-5 title">
-                      Transaction Status
+                    <div class="row">
+                      <div class="col-5 title">
+                        Email
+                      </div>
+                      <div
+                        class="col-md-6 col-12 content"
+                        data-toggle="tooltip"
+                        data-html="true"
+                        [title]="inforReservation.emailUser"
+                      >
+                        {{ inforReservation.emailUser }}
+                      </div>
                     </div>
-                    <div
-                      style="color: #20c997;"
-                      class="col-md-6 col-12 content"
-                    >
-                      Reserved
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                    <div class="row">
+                      <div class="col-5 title">
+                        Film Name
+                      </div>
+                      <div
+                        class="col-md-6 col-12 content"
+                        data-toggle="tooltip"
+                        data-html="true"
+                        [title]="movie.name"
+                      >
+                        {{ movie.name }}
+                      </div>
                     </div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                    <div class="row">
+                      <div class="col-5 title">
+                        Purchase Date
+                      </div>
+                      <div class="col-md-6 col-12 content">
+                        {{ inforReservation.timeCreated }}
+                      </div>
+                    </div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
+
+                    <div class="row">
+                      <div class="col-5 title">
+                        Transaction Status
+                      </div>
+                      <div
+                        style="color: #20c997;"
+                        class="col-md-6 col-12 content"
+                      >
+                        Reserved
+                      </div>
+                    </div>
+                    <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
                   </div>
-                  <div style="border: 0.5px solid #e3e3e3; width: 93%;"></div>
                 </div>
               </div>
             </div>

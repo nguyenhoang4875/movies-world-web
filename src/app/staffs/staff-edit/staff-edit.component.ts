@@ -56,16 +56,35 @@ export class StaffEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveStaff() {
-    const message = "Do you sure want to do it?";
-
     if (!this.editMode) {
-      this.showNotificationNew(message);
+      this.newStaff();
     } else {
-      this.showNotificationEdit(message);
+      this.staffService.updateStaff(this.editingStaff).subscribe((staff) => {
+        this.staffs[this.editingStaff.id - 1] = staff;
+        this.router
+          .navigate(["../../"], { relativeTo: this.route })
+          .then(() => {
+            this.toastService.onShowToasts(true);
+          });
+      });
     }
   }
 
-  onCancel(e) {
+  private newStaff() {
+    this.staffService.newStaff(this.editingStaff).subscribe(
+      (staff) => {
+        this.staffs.unshift(staff);
+        this.router.navigate(["../"], { relativeTo: this.route });
+        this.toastService.onShowToasts(true);
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.errorMessage = errorMessage;
+      }
+    );
+  }
+
+  onCancel() {
     if (!this.editMode) {
       this.router.navigate(["../"], { relativeTo: this.route });
     } else {
@@ -73,76 +92,44 @@ export class StaffEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateStaff() {
-    this.staffService.updateStaff(this.editingStaff).subscribe((staff) => {
-      this.staffs[this.editingStaff.id - 1] = staff;
-      //hostViewContainerRef.clear();
-      this.router.navigate(["../../"], { relativeTo: this.route }).then(() => {
-        this.toastService.onShowToasts(true);
-      });
-    });
-  }
+  // showNotificationNew(errorMessage: string) {
+  //   const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+  //     AlertComponent
+  //   );
+  //   const hostViewContainerRef = this.alertHost.viewContainerRef;
+  //   hostViewContainerRef.clear();
 
-  showNotificationEdit(errorMessage: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
+  //   const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+  //   componentRef.instance.message = errorMessage;
 
-    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
-    componentRef.instance.message = errorMessage;
+  //   this.subscription = componentRef.instance.confirm.subscribe(() => {
+  //     this.subscription.unsubscribe();
+  //     //this.newStaff();
+  //     this.subscription = this.staffService
+  //       .newStaff(this.editingStaff)
+  //       .subscribe(
+  //         (staff) => {
+  //           this.staffs.push(staff);
+  //           hostViewContainerRef.clear();
+  //           this.router.navigate(["../"], { relativeTo: this.route });
+  //           this.toastService.onShowToasts(true);
+  //         },
+  //         (errorMessage) => {
+  //           hostViewContainerRef.clear();
+  //           this.errorMessage = errorMessage;
+  //           // this.router.navigate(["../"], { relativeTo: this.route });
+  //           // this.toastService.onShowToasts(error);
+  //           //this.router.navigate([""], { relativeTo: this.route });
+  //         }
+  //       );
+  //   });
 
-    this.subscription = componentRef.instance.confirm.subscribe(() => {
-      this.subscription.unsubscribe();
-      this.updateStaff();
-    });
-
-    this.subscription = componentRef.instance.close.subscribe(() => {
-      // remove subscription when component removed
-      this.subscription.unsubscribe();
-      hostViewContainerRef.clear();
-    });
-  }
-
-  showNotificationNew(errorMessage: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-
-    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
-    componentRef.instance.message = errorMessage;
-
-    this.subscription = componentRef.instance.confirm.subscribe(() => {
-      this.subscription.unsubscribe();
-      //this.newStaff();
-      this.subscription = this.staffService
-        .newStaff(this.editingStaff)
-        .subscribe(
-          (staff) => {
-            this.staffs.push(staff);
-            hostViewContainerRef.clear();
-            this.router.navigate(["../"], { relativeTo: this.route });
-            this.toastService.onShowToasts(true);
-          },
-          (errorMessage) => {
-            hostViewContainerRef.clear();
-            this.errorMessage = errorMessage;
-            // this.router.navigate(["../"], { relativeTo: this.route });
-            // this.toastService.onShowToasts(error);
-            //this.router.navigate([""], { relativeTo: this.route });
-          }
-        );
-    });
-
-    this.subscription = componentRef.instance.close.subscribe(() => {
-      // remove subscription when component removed
-      this.subscription.unsubscribe();
-      hostViewContainerRef.clear();
-    });
-  }
+  //   this.subscription = componentRef.instance.close.subscribe(() => {
+  //     // remove subscription when component removed
+  //     this.subscription.unsubscribe();
+  //     hostViewContainerRef.clear();
+  //   });
+  // }
 
   // // ngOnChanges(params: SimpleChanges) {
   // //   if (params && params.customer) {
