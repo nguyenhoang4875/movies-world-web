@@ -62,6 +62,20 @@ export class MovieListComponent implements OnInit, OnDestroy {
       .join(", ");
   }
 
+  onChangeStatus(id: number) {
+    this.movieService.fetchMovie(id).subscribe((movie: Movie) => {
+      this.movieService.updateStatus(id, movie).subscribe((res) => {
+        // this.movies[movie.id - 1] = movieNew;
+        // this.movies.splice(index, 1);
+        // this.movies.splice(index, 0, movieNew);
+        if (res) {
+          const index = this.showedMovies.findIndex((_) => _.id === id);
+          this.showedMovies[index].status = true;
+        }
+      });
+    });
+  }
+
   private decentralize() {
     this.subscription = this.authService.user.subscribe((user) => {
       console.log(user);

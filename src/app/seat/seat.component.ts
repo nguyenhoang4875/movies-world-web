@@ -1,96 +1,78 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Seat } from "../shared/seat.model";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { MovieService } from "../movies/movie.service";
+import { Reservation } from "../shared/reservation.model";
+import { Subscription } from "rxjs";
+import { ShowTimeFilm } from "../shared/showTimeFilm.model";
+import { Movie } from "../movies/movie.model";
 
 @Component({
   selector: "app-seat",
   templateUrl: "./seat.component.html",
   styleUrls: ["./seat.component.css"],
 })
-export class SeatComponent implements OnInit {
-  seats: Seat[] = [
-    {
-      id: 1,
-      name: "A1",
-      status: 2,
-    },
-    {
-      id: 2,
-      name: "A2",
-      status: 2,
-    },
-    {
-      id: 3,
-      name: "A3",
-      status: 0,
-    },
-    {
-      id: 4,
-      name: "A4",
-      status: 2,
-    },
-    {
-      id: 5,
-      name: "B1",
-      status: 1,
-    },
-    {
-      id: 6,
-      name: "B2",
-      status: 2,
-    },
-    {
-      id: 7,
-      name: "B3",
-      status: 2,
-    },
-    {
-      id: 8,
-      name: "B4",
-      status: 1,
-    },
-    {
-      id: 9,
-      name: "C1",
-      status: 1,
-    },
-    {
-      id: 10,
-      name: "C2",
-      status: 1,
-    },
-    {
-      id: 11,
-      name: "C3",
-      status: 1,
-    },
-    {
-      id: 12,
-      name: "C4",
-      status: 0,
-    },
-    {
-      id: 13,
-      name: "D1",
-      status: 2,
-    },
-    {
-      id: 14,
-      name: "D2",
-      status: 0,
-    },
-    {
-      id: 15,
-      name: "D3",
-      status: 2,
-    },
-    {
-      id: 16,
-      name: "D4",
-      status: 1,
-    },
-  ];
+export class SeatComponent implements OnInit, OnDestroy {
+  idShowTimeFilm: number;
+  idFilm: number;
+  url: string = "";
+  seats: Seat[] = [];
+  seat: Seat = new Seat();
+  showTimeFilm: ShowTimeFilm = new ShowTimeFilm();
+  movie: Movie = new Movie();
+  subscription: Subscription;
 
-  constructor() {}
+  isChoose: boolean = false;
 
-  ngOnInit() {}
+  inforReservation: Reservation = new Reservation();
+
+  constructor(
+    private movieService: MovieService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.url = this.router.url;
+    this.idFilm = this.movieService.setIdMovie(this.url);
+    this, this.getMovie(this.idFilm);
+    this.subscription = this.route.params.subscribe((params: Params) => {
+      this.idShowTimeFilm = +params["id"];
+      this.getSeats(this.idShowTimeFilm);
+      this.subscription = this.movieService
+        .fetchShowTimeFilm(this.idShowTimeFilm)
+        .subscribe((showTimeFilm: ShowTimeFilm) => {
+          this.showTimeFilm = showTimeFilm;
+        });
+    });
+  }
+
+  private getSeats(id: number) {
+    this.movieService.getSeats(id).subscribe((seats: Seat[]) => {
+      this.seats = seats;
+    });
+  }
+
+  getMovie(id: number) {
+    this.subscription = this.movieService
+      .fetchMovie(id)
+      .subscribe((movie: Movie) => {
+        this.movie = movie;
+      });
+  }
+
+  onGetInforReservation(seat: Seat) {
+    this.seat = seat;
+    this.isChoose = true;
+    this.subscription = this.movieService
+      .getInforReservation(this.seat.reservationId)
+      .subscribe((reservation: Reservation) => {
+        console.log(reservation);
+        this.inforReservation = reservation;
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

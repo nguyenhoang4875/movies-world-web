@@ -129,10 +129,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.router.navigate([id, "edit"], { relativeTo: this.route });
   }
 
-  newCustomer() {
-    this.router.navigate(["new"], { relativeTo: this.route });
-  }
-
   viewCustomer(id: number) {
     this.router.navigate([id], { relativeTo: this.route });
   }
@@ -153,13 +149,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
     this.subscription = componentRef.instance.confirm.subscribe(() => {
       this.subscription.unsubscribe();
-      this.customerService.deleteCustomer(id).subscribe((value) => {
+      this.customerService.deleteCustomer(id).subscribe(() => {
         hostViewContainerRef.clear();
-        this.router
-          .navigate(["../../customers"], { relativeTo: this.route })
-          .then(() => {
-            this.toastShowService.onShowToasts(true);
-          });
+        const index = this.showedCustomers.findIndex((_) => _.id === id);
+        this.showedCustomers.splice(index, 1);
       });
     });
 

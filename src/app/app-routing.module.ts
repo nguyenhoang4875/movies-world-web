@@ -16,10 +16,8 @@ import { StaffDetailComponent } from "./staffs/staff-detail/staff-detail.compone
 import { StaffEditComponent } from "./staffs/staff-edit/staff-edit.component";
 import { StaffListComponent } from "./staffs/staff-list/staff-list.component";
 import { ShowTimeFilmListComponent } from "./show-time-film/show-time-film-list/show-time-film-list.component";
-import { ShowTimeFilmComponent } from "./show-time-film/show-time-film.component";
 import { ShowTimeFilmEditComponent } from "./show-time-film/show-time-film-edit/show-time-film-edit.component";
 import { MovieInforComponent } from "./movies/movie-infor/movie-infor.component";
-import { ShowTimeFilmDetailComponent } from "./show-time-film/show-time-film-detail/show-time-film-detail.component";
 import { SeatComponent } from "./seat/seat.component";
 
 const appRoutes: Routes = [
@@ -73,14 +71,13 @@ const appRoutes: Routes = [
             children: [
               { path: "", component: ShowTimeFilmListComponent },
               { path: "new", component: ShowTimeFilmEditComponent },
-              { path: ":id", component: ShowTimeFilmDetailComponent },
+              { path: ":id", component: SeatComponent },
               { path: ":id/edit", component: ShowTimeFilmEditComponent },
             ],
           },
           { path: ":id/edit", component: MovieEditComponent },
         ],
       },
-      { path: "seat", component: SeatComponent },
     ],
   },
 ];

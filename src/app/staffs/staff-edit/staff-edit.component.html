@@ -8,6 +8,10 @@
           <h3 style="text-align: center;">
             {{ editMode ? "Edit " : "New " }} Staff
           </h3>
+
+          <p class="alert alert-danger" *ngIf="errorMessage !== ''">
+            {{ errorMessage }}
+          </p>
           <div class="form-group" *ngIf="editMode">
             <label for="id">ID</label>
             <input
@@ -194,7 +198,7 @@
             <button
               class="btn btn-cancel ml-3"
               type="button"
-              (click)="onCancel($event)"
+              (click)="onCancel()"
             >
               Cancel
             </button>

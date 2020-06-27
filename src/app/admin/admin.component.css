@@ -33,6 +33,10 @@
   color: rgba(0, 0, 0, 0.2);
 }
 
+.content-user {
+  word-break: break-word;
+}
+
 .table .idetail {
   color: #007bff;
 }

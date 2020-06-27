@@ -8,6 +8,8 @@ import { Movie } from "../../movies/movie.model";
 import { ShowTimeFilm } from "../showTimeFilm.model";
 import { Room } from "../room.model";
 import { Genre } from "../genre.model";
+import { Seat } from "../seat.model";
+import { Reservation } from "../reservation.model";
 
 @Injectable({
   providedIn: "root",
@@ -130,6 +132,10 @@ export class DataStorageService {
     );
   }
 
+  deleteShowTimeFilm(id: number) {
+    return this.httpClient.delete(this.baseUrl + "/showtimefilms" + "/" + id);
+  }
+
   // Genre
   fetchGenre(): Observable<Genre[]> {
     return this.httpClient.get<Genre[]>(this.baseUrl + "/genres");
@@ -139,5 +145,24 @@ export class DataStorageService {
     const formData: FormData = new FormData();
     formData.append("file", fileToUpLoad, fileToUpLoad.name);
     return this.httpClient.post(this.baseUrl + "/images", formData);
+  }
+
+  getSeats(id: number): Observable<Seat[]> {
+    return this.httpClient.get<Seat[]>(
+      this.baseUrl + "/seats" + "/showTimeFilm" + "/" + id
+    );
+  }
+
+  getInforReservation(id: number): Observable<Reservation> {
+    return this.httpClient.get<Reservation>(
+      this.baseUrl + "/reservations" + "/" + id
+    );
+  }
+
+  updateStatus(id: number, movie: Movie): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      this.baseUrl + "/films" + "/update-status" + "/" + id,
+      movie
+    );
   }
 }

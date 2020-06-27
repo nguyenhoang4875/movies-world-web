@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Movie } from "./movie.model";
 import { Description } from "../shared/description.model";
 import { ShowTimeFilm } from "../shared/showTimeFilm.model";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { DataStorageService } from "../shared/services/data-storage.service";
 import { tap } from "rxjs/operators";
 import { Genre } from "../shared/genre.model";
@@ -13,6 +13,7 @@ export class MovieService {
 
   private showTimeFilm: ShowTimeFilm[] = [];
   moviesChanged = new Subject<Movie[]>();
+  isToastsChanged = new BehaviorSubject<boolean>(false);
 
   constructor(private dataStorageService: DataStorageService) {}
   fetchMovies() {
@@ -66,6 +67,12 @@ export class MovieService {
     return position;
   }
 
+  setIdMovie(url: string): number {
+    let s = url.substring(14);
+    let index = s.indexOf("/");
+    return +s.substring(0, index);
+  }
+
   getUpdateStatusMovie(movie: Movie) {
     const index = +movie.id - 1;
     this.movies[index] = movie;
@@ -94,6 +101,25 @@ export class MovieService {
     return this.dataStorageService.updateShowTimeFilm(id, showTimeFilm);
   }
 
+  deleteShowTimeFilm(id: number) {
+    return this.dataStorageService.deleteShowTimeFilm(id);
+  }
+
+  getSeats(id: number) {
+    return this.dataStorageService.getSeats(id);
+  }
+
+  getInforReservation(id: number) {
+    return this.dataStorageService.getInforReservation(id);
+  }
+
+  updateStatus(id: number, movie: Movie) {
+    return this.dataStorageService.updateStatus(id, movie);
+  }
+
+  onShowToasts(value: boolean) {
+    this.isToastsChanged.next(value);
+  }
   // searchMovie(value: string) {
   //   let filterMovies: Movie[] = [];
   //   if (!value) {

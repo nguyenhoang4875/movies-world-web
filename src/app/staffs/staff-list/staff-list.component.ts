@@ -155,11 +155,9 @@ export class StaffListComponent implements OnInit {
       this.subscription.unsubscribe();
       this.staffService.deleteStaff(id).subscribe((value) => {
         hostViewContainerRef.clear();
-        this.router
-          .navigate(["/staffs"], { relativeTo: this.route })
-          .then(() => {
-            this.staffService.onShowToasts(true);
-          });
+        const index = this.showedStaffs.findIndex((_) => _.id === id);
+        this.showedStaffs.splice(index, 1);
+        this.staffService.onShowToasts(true);
       });
     });
 

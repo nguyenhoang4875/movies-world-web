@@ -93,12 +93,15 @@ export class MovieEditComponent implements OnInit, OnDestroy {
         .subscribe((poster: any) => {
           movie.poster = poster.fileName;
 
-          this.subscription = this.movieService
-            .newMovie(movie)
-            .subscribe((movie) => {
+          this.subscription = this.movieService.newMovie(movie).subscribe(
+            (movie) => {
               this.movies.push(movie);
               this.router.navigate(["../"], { relativeTo: this.route });
-            });
+            },
+            (error) => {
+              this.router.navigate([], { relativeTo: this.route });
+            }
+          );
         });
     } else {
       this.movieService

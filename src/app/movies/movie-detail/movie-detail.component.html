@@ -4,7 +4,7 @@
       <div class="content">
         <div class="description row align-items-stretch mb-3">
           <div class="col-5 d-flex align-items-center">
-            <img [src]="urlImage" />
+            <img *ngIf="urlImage" [src]="urlImage" />
           </div>
           <div class="content-description col-7">
             <h3>
