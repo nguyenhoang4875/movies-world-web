@@ -1,5 +1,6 @@
+import { map } from "rxjs/operators";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { UserDetail } from "../../admin/user-detail.model";
 import { environment } from "../../../environments/environment.prod";
@@ -164,5 +165,11 @@ export class DataStorageService {
       this.baseUrl + "/films" + "/update-status" + "/" + id,
       movie
     );
+  }
+
+  searchMovies(keyword: string): Observable<Movie[]> {
+    return this.httpClient.get<Movie[]>(this.baseUrl + "/films" + "/search", {
+      params: new HttpParams().set("keyword", keyword),
+    });
   }
 }

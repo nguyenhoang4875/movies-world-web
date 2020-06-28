@@ -14,7 +14,10 @@
           type="text"
           placeholder="Enter your choice"
           [(ngModel)]="search"
-        /><i class="fas fa-search"></i>
+        />
+        <button class="btn btn-light" (click)="onSearchMovies()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
 

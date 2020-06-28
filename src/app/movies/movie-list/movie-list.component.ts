@@ -1,3 +1,4 @@
+import { DataStorageService } from "./../../shared/services/data-storage.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
@@ -30,6 +31,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
+    private dataStorageService: DataStorageService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
@@ -77,7 +79,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   private decentralize() {
-   /*  this.subscription = this.authService.user.subscribe((user) => {
+    /*  this.subscription = this.authService.user.subscribe((user) => {
       console.log(user);
         this.isAuthenticatedStaff = !user;
     }); */
@@ -139,5 +141,25 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onSearchMovies() {
+    console.log("key search: " + this.search);
+/*     let moviesSearch: Array<Movie> = [];
+    this.dataStorageService
+      .searchMovies(this.search)
+      .subscribe((response: Movie[]) => {
+        moviesSearch = response;
+        console.log(response);
+        this.movies = response;
+      }); */
+
+
+      this.subscription = this.dataStorageService
+      .searchMovies(this.search)
+      .subscribe((movies: Movie[]) => {
+        this.movies = movies;
+        this.separatePage(this.movies);
+      });
   }
 }
