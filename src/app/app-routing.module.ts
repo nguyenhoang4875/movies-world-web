@@ -1,3 +1,4 @@
+import { AdminGuard } from "./auth/admin.guard";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AuthComponent } from "./auth/auth.component";
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
       {
         path: "customers",
         component: CustomersComponent,
+        canActivate: [AdminGuard],
         children: [
           { path: "", component: CustomerListComponent },
           { path: "new", component: CustomerEditComponent },
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
       {
         path: "staffs",
         component: StaffsComponent,
+        canActivate: [AdminGuard],
         children: [
           { path: "", component: StaffListComponent },
           { path: "new", component: StaffEditComponent },

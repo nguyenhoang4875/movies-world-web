@@ -11,19 +11,23 @@ import { Subscription } from "rxjs";
 export class SidebarComponent implements OnInit, OnDestroy {
   isAuthenticatedStaff = false;
   userSub: Subscription;
+
+  isAdmin: boolean;
+
   constructor(
     private customerService: CustomerService,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.authService.checkAdminRole().subscribe((response) => {
+      this.isAdmin = response;
+    });
+    console.log("admin: " + this.isAdmin);
+
     this.userSub = this.authService.user.subscribe((user) => {
       console.log(user);
-      if (user && user.idRole.length == 1) {
-        this.isAuthenticatedStaff = !user;
-      } else if (user && user.idRole.length >= 2) {
-        this.isAuthenticatedStaff = !!user;
-      }
+      this.isAuthenticatedStaff = !!user;
     });
   }
 

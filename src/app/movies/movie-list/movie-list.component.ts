@@ -77,14 +77,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   private decentralize() {
-    this.subscription = this.authService.user.subscribe((user) => {
+   /*  this.subscription = this.authService.user.subscribe((user) => {
       console.log(user);
-      if (user && user.idRole.length == 1) {
-        this.isAuthenticatedStaff = !!user;
-      } else if (user && user.idRole.length >= 2) {
         this.isAuthenticatedStaff = !user;
-      }
-    });
+    }); */
   }
 
   private separatePage(movies: Movie[]) {

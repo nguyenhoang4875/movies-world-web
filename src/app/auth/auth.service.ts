@@ -1,24 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { throwError, BehaviorSubject } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { throwError, BehaviorSubject, observable, Observable } from "rxjs";
+import { catchError, tap, map, take } from "rxjs/operators";
 
 import { User } from "./user.model";
 import { Role } from "./role.model";
 import { UserDetail } from "../admin/user-detail.model";
-import { environment } from 'src/environments/environment.prod';
-
-export interface AuthResponseData {
-  username: string;
-  token: string;
-  roles: Role[];
-}
+import { environment } from "src/environments/environment.prod";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
-  roleIds: number[] = [];
   baseUrl = environment.baseUrl;
   userAuth = new BehaviorSubject<UserDetail>(null);
 
@@ -26,32 +19,25 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<AuthResponseData>(this.baseUrl + "/auth", {
+      .post<User>(this.baseUrl + "/auth", {
         username: username,
         password: password,
       })
       .pipe(
         catchError(this.handleError),
-        tap((resData) => {
-          for (let role of resData.roles) {
-            this.roleIds.push(role.id);
-          }
-
+        tap((resData: User) => {
           this.handleAuthentication(
             resData.username,
             resData.token,
-            this.roleIds
+            resData.expired,
+            resData.roles
           );
         })
       );
   }
 
   autoLogin() {
-    const userData: {
-      username: string;
-      _token: string;
-      idRole: number[];
-    } = JSON.parse(localStorage.getItem("userData"));
+    const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (!userData) {
       return;
@@ -60,7 +46,8 @@ export class AuthService {
     const loadedUSer = new User(
       userData.username,
       userData._token,
-      userData.idRole
+      userData.expired,
+      userData.roles
     );
 
     if (loadedUSer.token) {
@@ -71,8 +58,7 @@ export class AuthService {
   logout() {
     this.user.next(null);
     this.router.navigate(["/login"]);
-    this.roleIds = [];
-    localStorage.removeItem("userData");
+    localStorage.clear();
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
@@ -89,9 +75,10 @@ export class AuthService {
   private handleAuthentication(
     username: string,
     token: string,
-    roleId: number[]
+    expired: Date,
+    roles: Role[]
   ) {
-    const user = new User(username, token, roleId);
+    const user = new User(username, token, expired, roles);
     this.user.next(user);
     localStorage.setItem("token", "Bearer " + token);
     localStorage.setItem("userData", JSON.stringify(user));
@@ -99,5 +86,27 @@ export class AuthService {
 
   onGetProfile() {
     return this.http.get<UserDetail>(this.baseUrl + "/profile");
+  }
+
+  public checkAdminRole(): Observable<boolean> {
+    return this.user.pipe(
+      take(1),
+      map((user: User) => {
+        let isValid = false;
+        if (user) {
+          user.roles.forEach((role: Role) => {
+            if (role.name.localeCompare("ROLE_ADMIN") == 0) {
+              isValid = true;
+              return;
+            }
+          });
+        }
+        if (isValid) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 }
