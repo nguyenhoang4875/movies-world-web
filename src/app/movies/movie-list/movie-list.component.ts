@@ -1,5 +1,10 @@
-import { DataStorageService } from "./../../shared/services/data-storage.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ComponentFactoryResolver,
+  ViewChild,
+} from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 
@@ -7,6 +12,9 @@ import { cloneDeep } from "lodash";
 import { Movie } from "../movie.model";
 import { MovieService } from "../movie.service";
 import { AuthService } from "../../auth/auth.service";
+import { AlertComponent } from "src/app/shared/layout/alert/alert.component";
+import { PlaceholderDirective } from "../../shared/placeholder/placeholder.directive";
+import { ToastShowService } from "../../shared/services/toast-show.service";
 
 @Component({
   selector: "app-movie-list",
@@ -29,17 +37,19 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   isAuthenticatedStaff = false;
 
+  @ViewChild(PlaceholderDirective, { static: false })
+  alertHost: PlaceholderDirective;
+
   constructor(
     private movieService: MovieService,
-    private dataStorageService: DataStorageService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
   ngOnInit() {
     this.loadMovies();
-    this.decentralize();
   }
 
   private loadMovies() {
@@ -78,12 +88,6 @@ export class MovieListComponent implements OnInit, OnDestroy {
     });
   }
 
-  private decentralize() {
-    /*  this.subscription = this.authService.user.subscribe((user) => {
-      console.log(user);
-        this.isAuthenticatedStaff = !user;
-    }); */
-  }
 
   private separatePage(movies: Movie[]) {
     if (movies) {
@@ -122,40 +126,43 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.onSelectPage(this.currentPage - 1);
   }
 
-  // onChangeStatus(movie: Movie) {
-  //   if (movie.status === "Disable") {
-  //     movie.status = "Enable";
-  //     this.movieService.getUpdateStatusMovie(movie);
-  //   }
-  // }
-
-  // onSearchMovie() {
-  //   this.movieService.searchMovie(this.search);
-  // }
-
   newMovie(e) {
     this.router.navigate(["new"], { relativeTo: this.route });
   }
 
-  deleteMovie(id: number) {}
+  deleteMovie(id: number) {
+    this.movieService.deleteMovie(id).subscribe(() => {
+      let index = this.movies.findIndex((d) => d.id === id);
+      this.movies.splice(index, 1);
+    });
+  }
 
+  showNotification(errorMessage: string, id: number) {
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+      AlertComponent
+    );
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+    componentRef.instance.message = errorMessage;
+
+    this.subscription = componentRef.instance.confirm.subscribe(() => {
+      this.subscription.unsubscribe();
+      this.movieService.deleteMovie(id).subscribe((value) => {
+        hostViewContainerRef.clear();
+        const index = this.movies.findIndex((_) => _.id === id);
+        this.movies.splice(index, 1);
+        this.movieService.onShowToasts(true);
+      });
+    });
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
   onSearchMovies() {
-    console.log("key search: " + this.search);
-/*     let moviesSearch: Array<Movie> = [];
-    this.dataStorageService
-      .searchMovies(this.search)
-      .subscribe((response: Movie[]) => {
-        moviesSearch = response;
-        console.log(response);
-        this.movies = response;
-      }); */
-
-
-      this.subscription = this.dataStorageService
+    this.subscription = this.movieService
       .searchMovies(this.search)
       .subscribe((movies: Movie[]) => {
         this.movies = movies;

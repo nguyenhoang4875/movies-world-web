@@ -90,6 +90,10 @@ export class MovieService {
     return this.dataStorageService.updateMovie(id, movie);
   }
 
+  deleteMovie(id: number): Observable<any> {
+    return this.dataStorageService.deleteMovie(id);
+  }
+
   newShowTimeFilm(
     id: number,
     showTimeFilm: ShowTimeFilm
@@ -120,23 +124,8 @@ export class MovieService {
   onShowToasts(value: boolean) {
     this.isToastsChanged.next(value);
   }
-  // searchMovie(value: string) {
-  //   let filterMovies: Movie[] = [];
-  //   if (!value) {
-  //     this.moviesChanged.next(this.movies.slice());
-  //   } else {
-  //     if (value) {
-  //       for (let i = 0; i < this.movies.length; i++) {
-  //         if (
-  //           this.movies[i].name === value ||
-  //           this.movies[i].rating === +value ||
-  //           this.movies[i].status === value
-  //         ) {
-  //           filterMovies.push(this.movies[i]);
-  //         }
-  //       }
-  //     }
-  //     this.moviesChanged.next(filterMovies);
-  //   }
-  // }
+
+  searchMovies(keyword: string): Observable<Movie[]> {
+    return this.dataStorageService.searchMovies(keyword);
+  }
 }

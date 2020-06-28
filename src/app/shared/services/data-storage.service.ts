@@ -95,6 +95,10 @@ export class DataStorageService {
     );
   }
 
+  deleteMovie(id: number): Observable<any>{
+    return this.httpClient.delete(`${this.baseUrl}/films/${id}`);
+  }
+
   // Room
   fetchRooms() {
     return this.httpClient.get<Room[]>(this.baseUrl + "/rooms");

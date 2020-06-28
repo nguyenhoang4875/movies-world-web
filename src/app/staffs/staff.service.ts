@@ -79,41 +79,4 @@ export class StaffService {
     this.isToastsChanged.next(value);
   }
 
-  // newStaff(staff: UserDetail) {
-  //   this.staffs.push(staff);
-  //   this.staffsChanged.next(this.staffs.slice());
-  // }
-
-  // searchStaff(value: string) {
-  //   let filterStaffs: UserDetail[] = [];
-  //   if (!value) {
-  //     this.staffsChanged.next(this.staffs.slice());
-  //   } else {
-  //     if (value) {
-  //       for (let i = 0; i < this.staffs.length; i++) {
-  //         if (
-  //           this.staffs[i].username === value ||
-  //           this.staffs[i].fullName.toLowerCase() === value ||
-  //           this.staffs[i].email === value ||
-  //           this.staffs[i].phone === value ||
-  //           this.staffs[i].address.toLowerCase() === value
-  //         ) {
-  //           filterStaffs.push(this.staffs[i]);
-  //         }
-  //       }
-  //     }
-  //     this.staffsChanged.next(filterStaffs);
-  //   }
-  // }
-
-  // updateStaff(staff: UserDetail) {
-  //   const index = staff.id - 1;
-  //   this.staffs[index] = staff;
-  //   this.staffsChanged.next(this.staffs.slice());
-  // }
-
-  // deleteStaff(id: number) {
-  //   this.staffs.splice(id - 1, 1);
-  //   this.staffsChanged.next(this.staffs.slice());
-  // }
 }
