@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, throwError } from "rxjs";
+import { BehaviorSubject, throwError, Observable } from "rxjs";
 import { tap, catchError } from "rxjs/operators";
 
 import { UserDetail } from "../admin/user-detail.model";
@@ -77,6 +77,10 @@ export class StaffService {
 
   onShowToasts(value: boolean) {
     this.isToastsChanged.next(value);
+  }
+
+   searchStaffs(keyword: string): Observable<UserDetail[]> {
+    return this.dataStorageService.searchStaffs(keyword);
   }
 
 }

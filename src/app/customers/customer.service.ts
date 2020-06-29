@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, Subject, Observable } from "rxjs";
 
 import { UserDetail } from "../admin/user-detail.model";
 import { DataStorageService } from "../shared/services/data-storage.service";
@@ -55,6 +55,10 @@ export class CustomerService {
 
   deleteCustomer(id: number) {
     return this.dataStorageService.deleteCustomer(id);
+  }
+
+  searchCustomers(keyword: string): Observable<UserDetail[]> {
+    return this.dataStorageService.searchCustomers(keyword);
   }
 
   // onShowToasts(value: boolean) {

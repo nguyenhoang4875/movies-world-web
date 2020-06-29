@@ -36,6 +36,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
   isLoading = false;
 
   isAuthenticatedStaff = false;
+  isAdmin: boolean;
 
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
@@ -50,14 +51,17 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadMovies();
+    this.authService.checkAdminRole().subscribe((response) => {
+      this.isAdmin = response;
+    });
   }
 
-  private loadMovies() {
+  loadMovies() {
     this.isLoading = true;
     this.initialMovies();
   }
 
-  private initialMovies() {
+  initialMovies() {
     this.subscription = this.movieService
       .fetchMovies()
       .subscribe((movies: Movie[]) => {
@@ -77,9 +81,6 @@ export class MovieListComponent implements OnInit, OnDestroy {
   onChangeStatus(id: number) {
     this.movieService.fetchMovie(id).subscribe((movie: Movie) => {
       this.movieService.updateStatus(id, movie).subscribe((res) => {
-        // this.movies[movie.id - 1] = movieNew;
-        // this.movies.splice(index, 1);
-        // this.movies.splice(index, 0, movieNew);
         if (res) {
           const index = this.showedMovies.findIndex((_) => _.id === id);
           this.showedMovies[index].status = true;
@@ -88,8 +89,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  private separatePage(movies: Movie[]) {
+  separatePage(movies: Movie[]) {
     if (movies) {
       this.pages = Math.ceil(movies.length / this.numberOfPage);
 
@@ -131,10 +131,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   deleteMovie(id: number) {
-    this.movieService.deleteMovie(id).subscribe(() => {
-      let index = this.movies.findIndex((d) => d.id === id);
-      this.movies.splice(index, 1);
-    });
+    // this.movieService.deleteMovie(id).subscribe(() => {
+    //   let index = this.movies.findIndex((d) => d.id === id);
+    //   this.movies.splice(index, 1);
+    // });
+    this.showNotification("Do you sure want to do it?", id);
   }
 
   showNotification(errorMessage: string, id: number) {
@@ -149,24 +150,20 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     this.subscription = componentRef.instance.confirm.subscribe(() => {
       this.subscription.unsubscribe();
-      this.movieService.deleteMovie(id).subscribe((value) => {
+      this.movieService.deleteMovie(id).subscribe(() => {
         hostViewContainerRef.clear();
-        const index = this.movies.findIndex((_) => _.id === id);
-        this.movies.splice(index, 1);
-        this.movieService.onShowToasts(true);
+        const index = this.showedMovies.findIndex((_) => _.id === id);
+        this.showedMovies.splice(index, 1);
       });
+    });
+
+    this.subscription = componentRef.instance.close.subscribe(() => {
+      // remove subscription when component removed
+      this.subscription.unsubscribe();
+      hostViewContainerRef.clear();
     });
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  onSearchMovies() {
-    this.subscription = this.movieService
-      .searchMovies(this.search)
-      .subscribe((movies: Movie[]) => {
-        this.movies = movies;
-        this.separatePage(this.movies);
-      });
   }
 }

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css" />
 
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-
+<ng-template appPlaceholder></ng-template>
 <ng-container *ngIf="!isLoading">
   <div class="container-fluid" [style.margin-top.px]="30">
     <div class="headerBody">
@@ -58,10 +58,13 @@
                   <span
                     style="cursor: pointer;"
                     [ngClass]="
-                      movie.status
-                        ? 'badge badge-success disabled'
-                        : 'badge badge-danger'
+                    isAdmin?  movie.status
+                    ? 'badge badge-success disabled'
+                    : 'badge badge-danger' :  movie.status
+                    ? 'badge badge-success disabled'
+                    : 'badge badge-danger disabled'
                     "
+
                     (click)="onChangeStatus(movie.id)"
                     >{{ movie.status ? "Enable" : "Disable" }}</span
                   >

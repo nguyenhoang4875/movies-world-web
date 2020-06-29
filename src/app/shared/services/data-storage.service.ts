@@ -48,7 +48,14 @@ export class DataStorageService {
     return this.httpClient.delete(`${this.baseUrl}/users/${id}`);
   }
 
-  searchCustomer() {}
+  searchCustomers(keyword: string): Observable<UserDetail[]> {
+    return this.httpClient.get<UserDetail[]>(
+      this.baseUrl + "/users" + "/search",
+      {
+        params: new HttpParams().set("keyword", keyword),
+      }
+    );
+  }
 
   // Staff
   fetchStaffs() {
@@ -75,6 +82,15 @@ export class DataStorageService {
     return this.httpClient.delete(`${this.baseUrl}/users/${id}`);
   }
 
+  searchStaffs(keyword: string): Observable<UserDetail[]> {
+    return this.httpClient.get<UserDetail[]>(
+      this.baseUrl + "/users" + "/staffs" + "/search",
+      {
+        params: new HttpParams().set("keyword", keyword),
+      }
+    );
+  }
+
   // Movie
   fetchMovies() {
     return this.httpClient.get<Movie[]>(this.baseUrl + "/films");
@@ -95,7 +111,7 @@ export class DataStorageService {
     );
   }
 
-  deleteMovie(id: number): Observable<any>{
+  deleteMovie(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrl}/films/${id}`);
   }
 
